@@ -1,0 +1,62 @@
+div{
+    box-sizing: border-box;
+}
+
+label {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+input {
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #3f5fff;
+    border-radius: 5px;
+}
+
+
+
+button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #3f5fff;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 80%;
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #0069d9;
+}
+
+
+img {
+    width: 40%;
+    height: 50%;
+    margin-right: 20px;
+}
+
+.makeRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 200px;
+}
+
+p {
+    font-weight: bolder;
+    font-size: 26px;
+}
