@@ -1,0 +1,31 @@
+{
+  "name": "dastad-server",
+  "version": "1.0.0",
+  "description": "server for dastad",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nedataghizadeh79/web_project_fall2023.git"
+  },
+  "keywords": [
+    "parser",
+    "server"
+  ],
+  "author": "negar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nedataghizadeh79/web_project_fall2023/issues"
+  },
+  "homepage": "https://github.com/nedataghizadeh79/web_project_fall2023#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb-runner": "^4.10.0",
+    "parse": "^4.0.1",
+    "parse-server": "^6.0.0"
+  }
+}
