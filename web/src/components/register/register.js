@@ -37,7 +37,6 @@ const Register=()=>{
                 </select>
                 <br/>
 
-
                 <label>
                     نام
                 </label>
@@ -49,7 +48,6 @@ const Register=()=>{
                 </label>
                 <input type="text" value={lastName} onChange={(event) => setLastName(event.target.value)}/>
                 <br/>
-
 
                 <label>
                     شماره دانشجویی / کد پرسنلی
@@ -76,8 +74,6 @@ const Register=()=>{
                 </label>
                 <input type="text" value={password2} onChange={(event) => setPassword2(event.target.value)}/>
                 <br/>
-
-
 
                 <button type="submit">Log In</button>
 
