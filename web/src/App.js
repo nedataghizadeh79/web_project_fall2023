@@ -1,11 +1,13 @@
 import './App.css';
 import Login from "./components/login/login";
+import Profile from "./components/profile/profile";
 
 function App() {
   return (
     <div className="App">
-        <Login/>
-      after change
+        {/*<Login/>*/}
+        <Profile/>
+
     </div>
   );
 }
