@@ -9,7 +9,7 @@ function Welcome() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowWelcome(false);
-        }, 2000);
+        }, 100);
 
         return () => clearTimeout(timer);
     }, []);
