@@ -1,11 +1,13 @@
 import './App.css';
-import Login from "./components/login/login";
+import MainPage from "./components/mainPage/mainPage";
+import Welcome from "./components/welcomePage/welcomePage";
 
 function App() {
   return (
     <div className="App">
-        <Login/>
-      after change
+        <Welcome/>
+
+
     </div>
   );
 }
