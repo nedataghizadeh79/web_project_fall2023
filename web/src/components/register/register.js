@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import registerImg from "../../assets/images/register/register.png";
 import './register.css'
+import {Link} from "react-router-dom";
 
 
-const Register=()=>{
+const Register = () => {
     const [firstname, setFirstname] = useState('');
     const [lastName, setLastName] = useState('');
     const [username, setUsername] = useState('');
@@ -12,26 +13,19 @@ const Register=()=>{
     const [password2, setPassword2] = useState('');
 
 
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // login
-    };
-
-
     return (
 
         <div className="makeRow">
 
             <img src={registerImg} alt="login page"/>
 
-            <div className="loginForm" dir="rtl" onSubmit={handleSubmit}>
+            <div className="loginForm" dir="rtl">
                 <p>
                     به صفحه ثبت نام سایت دستاد خوش آمدید!
                 </p>
 
                 <label> نقش کاربر </label>
-                <select id='role'  className='selectOption' >
+                <select id='role' className='selectOption'>
                     <option value={'دانشجو'}>دانشجو</option>
                     <option value={'استاد'}>استاد</option>
                 </select>
@@ -44,7 +38,7 @@ const Register=()=>{
                 <br/>
 
                 <label>
-                  نام خانوادگی
+                    نام خانوادگی
                 </label>
                 <input type="text" value={lastName} onChange={(event) => setLastName(event.target.value)}/>
                 <br/>
@@ -75,7 +69,9 @@ const Register=()=>{
                 <input type="text" value={password2} onChange={(event) => setPassword2(event.target.value)}/>
                 <br/>
 
-                <button type="submit">Log In</button>
+                <Link to='/main'>
+                    <button type="submit">تکمیل ثبت نام</button>
+                </Link>
 
             </div>
         </div>

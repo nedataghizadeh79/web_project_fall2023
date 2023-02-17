@@ -1,15 +1,11 @@
 import React, {useState} from 'react';
 import './login.css'
 import loginImg from '../../assets/images/login/login.jpg'
+import {Link} from "react-router-dom";
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // login
-    };
 
 
     return (
@@ -18,7 +14,7 @@ function Login() {
 
             <img src={loginImg} alt="login page"/>
 
-            <div className="loginForm" dir="rtl" onSubmit={handleSubmit}>
+            <div className="loginForm" dir="rtl" >
                 <p>
                     به صفحه لاگین سایت دستاد خوش آمدید!
                 </p>
@@ -35,7 +31,7 @@ function Login() {
                 <input type="text" value={username} onChange={(event) => setPassword(event.target.value)}/>
                 <br/>
 
-                <button type="submit">Log In</button>
+                <Link to='/main'><button type="submit" >ورود به صفحه اصلی</button> </Link>
 
             </div>
         </div>

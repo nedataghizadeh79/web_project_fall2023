@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import MainPage from "../mainPage/mainPage";
 import welcomeImg from '../../assets/images/welcomePage/welcomePage.jpg'
 import './welcomePage.css'
+import LandingPage from "../landingPage/landing";
 
 function WelcomePage() {
     const [showWelcome, setShowWelcome] = useState(true);
@@ -9,16 +10,18 @@ function WelcomePage() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowWelcome(false);
-        }, 1000);
+        }, 100);
 
         return () => clearTimeout(timer);
     }, []);
 
     if (showWelcome) {
-        return <img src={welcomeImg} className='welcomeImg' alt='welcome img' />;
+        return <div className='img'><img src={welcomeImg} className='welcomeImg' alt='welcome img'/>; </div>
+
     } else {
-        return <MainPage/>
+        return <LandingPage/>
     }
+
 }
 
 export default WelcomePage;
