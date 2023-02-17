@@ -8,7 +8,7 @@ const CardCourse =({courseName, masterName, status})=>{
                 <br/>
                 <span className='mainSpan'> استاد درس:  </span>  <span className='dataSpan'> {masterName} </span>
                 <br/>
-                <span className='mainSpan'> وضعیت درخواست دستیار آموزشی:  </span>  <span className='dataSpan'> {status} </span>
+                <span className='mainSpan'> وضعیت درخواست دستیار آموزشی:  </span>  <span className={status  ==="فاقد ظرفیت" ? "dataSpan red-text" : "dataSpan green-text" } > {status} </span>
             </div>
 
 

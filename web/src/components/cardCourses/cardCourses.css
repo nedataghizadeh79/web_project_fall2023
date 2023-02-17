@@ -1,13 +1,13 @@
 .card{
     border: #3f5fff 2px solid;
-    width: 22%;
+    width: 400px;
+    height: 200px;
     box-shadow: gray 2px 2px 3px 1px ;
     padding-bottom: 5px;
     padding-top: 5px;
     overflow: scroll;
     margin: 15px;
-    flex: 1;
-    flex-basis: 300px;
+
 }
 
 .mainSpan{
@@ -19,6 +19,14 @@
 
 .dataSpan{
     font-weight: bold;
-    font-size:  medium;
+    font-size:  large;
 
+}
+
+.red-text {
+    color: red;
+}
+
+.green-text {
+    color: green;
 }

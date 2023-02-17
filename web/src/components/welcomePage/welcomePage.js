@@ -3,13 +3,13 @@ import MainPage from "../mainPage/mainPage";
 import welcomeImg from '../../assets/images/welcomePage/welcomePage.jpg'
 import './welcomePage.css'
 
-function Welcome() {
+function WelcomePage() {
     const [showWelcome, setShowWelcome] = useState(true);
 
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowWelcome(false);
-        }, 100);
+        }, 1000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -21,4 +21,4 @@ function Welcome() {
     }
 }
 
-export default Welcome;
+export default WelcomePage;
