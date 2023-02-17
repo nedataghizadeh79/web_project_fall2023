@@ -1,14 +1,17 @@
 import './App.css';
-// import Login from "./components/login/login";
-import Register from "./components/register/register.js";
+import MainPage from "./components/mainPage/mainPage";
+import Login from "./components/login/login";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import WelcomePage from "./components/welcomePage/welcomePage";
 
 function App() {
-  return (
-    <div className="App">
-        {/*<Login/>*/}
-      <Register/>
-    </div>
-  );
+    return (
+        <Routes>
+            <Route path='/login' element={ <Login/>} />
+            <Route path='/' element={<WelcomePage/>} />
+        </Routes>
+
+    );
 }
 
 export default App;

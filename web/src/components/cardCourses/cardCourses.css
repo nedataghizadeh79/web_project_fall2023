@@ -1,0 +1,32 @@
+.card{
+    border: #3f5fff 2px solid;
+    width: 400px;
+    height: 200px;
+    box-shadow: gray 2px 2px 3px 1px ;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    overflow: scroll;
+    margin: 15px;
+
+}
+
+.mainSpan{
+    font-weight: bolder;
+    font-size: x-large;
+    padding-right: 10px;
+    color: #0069d9;
+}
+
+.dataSpan{
+    font-weight: bold;
+    font-size:  large;
+
+}
+
+.red-text {
+    color: red;
+}
+
+.green-text {
+    color: green;
+}
