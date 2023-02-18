@@ -1,9 +1,9 @@
-label {
+.loginForm label {
     margin: 10px 0;
     font-size: 18px;
 }
 
-input {
+.loginForm input {
     padding: 5px;
     font-size: 16px;
     border: 1px solid var(--main-blue);
@@ -12,19 +12,13 @@ input {
 
 
 
-button {
+.loginForm button {
     margin-top: 20px;
-    padding: 10px;
-    font-size: 18px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
 }
 
 
 
-img {
+.makeRow img {
     width: 40%;
     height: 50%;
     margin-right: 20px;
@@ -47,7 +41,7 @@ img {
     margin-right: 200px;
 }
 
-p {
+.loginForm p {
     font-weight: bolder;
     font-size: 26px;
 }

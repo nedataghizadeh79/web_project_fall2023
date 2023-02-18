@@ -1,5 +1,5 @@
 :root {
-    --light-blue: #5063c7;
+    --light-blue: #2e67a5;
     --hover-blue: #1e4774;
     --main-blue: #3a4892;
     --dark-blue: #6c747c;
@@ -20,6 +20,13 @@ input {
 button {
     background-color: var(--light-blue);
     color: #fff;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 0.3rem;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
 button:hover {

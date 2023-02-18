@@ -1,47 +1,75 @@
-.img{
-    margin-top: 20px;
-    width: 25%;
-}
+.profile {
+    margin: 0.5rem 1rem;
 
-
-button:hover {
-    background-color: #0062cc;
-}
-
-
-.profile{
     display: flex;
     flex-direction: column;
+    gap: 2rem;
 }
 
-.info{
-    margin-right: 30px;
+.info {
+    padding: 1rem 0.5rem;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.info span {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    gap: 0.7rem;
 }
 
+.info span i {
+    font-size: 1.5rem;
+}
 
-.form{
+.profile__header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.img {
+    width: 5rem;
+    aspect-ratio: 1 / 1;
+
+    border-radius: 0.3rem;
+}
+
+.form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     margin-top: 30px;
 }
 
-input{
+.form input {
     width: 300px;
     font-weight: bold;
 }
-select{
+
+.form select {
     width: 120px;
     height: 30px;
 }
 
-label {
+.form label {
     margin-right: 20px;
 }
 
-.save{
+.form .save {
     margin-right: 20px;
+}
+
+@media screen and (min-width: 657px) {
+    .info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 769) {
+    .info {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }

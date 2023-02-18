@@ -3,31 +3,23 @@ import "./profile.css";
 import PdfViewer from "../../components/pdfViewer/pdfViewer";
 
 function Profile() {
-  const [name, setName] = useState("ندا تقی زاده");
-  const [email, setEmail] = useState("Nedath1378@gmail.com");
-  const [role, setRole] = useState("Student");
-  const [imageUrl, setImageUrl] = useState("https://via.placeholder.com/150");
+
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handleRoleChange = (event) => {
-    setRole(event.target.value);
-  };
-
-  const handleImageChange = (event) => {
-    setImageUrl(URL.createObjectURL(event.target.files[0]));
-  };
+  const [userData, setUserData] = useState({
+    name: "ندا تقی زاده",
+    email: "Nedath1378@gmail.com",
+    role: "Student",
+    imageUrl: "https://via.placeholder.com/150",
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsEditing(false);
+  };
+
+  const handleChange = (event) => {
+    setUserData({ ...userData, [event.target.name]: event.target.value });
   };
 
   const handleEditClick = () => {
@@ -42,8 +34,9 @@ function Profile() {
           <input
             id="name-input"
             type="text"
-            value={name}
-            onChange={handleNameChange}
+            value={userData.name}
+            name="name"
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -51,13 +44,14 @@ function Profile() {
           <input
             id="email-input"
             type="email"
-            value={email}
-            onChange={handleEmailChange}
+            value={userData.email}
+            name="email"
+            onChange={handleChange}
           />
         </div>
         <div>
           <label htmlFor="role-input">نقش کاربر : </label>
-          <select id="role-input" value={role} onChange={handleRoleChange}>
+          <select id="role-input" value={userData.role} onChange={handleChange}>
             <option value="Master">User</option>
             <option value="Student">Admin</option>
           </select>
@@ -68,35 +62,46 @@ function Profile() {
             id="image-input"
             type="file"
             accept="image/*"
-            onChange={handleImageChange}
+            onChange={handleChange}
           />
         </div>
         <button className="save" type="submit">
-          Save
+          ذخیره
         </button>
       </form>
     );
   };
 
   return (
-    <section>
-      <div className="profile" dir="rtl">
-        <img className="img" src={imageUrl} alt="Profile" />
-        {isEditing ? (
+    <main className="profile">
+      {
+        isEditing ? (
           renderForm()
         ) : (
-          <div className="info">
-            <h2> نام و نام خانوادگی : {name}</h2>
-            <p> ایمیل : {email}</p>
-            <p>نقش کاربر : {role}</p>
+          <>
+            <div className="profile__header">
+              <img className="img" src={userData.imageUrl} alt="Profile" />
+              <p>{userData.name}</p>
+            </div>
 
-            <PdfViewer />
+            <div className="info">
+              <span>
+                <i class="fa-regular fa-envelope"></i>
+                <p>{userData.email}</p>
+              </span>
+              <span>
+                <i class="fa-regular fa-user"></i>
+                <p>{userData.role}</p>
+              </span>
 
-            <button onClick={handleEditClick}>Edit</button>
-          </div>
-        )}
-      </div>
-    </section>
+              {/* <PdfViewer /> */}
+
+            </div>
+            <button onClick={handleEditClick}>ویرایش</button>
+          </>
+        )
+      }
+    </main>
   );
 }
 
