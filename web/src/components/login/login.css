@@ -44,6 +44,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: row;
     width: 100vw;
 }
 
@@ -59,4 +60,22 @@ img {
 p {
     font-weight: bolder;
     font-size: 26px;
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .makeRow {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-left: 20px;
+    }
+
+    .loginForm{
+        align-items: center;
+        justify-content: center;
+        margin-left: 160px;
+    }
+
 }

@@ -1,14 +1,21 @@
 import mainPageImg  from '../../assets/images/mainPage/mainpage.jpg'
 import './mainPage.css'
-import CardCourse from "../cardCourses/cardCourse";
 import CardCoursesWrapper from "../cardCoursesWrapper/cardCoursesWrapper";
 
 
 const MainPage=()=>{
     return(
-        <div>
+        <div className='main'>
 
-            <img src={mainPageImg} className='sharifLogo' alt='sharif sut logo' />
+
+            {/*<div style={{*/}
+            {/*    backgroundImage: `url('../../assets/images/mainPage/mainpage.jpg')`*/}
+            {/*}}>*/}
+            {/*    Hello World*/}
+            {/*</div>*/}
+
+
+            <img  src={mainPageImg} className='sharifLogo' alt='sharif sut logo' />
 
                <CardCoursesWrapper/>
 

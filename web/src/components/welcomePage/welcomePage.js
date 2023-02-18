@@ -10,13 +10,13 @@ function WelcomePage() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowWelcome(false);
-        }, 100);
+        }, 2000);
 
         return () => clearTimeout(timer);
     }, []);
 
     if (showWelcome) {
-        return <div className='img'><img src={welcomeImg} className='welcomeImg' alt='welcome img'/>; </div>
+        return  <img src={welcomeImg} className='welcomeImg' alt='welcome img'/>
 
     } else {
         return <LandingPage/>

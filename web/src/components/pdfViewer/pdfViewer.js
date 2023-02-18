@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './pdfViewer.css'
 
 function PdfViewer() {
     const [pdfFile, setPdfFile] = useState(null);
@@ -22,7 +23,7 @@ function PdfViewer() {
     return (
         <div>
             {pdfUrl ? (
-                <button onClick={handlePdfDownload}>Download PDF</button>
+                <button className='button' onClick={handlePdfDownload}>Download PDF</button>
             ) : (
                 <input type="file" accept=".pdf" onChange={handlePdfUpload} />
             )}
