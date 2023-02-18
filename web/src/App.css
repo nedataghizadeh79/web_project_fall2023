@@ -1,5 +1,25 @@
-.App{
+:root {
+    --light-blue: #3166a0;
+    --hover-blue: #1e4774;
+    --main-blue: #43688f;
+    --dark-blue: #6c747c;
+}
+
+input {
+    outline: none;
+}
+
+.App {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+button {
+    background-color: var(--light-blue);
+    color: #fff;
+}
+
+button:hover {
+    background-color: var(--hover-blue);
 }

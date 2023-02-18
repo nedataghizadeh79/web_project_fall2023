@@ -1,4 +1,4 @@
-div{
+div {
     box-sizing: border-box;
 }
 
@@ -10,7 +10,7 @@ label {
 input {
     padding: 5px;
     font-size: 16px;
-    border: 1px solid #3f5fff;
+    border: 1px solid var(--main-blue);
     border-radius: 5px;
 }
 
@@ -19,8 +19,6 @@ input {
 button {
     margin-top: 20px;
     padding: 10px;
-    background-color: #3f5fff;
-    color: #fff;
     font-size: 18px;
     border: none;
     border-radius: 5px;
@@ -29,9 +27,6 @@ button {
     transition: all 0.2s ease-in-out;
 }
 
-button:hover {
-    background-color: #0069d9;
-}
 
 
 img {
