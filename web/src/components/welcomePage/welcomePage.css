@@ -15,7 +15,7 @@ width: 100vw;
 }
 
 
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1300px) {
     .welcomeImg {
         background-size:1000px;
     }
@@ -23,9 +23,9 @@ width: 100vw;
 
 
 
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 800px) {
     .welcomeImg {
-        background-size:340px ;
+        background-size:440px ;
     }
 
 }
