@@ -1,20 +1,17 @@
-import mainPageImg  from '../../assets/images/mainPage/mainpage.jpg'
-import './mainPage.css'
+import mainPageImg from "../../assets/images/mainPage/mainpage.jpg";
+import "./mainPage.css";
 import CardCourse from "../cardCourses/cardCourse";
 import CardCoursesWrapper from "../cardCoursesWrapper/cardCoursesWrapper";
 
+const MainPage = () => {
+  return (
+    <div>
+      {/* <img src={mainPageImg} className='sharifLogo' alt='sharif sut logo' /> */}
+      <header className="header"></header>
 
-const MainPage=()=>{
-    return(
-        <div>
+      <CardCoursesWrapper />
+    </div>
+  );
+};
 
-            <img src={mainPageImg} className='sharifLogo' alt='sharif sut logo' />
-
-               <CardCoursesWrapper/>
-
-        </div>
-    )
-
-}
-
-export default MainPage
+export default MainPage;
