@@ -1,0 +1,1 @@
+parse-dashboard --dev --appId myAppId --masterKey some_key --serverURL "http://localhost:1337/parse" --appName dastad
