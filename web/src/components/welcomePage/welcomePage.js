@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import './welcomePage.css'
+import React, { useState, useEffect } from "react";
+import "./welcomePage.css";
 import LandingPage from "../landingPage/landing";
 
 function WelcomePage() {
@@ -8,18 +8,16 @@ function WelcomePage() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowWelcome(false);
-        }, 200000);
+        }, 2000);
 
         return () => clearTimeout(timer);
     }, []);
 
     if (showWelcome) {
-        return  <section className='welcomeImg'></section>
-
+        return <section className="welcomeImg"></section>;
     } else {
-        return <LandingPage/>
+        return <LandingPage />;
     }
-
 }
 
 export default WelcomePage;

@@ -1,13 +1,9 @@
-div {
-    box-sizing: border-box;
-}
-
 label {
     margin: 10px 0;
     font-size: 18px;
 }
 
-input{
+input {
     padding: 5px;
     font-size: 16px;
     border: 1px solid var(--main-blue);
