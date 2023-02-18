@@ -1,4 +1,4 @@
-div{
+div {
     box-sizing: border-box;
 }
 
@@ -7,30 +7,21 @@ label {
     font-size: 18px;
 }
 
-input {
+input{
     padding: 5px;
     font-size: 16px;
-    border: 1px solid #3f5fff;
+    border: 1px solid var(--main-blue);
     border-radius: 5px;
 }
-
-
 
 button {
     margin-top: 20px;
     padding: 10px;
-    background-color: #3f5fff;
-    color: #fff;
     font-size: 18px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 80%;
     transition: all 0.2s ease-in-out;
-}
-
-button:hover {
-    background-color: #0069d9;
 }
 
 
@@ -61,8 +52,9 @@ p {
     font-size: 26px;
 }
 
-.selectOption{
-    border: solid 2px #0069d9 ;
-    width: 100px;
-    height: 25px;
+.selectOption {
+    border: solid 2px #0069d9;
+    width: 300px;
+    height: 32px;
+    font-size: large;
 }

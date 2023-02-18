@@ -3,9 +3,6 @@
     width: 25%;
 }
 
-button{
-    width: 28%;
-}
 
 button:hover {
     background-color: #0062cc;
