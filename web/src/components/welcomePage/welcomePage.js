@@ -8,7 +8,7 @@ function WelcomePage() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowWelcome(false);
-        }, 2000);
+        }, 200000);
 
         return () => clearTimeout(timer);
     }, []);

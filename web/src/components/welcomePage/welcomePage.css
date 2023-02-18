@@ -6,3 +6,26 @@ width: 100vw;
     background-size: cover;
     background-attachment: scroll
 }
+
+
+@media screen and (min-width: 1880px) {
+    .welcomeImg {
+        background-size: 1700px;
+    }
+}
+
+
+@media screen and (max-width: 1360px) {
+    .welcomeImg {
+        background-size:1000px;
+    }
+}
+
+
+
+@media screen and (max-width: 820px) {
+    .welcomeImg {
+        background-size:340px ;
+    }
+
+}
