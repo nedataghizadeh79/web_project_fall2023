@@ -1,0 +1,24 @@
+.landing{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    border-left: #0069d9 solid 11px;
+    border-bottom: #3f5fff solid 11px;
+    background-image: url(../../assets/images/landing/landing.png);
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
+}
+
+.rightSection{
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+
+.description{
+    margin-right: 10px;
+    display: flex;
+    text-align: justify;
+}

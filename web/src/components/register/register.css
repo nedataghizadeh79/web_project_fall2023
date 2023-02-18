@@ -7,14 +7,12 @@ label {
     font-size: 18px;
 }
 
-input {
+input{
     padding: 5px;
     font-size: 16px;
     border: 1px solid var(--main-blue);
     border-radius: 5px;
 }
-
-
 
 button {
     margin-top: 20px;
@@ -27,7 +25,6 @@ button {
 }
 
 
-
 img {
     width: 40%;
     height: 50%;
@@ -38,7 +35,6 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
     width: 100vw;
 }
 
@@ -56,20 +52,9 @@ p {
     font-size: 26px;
 }
 
-
-@media screen and (max-width: 768px) {
-
-    .makeRow {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-left: 20px;
-    }
-
-    .loginForm{
-        align-items: center;
-        justify-content: center;
-        margin-left: 160px;
-    }
-
+.selectOption {
+    border: solid 2px #0069d9;
+    width: 300px;
+    height: 32px;
+    font-size: large;
 }

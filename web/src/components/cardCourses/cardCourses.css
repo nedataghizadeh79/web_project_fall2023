@@ -1,0 +1,27 @@
+.card {
+    border: var(--dark-blue) 2px solid;
+    border-radius: 0.3rem;
+    width: 100%;
+    height: 180px;
+    box-shadow: gray 2px 2px 4px 0px;
+    padding: 1rem 0.5rem 0.5rem;
+
+}
+
+.mainSpan {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--main-blue);
+}
+
+.data {
+    padding: 0.2rem 0;
+}
+
+.red-text {
+    color: red;
+}
+
+.green-text {
+    color: green;
+}

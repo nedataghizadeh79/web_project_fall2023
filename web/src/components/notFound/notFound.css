@@ -1,0 +1,24 @@
+.not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+h1 {
+    margin-top: -20px;
+    color: #0069d9;
+    font-weight: bolder;
+}
+
+button {
+    width: 30vw;
+    height: 6vh;
+    margin-bottom: 20px;
+}
+
+.link {
+    color: white;
+}
