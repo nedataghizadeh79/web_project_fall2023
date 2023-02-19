@@ -51,6 +51,36 @@ app.get('/test', function (req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
 
+app.get('/announcements', async function (req, res) {
+  try {
+    const announcements = Parse.Object.extend("announcements");
+    const query = new Parse.Query(announcements);
+    query.select("course", "instructor");
+    const result = await query.find();
+
+    res.status(200).json({ announcements: result })
+  } catch (err) {
+    res.status(500).json({ err: err.message });
+  }
+})
+
+app.get('/instructor_aanouncements', async function (req, res) {
+  try {
+    const sessionToken = req.headers.get('Authorization').split(' ')[1];
+    ParseServer.User.become(sessionToken).then(async function (user) {
+      const announcements = Parse.Object.extend("announcements");
+      const query = new Parse.Query(announcements);
+      query.equalTo("instructor", user);
+      const result = await query.find();
+      res.statusCode(200).json({})
+    }).catch(function (err) {
+
+    });
+  } catch (err) {
+
+  }
+})
+
 const port = process.env.PORT || 1337;
 if (!test) {
   const httpServer = require('http').createServer(app);
