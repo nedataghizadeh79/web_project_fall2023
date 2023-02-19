@@ -67,12 +67,11 @@ app.get('/announcements', async function (req, res) {
 app.get('/instructor_aanouncements', async function (req, res) {
   try {
     const sessionToken = req.headers.get('Authorization').split(' ')[1];
-    ParseServer.User.become(sessionToken).then(async function (user) {
+    ParseServer.User.become(sessionToken).then(function (user) {
       const announcements = Parse.Object.extend("announcements");
       const query = new Parse.Query(announcements);
       query.equalTo("instructor", user);
-      const result = await query.find();
-      res.statusCode(200).json({})
+      res.statusCode(200).json({});
     }).catch(function (err) {
 
     });
