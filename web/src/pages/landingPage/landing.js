@@ -1,4 +1,5 @@
 import "./landing.css";
+import back from "../../assets/images/landing/landing.png";
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
@@ -13,6 +14,8 @@ const LandingPage = () => {
             <button> ثبت نام</button>
           </Link>
         </div>
+
+        <img src={back} alt="background" />
 
         <p className="description">
           سامانه مدیریت دستیاران آموزشی: در این سامانه دو role خواهیم داشت.

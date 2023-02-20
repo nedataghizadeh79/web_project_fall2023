@@ -11,6 +11,12 @@
     --green: #347a2e;
 }
 
+body {
+    height: 100vh;
+    background: #eceef4;
+
+}
+
 input,
 textarea {
     outline: none;
@@ -56,7 +62,12 @@ button:hover {
     background-color: var(--hover-blue);
 }
 
+a {
+    text-decoration: none;
+}
+
 .card {
+    background-color: #f1f1f2;
     border: var(--border-color) 1px solid;
     border-radius: 0.3rem;
     width: 100%;

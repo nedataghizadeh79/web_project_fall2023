@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./login.css";
-import loginImg from "../../assets/images/login/login.jpg";
+import loginImg from "../../assets/images/login/login.png";
 import { Link } from "react-router-dom";
 
 function Login() {
@@ -9,7 +9,6 @@ function Login() {
 
   return (
     <div className="makeRow">
-
       <div className="loginForm">
         <p>به صفحه لاگین سایت دستاد خوش آمدید!</p>
 
@@ -34,7 +33,6 @@ function Login() {
         </Link>
       </div>
       <img src={loginImg} alt="login page" />
-
     </div>
   );
 }
