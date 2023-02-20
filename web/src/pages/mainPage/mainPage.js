@@ -13,13 +13,13 @@ const MainPage = () => {
   const handleClick = useCallback((courseId) => {
     setSelectedCourse(courseId);
     setIsOpen(true);
-  });
+  }, []);
 
   const closeModal = useCallback(() => {
     setSelectedCourse(null);
     setExtraInfo("");
     setIsOpen(false);
-  });
+  }, []);
 
   return (
     <div ref={container}>
@@ -31,9 +31,6 @@ const MainPage = () => {
         className="volunteer_modal"
         appElement={container.current}
       >
-        {/* <div className="modal__header">
-          <i class="fa-solid fa-x"></i>
-        </div> */}
         <div className="modal__body">
           <textarea
             value={extraInfo}
