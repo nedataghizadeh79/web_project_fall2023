@@ -3,10 +3,25 @@
     --hover-blue: #1e4774;
     --main-blue: #3a4892;
     --dark-blue: #6c747c;
+    --border-color: #cdd0d4;
+
+    --red: #b63939;
+    --hover-red: #922626;
+
+    --green: #347a2e;
 }
 
-input {
+input,
+textarea {
     outline: none;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 0.3rem;
+    resize: none;
+    overflow: hidden;
+    outline: none;
+
+    padding: 0.1rem 0.5rem
 }
 
 *,
@@ -29,6 +44,18 @@ button {
     transition: all 0.2s ease-in-out;
 }
 
+button.cancel {
+    background-color: var(--red);
+}
+
+button.cancel:hover {
+    background-color: var(--hover-red);
+}
+
 button:hover {
     background-color: var(--hover-blue);
+}
+
+.ReactModal__Content--open {
+    overflow: hidden;
 }
