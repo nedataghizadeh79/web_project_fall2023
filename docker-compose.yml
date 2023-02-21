@@ -1,0 +1,34 @@
+version: '3.9'
+services:
+  mongo:
+    image: 'mongo:latest'
+    volumes:
+      - './data/db:/data/db'
+    ports:
+      - 27017:27017
+  parse:
+    build: ./server
+    environment:
+      - PARSE_SERVER_APPLICATION_ID=myAppId
+      - PARSE_SERVER_MASTER_KEY=some_key
+      - PARSE_SERVER_DATABASE_URI=mongodb://mongo:27017/parse
+      - PARSE_SERVER_MOUNT_PATH=/parse
+    ports:
+      - '1337:1337'
+    links:
+      - mongo
+  parse-dashboard:
+    image: 'parseplatform/parse-dashboard'
+    ports:
+      - '4040:4040'
+    environment:
+      - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=true
+      - PARSE_DASHBOARD_SERVER_URL=http://localhost:1337/parse
+      - PARSE_DASHBOARD_MASTER_KEY=some_key
+      - PARSE_DASHBOARD_APP_ID=myAppId
+      - PARSE_DASHBOARD_APP_NAME=dastad
+      - PARSE_DASHBOARD_USER_ID=admin
+      - PARSE_DASHBOARD_USER_PASSWORD=pwd@admin123!
+      - MOUNT_PATH=/dashboard/
+    links:
+      - parse
