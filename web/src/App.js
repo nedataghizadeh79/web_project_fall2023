@@ -7,6 +7,7 @@ import NotFound from "./pages/notFound/notFound";
 import MainPage from "./pages/mainPage/mainPage";
 import Profile from "./pages/profile/profile";
 import Announcement from "./pages/announcement/announcement";
+import AnnouncementList from "./pages/announcementList/announcementList";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/main" element={<MainPage />} />
       <Route path="/register" element={<Register />} />
       <Route path="profile" element={<Profile />} />
+      <Route path="/announcements" element={<AnnouncementList />} />
       <Route path="/announcement/:id" element={<Announcement />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

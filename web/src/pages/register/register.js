@@ -12,9 +12,8 @@ const Register = () => {
   const [password2, setPassword2] = useState("");
 
   return (
-    <div className="makeRow">
-
-      <div className="loginForm">
+    <div className="makeRegisterRow">
+      <div className="registerForm">
         <p>به صفحه ثبت نام سایت دستاد خوش آمدید!</p>
 
         <label> نقش کاربر </label>
@@ -77,7 +76,6 @@ const Register = () => {
         </Link>
       </div>
       <img src={registerImg} alt="login page" />
-
     </div>
   );
 };

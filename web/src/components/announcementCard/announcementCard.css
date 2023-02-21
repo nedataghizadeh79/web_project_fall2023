@@ -1,0 +1,8 @@
+.announcementCard {
+    cursor: pointer;
+    transition: transform 0.1s ease-out;
+}
+
+.announcementCard:hover {
+    transform: translateY(-5px);
+}

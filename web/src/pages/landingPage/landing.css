@@ -1,23 +1,45 @@
 .landing {
     display: flex;
     flex-direction: row;
-    border-left: #0069d9 solid 11px;
-    border-bottom: #3f5fff solid 11px;
-    background-image: url(../../assets/images/landing/landing.png);
-    width: 100vw;
-    height: 100vh;
-    background-size: cover;
-    background-position: center center;
+    width: 100%;
+
+    padding: 0.5rem 1rem;
+
+}
+
+.landing img {
+    width: 100%;
+    max-width: 500px;
 }
 
 .rightSection {
-    margin-right: 20px;
-    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
 .description {
-    margin-right: 10px;
     display: flex;
     text-align: justify;
+}
+
+.buttons {
+
+    align-self: flex-start;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    width: 100%;
+    max-width: 400px;
+
+}
+
+.buttons a {
+    width: 50%;
+}
+
+.buttons button {
+    width: 100%;
 }
