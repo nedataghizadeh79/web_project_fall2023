@@ -1,8 +1,9 @@
 .announcementCard {
     cursor: pointer;
-    transition: transform 0.1s ease-out;
+    transition: all 0.1s ease-out;
 }
 
 .announcementCard:hover {
     transform: translateY(-5px);
+    box-shadow: rgb(105 103 103 / 35%) 0px 7px 6px 0px;
 }
