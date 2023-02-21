@@ -8,7 +8,7 @@ function VolunteerList() {
   return (
     <div className="volunteer__container">
       {VOLUNTEERS.map((volunteer) => (
-        <div className="card">
+        <div className="card" key={volunteer.id}>
           <div className="data_container">
             <Link to={`/profile/${volunteer.id}`} className="volunteer__name">
               {volunteer.name}

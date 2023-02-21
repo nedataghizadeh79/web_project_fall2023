@@ -37,6 +37,7 @@ textarea {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Vazirmatn', sans-serif;
 }
 
 button {
@@ -49,6 +50,7 @@ button {
     outline: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    min-width: 3.3rem;
 }
 
 button.cancel {

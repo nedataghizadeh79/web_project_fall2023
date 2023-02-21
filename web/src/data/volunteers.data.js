@@ -6,7 +6,7 @@ export const VOLUNTEERS = [
   },
   {
     id: 2,
-    name: "زهرا توسلی",
+    name: "زهرا سادات توسلی فراهانی قنواتی",
     student_number: "97328165",
   },
   {
