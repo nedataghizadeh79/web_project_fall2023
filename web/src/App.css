@@ -14,6 +14,7 @@
 body {
     height: 100vh;
     background: #eceef4;
+    padding: 0.5rem 1rem;
 
 }
 
@@ -64,6 +65,7 @@ button:hover {
 
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 .card {

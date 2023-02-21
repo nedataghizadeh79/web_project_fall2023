@@ -1,9 +1,11 @@
 import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import AnnouncementCard from "../../components/announcementCard/announcementCard";
 import { JafarinezhadData } from "../../data/courses.data";
 import "./announcementList.css";
 
 function AnnouncementList({ announcements }) {
+  const navigate = useNavigate();
   const handleDelete = useCallback((id) => {
     // delete the announcement
     console.error("delete", id);
@@ -16,7 +18,7 @@ function AnnouncementList({ announcements }) {
 
   const handleClick = useCallback((id) => {
     // redirect to announcement
-    console.log("clicked", id);
+    navigate(`/announcement/${id}`);
   }, []);
   return (
     <main className="announcements">
