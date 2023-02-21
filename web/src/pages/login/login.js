@@ -10,8 +10,6 @@ function Login() {
   return (
     <div className="makeRow">
       <div className="loginForm">
-        <p>به صفحه لاگین سایت دستاد خوش آمدید!</p>
-
         <label>شماره دانشجویی / کد پرسنلی</label>
         <input
           type="text"
