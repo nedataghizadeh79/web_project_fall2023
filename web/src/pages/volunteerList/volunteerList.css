@@ -1,6 +1,6 @@
 .volunteer__container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1rem;
 }
 
@@ -12,11 +12,17 @@
 
 
 .volunteer__name {
-    font-size: 1.2rem;
     font-weight: 600;
 
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 170px;
+    max-width: 155px;
+}
+
+@media screen and (max-width: 425px) {
+    .volunteer__container {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+    }
 }

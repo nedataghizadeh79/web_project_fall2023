@@ -18,6 +18,10 @@ body {
 
 }
 
+#root {
+    height: 100%;
+}
+
 input,
 textarea {
     outline: none;
@@ -43,14 +47,14 @@ textarea {
 button {
     background-color: var(--light-blue);
     color: #fff;
-    padding: 10px;
-    font-size: 18px;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.9rem;
     border: none;
     border-radius: 0.3rem;
     outline: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    min-width: 3.3rem;
+    min-width: 2.8rem;
 }
 
 button.cancel {
