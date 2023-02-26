@@ -1,0 +1,28 @@
+.volunteer__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.volunteer__container .card {
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.volunteer__name {
+    font-weight: 600;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 155px;
+}
+
+@media screen and (max-width: 425px) {
+    .volunteer__container {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+    }
+}

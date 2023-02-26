@@ -1,0 +1,44 @@
+.landing {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+
+}
+
+.landing img {
+    width: 100%;
+    max-width: 500px;
+}
+
+.rightSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.description {
+    display: flex;
+    text-align: justify;
+}
+
+.buttons {
+
+    align-self: flex-start;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    width: 100%;
+    max-width: 400px;
+
+}
+
+.buttons a {
+    width: 50%;
+}
+
+.buttons button {
+    width: 100%;
+}

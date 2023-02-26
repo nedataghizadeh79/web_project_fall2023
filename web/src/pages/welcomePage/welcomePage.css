@@ -1,0 +1,31 @@
+.welcomeImg {
+width: 100vw;
+    height: 100vh;
+    background-image: url(../../assets/images/welcomePage/welcomePage.jpg);
+    background-position: center center;
+    background-size: cover;
+    background-attachment: scroll
+}
+
+
+@media screen and (min-width: 1880px) {
+    .welcomeImg {
+        background-size: 1700px;
+    }
+}
+
+
+@media screen and (max-width: 1300px) {
+    .welcomeImg {
+        background-size:1000px;
+    }
+}
+
+
+
+@media screen and (max-width: 800px) {
+    .welcomeImg {
+        background-size:440px ;
+    }
+
+}

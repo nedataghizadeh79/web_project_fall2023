@@ -1,20 +1,14 @@
-div {
-    box-sizing: border-box;
-}
-
-label {
+.registerForm label {
     margin: 10px 0;
-    font-size: 18px;
 }
 
-input{
+.registerForm input {
     padding: 5px;
-    font-size: 16px;
     border: 1px solid var(--main-blue);
     border-radius: 5px;
 }
 
-button {
+.registerForm button {
     margin-top: 20px;
     padding: 10px;
     font-size: 18px;
@@ -25,13 +19,12 @@ button {
 }
 
 
-img {
+.makeRegisterRow img {
     width: 40%;
     height: 50%;
-    margin-right: 20px;
 }
 
-.makeRow {
+.makeRegisterRow {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,15 +32,14 @@ img {
 }
 
 
-.loginForm {
+.registerForm {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-right: 200px;
 }
 
-p {
+.registerForm p {
     font-weight: bolder;
     font-size: 26px;
 }
@@ -57,4 +49,17 @@ p {
     width: 300px;
     height: 32px;
     font-size: large;
+}
+
+@media screen and (max-width: 768px) {
+
+    .makeRegisterRow {
+        flex-direction: column;
+    }
+
+
+    .makeRegisterRow img {
+        width: 77%;
+    }
+
 }

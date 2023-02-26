@@ -1,0 +1,64 @@
+.sharifLogo {
+    width: 100%;
+    height: 60%;
+}
+
+.header {
+    width: 100%;
+    height: 60vh;
+    background-image: url(../../assets/images/mainPage/mainpage.jpg);
+    background-size: cover;
+    background-attachment: scroll;
+    background-position: center center;
+}
+
+
+.volunteer_modal {
+    width: 40vw;
+    min-width: 320px;
+    height: auto;
+
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    inset-block-end: auto;
+    inset-inline-end: auto;
+
+    transform: translate(50%, -50%);
+
+    background-color: hsl(240, 9%, 98%);
+    border: 1px solid var(--border-color);
+    border-radius: 0.3rem;
+
+    padding: 1rem;
+
+    overflow: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modal__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal__footer {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 1rem;
+    width: 50%;
+
+    align-self: flex-end;
+}
+
+.modal__footer>* {
+    flex-grow: 1;
+}
+
+.extra_info {
+    width: 100%;
+    min-height: 100px;
+}

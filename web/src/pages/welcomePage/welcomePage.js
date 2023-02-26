@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import './welcomePage.css'
+import React, { useState, useEffect } from "react";
+import "./welcomePage.css";
 import LandingPage from "../landingPage/landing";
 
 function WelcomePage() {
@@ -14,12 +14,10 @@ function WelcomePage() {
     }, []);
 
     if (showWelcome) {
-        return  <section className='welcomeImg'></section>
-
+        return <section className="welcomeImg"></section>;
     } else {
-        return <LandingPage/>
+        return <LandingPage />;
     }
-
 }
 
 export default WelcomePage;

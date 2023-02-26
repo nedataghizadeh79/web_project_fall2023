@@ -1,25 +1,104 @@
 :root {
-    --light-blue: #3f5fff;
+    --light-blue: #2e67a5;
     --hover-blue: #1e4774;
-    --main-blue: #3f5fff;
+    --main-blue: #3a4892;
     --dark-blue: #6c747c;
+    --border-color: #cdd0d4;
+
+    --red: #b63939;
+    --hover-red: #922626;
+
+    --green: #347a2e;
 }
 
-input {
+body {
+    height: 100vh;
+    background: #eceef4;
+    padding: 0.5rem 1rem;
+
+}
+
+#root {
+    height: 100%;
+}
+
+input,
+textarea {
     outline: none;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 0.3rem;
+    resize: none;
+    overflow: hidden;
+    outline: none;
+
+    padding: 0.1rem 0.5rem
 }
 
-.App {
+*,
+*::after,
+*::before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Vazirmatn', sans-serif;
 }
 
 button {
     background-color: var(--light-blue);
     color: #fff;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 0.3rem;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    min-width: 2.8rem;
+}
+
+button.cancel {
+    background-color: var(--red);
+}
+
+button.cancel:hover {
+    background-color: var(--hover-red);
 }
 
 button:hover {
     background-color: var(--hover-blue);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card {
+    background-color: #f1f1f2;
+    border: var(--border-color) 1px solid;
+    border-radius: 0.3rem;
+    width: 100%;
+    height: 180px;
+    box-shadow: rgba(105, 103, 103, 0.345) 0px 2px 4px 0px;
+    padding: 1rem 0.5rem 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+}
+
+.card .data_container {
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.card .footer_container {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
 }
