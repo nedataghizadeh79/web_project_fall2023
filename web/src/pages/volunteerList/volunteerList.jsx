@@ -6,7 +6,7 @@ function VolunteerList() {
   const { id } = useParams();
 
   return (
-    <div className="volunteer__container">
+    <div className="volunteer__container padded__container">
       {VOLUNTEERS.map((volunteer) => (
         <div className="card" key={volunteer.id}>
           <div className="data_container">

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import "./profile.css";
-import PdfViewer from "../../components/pdfViewer/pdfViewer";
 
 function Profile() {
-
   const [isEditing, setIsEditing] = useState(false);
 
   const [userData, setUserData] = useState({
@@ -73,15 +71,15 @@ function Profile() {
   };
 
   return (
-    <main className="profile">
-      {
-        isEditing ? (
-          renderForm()
-        ) : (
-          <>
+    <main className="profile padded__container">
+      {isEditing ? (
+        renderForm()
+      ) : (
+        <>
+          <section className="profile__section profile__section--profile">
             <div className="profile__header">
               <img className="img" src={userData.imageUrl} alt="Profile" />
-              <p>{userData.name}</p>
+              <h2>{userData.name}</h2>
             </div>
 
             <div className="info">
@@ -90,17 +88,27 @@ function Profile() {
                 <p>{userData.email}</p>
               </span>
               <span>
-                <i class="fa-regular fa-user"></i>
+                <i className="fa-regular fa-user"></i>
                 <p>{userData.role}</p>
               </span>
-
-              {/* <PdfViewer /> */}
-
             </div>
             <button onClick={handleEditClick}>ویرایش</button>
-          </>
-        )
-      }
+          </section>
+          <section className="profile__section profile__section--background">
+            <h2>سوابق دستیاری</h2>
+            <hr />
+            <div className="card">
+              <div className="data_container">
+                <h4>مدارهای منطقی</h4>
+                <div className="ta_info">
+                  <p>مدرس: دکتر لاله ارشدی</p>
+                  <p>ترم: پاییز ۱۴۰۱</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
     </main>
   );
 }

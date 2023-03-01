@@ -4,7 +4,7 @@ import "./cardCoursesWrapper.css";
 
 const CardCoursesWrapper = ({ handleClick }) => {
   return (
-    <div className="cardCoursesWrapper">
+    <div className="cardCoursesWrapper padded__container">
       {fakeData.map((course) => (
         <CardCourse
           key={course.id}
