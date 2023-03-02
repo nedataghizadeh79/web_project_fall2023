@@ -8,7 +8,7 @@ const reducer = (state, action) => {
 };
 
 function UserProvider({ children }) {
-  const [user, dispatch] = useReducer(reducer, { loggedIn: false });
+  const [user, dispatch] = useReducer(reducer, { loggedIn: true });
 
   return (
     <userContext.Provider value={user}>

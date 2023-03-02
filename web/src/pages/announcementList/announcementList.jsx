@@ -21,7 +21,7 @@ function AnnouncementList({ announcements }) {
     navigate(`/announcement/${id}`);
   }, []);
   return (
-    <main className="announcements">
+    <main className="padded__container">
       <div className="announcements_wrapper">
         {JafarinezhadData.map((announcement) => (
           <AnnouncementCard
