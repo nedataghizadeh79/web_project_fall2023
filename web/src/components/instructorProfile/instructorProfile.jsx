@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import { JafarinezhadData } from "../../data/courses.data";
+import AnnouncementList from "../../pages/announcementList/announcementList";
+import AnnouncementCard from "../announcementCard/announcementCard";
 
 function InstructorProfile() {
   return (
@@ -13,9 +16,7 @@ function InstructorProfile() {
       <section>
         <h2>اعلان‌ها</h2>
         <hr />
-        <div>
-          <Link to={"/announcements"}>مشاهده همه اعلان‌ها</Link>
-        </div>
+        <AnnouncementList />
       </section>
     </main>
   );
