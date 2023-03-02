@@ -31,7 +31,8 @@ textarea {
     overflow: hidden;
     outline: none;
 
-    padding: 0.1rem 0.5rem
+    padding: 0.1rem 0.5rem;
+    font-size: 1rem;
 }
 
 *,
@@ -74,6 +75,7 @@ a {
 }
 
 hr {
+    margin-top: 0.5rem;
     margin-bottom: 1rem;
 }
 
@@ -109,4 +111,51 @@ hr {
 .padded__container {
     padding: 0.5rem 1rem;
 
+}
+
+.react_modal {
+    width: 40vw;
+    min-width: 320px;
+    height: auto;
+
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    inset-block-end: auto;
+    inset-inline-end: auto;
+
+    transform: translate(50%, -50%);
+
+    background-color: hsl(240, 9%, 98%);
+    border: 1px solid var(--border-color);
+    border-radius: 0.3rem;
+    outline: none;
+
+    padding: 1rem;
+
+    overflow: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.modal__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.modal__footer {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 1rem;
+    width: 50%;
+
+    align-self: flex-end;
+}
+
+.modal__footer>* {
+    flex-grow: 1;
 }

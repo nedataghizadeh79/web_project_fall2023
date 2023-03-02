@@ -28,7 +28,7 @@ const MainPage = () => {
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
-        className="volunteer_modal"
+        className="react_modal"
         appElement={container.current}
       >
         <div className="modal__body">

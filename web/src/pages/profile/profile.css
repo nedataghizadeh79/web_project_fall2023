@@ -11,6 +11,12 @@
     align-items: stretch;
 }
 
+.profile .section__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .info {
     padding: 1rem 0.5rem;
 
@@ -73,6 +79,20 @@
     display: flex;
     gap: 2rem;
     flex-wrap: wrap;
+}
+
+.right_float_modal .modal__body {
+    align-items: stretch;
+}
+
+.right_float_modal .modal__body div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.right_float_modal .modal__body input {
+    flex-grow: 1;
 }
 
 @media screen and (min-width: 657px) {
