@@ -8,6 +8,7 @@ PRIMARY KEY (year, term)
 
 DROP TABLE IF EXISTS account;
 
+-- firstName, lastName, should be added to this
 CREATE TABLE IF NOT EXISTS account (
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(60) UNIQUE NOT NULL,
@@ -80,3 +81,16 @@ CREATE TABLE IF NOT EXISTS voluntary(
 	status VARCHAR(10)
 );
 
+DROP TABLE IF EXISTS announcement;
+
+CREATE TABLE announcement(
+    id SERIAL PRIMARY KEY,
+    course_id INTEGER REFERENCES course(id),
+    description VARCHAR(500)
+);
+
+INSERT INTO semester (year, term) VALUES ('1402', '2');
+INSERT INTO account (username, password, role) VALUES ('shahab', 'shahab', 'student');
+INSERT INTO account (username, password, role) VALUES ('omid', 'jafari', 'instructor');
+
+ALTER TABLE voluntary ADD COLUMN id SERIAL PRIMARY KEY;

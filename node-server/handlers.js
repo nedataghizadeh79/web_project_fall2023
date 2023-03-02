@@ -1,9 +1,13 @@
 import {
   test_database,
+  getCoursesById,
+  create_announcement_database,
+  create_volunteer_database
 } from "./model.js";
 import { validationResult } from "express-validator";
 import axios from "axios";
 import {messages} from "./resources.js";
+import {constants} from "./resources.js";
 
 const validation = function (req, res) {
   const errors = validationResult(req);
@@ -14,7 +18,7 @@ const validation = function (req, res) {
 
 const server_error = function (error, res) {
   console.log(error);
-  res.status(500).send("database connection failed!");
+  res.status(500).send(constants.internal_server_error);
 };
 
 const request_error = function (error, res) {
@@ -44,26 +48,23 @@ export const test_runs = function (req, res) {
  */
 export const create_announcement = async function (req, res){
   try{
-    const presentation = await db.getPresentation(req.body.presentation_id);
-    if (presentation.length === 0){
-      throw new Error("presentation does not exist");
+    const courses = await getCoursesById(req.body.course_id);
+    if (courses.length === 0){
+      return request_error(constants.course_does_not_exist, res);
     }
-    // todo make this in db
-    create_announcement_database({
-      professor_id: req.USER.id,
-      presentation_id: req.presentation_id,
-      description: req.body.description
-    }).then(
+    create_announcement_database(
+      req.body.course_id,
+      req.body.description
+    ).then(
       (value) => {
-        res.send("announcement created successfully");
+        res.send(constants.announcement_created);
       },
       (error) => {
-        console.log(error);
-        throw new Error("there was an error creating tickets");
+        throw error;
       }
     );
   }catch (error){
-    res.status(500).send(error);
+    server_error(error, res)
   }
 }
 
@@ -77,27 +78,23 @@ export const create_announcement = async function (req, res){
 
 export const volunteer = async function (req, res) {
   try{
-    const presentation = await db.getPresentation(req.body.presentation_id);
-    if (presentation.length === 0){
-      throw new Error("presentation does not exist");
+    const courses = await getCoursesById(req.body.course_id);
+    if (courses.length === 0){
+      return request_error(constants.course_does_not_exist, res);
     }
-    // todo make this in db
-    create_volunteer_request_database({
-      student_id: req.USER.id,
-      presentation_id: req.presentation_id,
-      description: req.body.description,
-      resume: req.body.resume,
-    }).then(
+    create_volunteer_database(
+      req.body.USER,
+      req.body.course_id,
+    ).then(
       (value) => {
-        res.send("request sent successfully");
+        res.send(constants.voluntary_request_created);
       },
       (error) => {
-        console.log(error);
-        throw new Error("there was an error processing your request.");
+        throw error;
       }
     );
   }catch (error){
-    res.status(500).send(error);
+    server_error(error, res);
   }
 }
 
