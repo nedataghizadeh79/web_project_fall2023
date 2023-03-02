@@ -10,6 +10,8 @@ import AnnouncementList from "./pages/announcementList/announcementList";
 import VolunteerList from "./pages/volunteerList/volunteerList";
 import { useUser } from "./providers/UserProvider";
 import { useCallback } from "react";
+import Layout from "./layout/layout";
+import Course from "./pages/course/course";
 
 function App() {
   const { loggedIn } = useUser();
@@ -23,19 +25,22 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<WelcomePage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/main" element={<MainPage />} />
+      <Route path="/" element={<Layout />}>
+        <Route path="/" element={<WelcomePage />} />
+        <Route path="/main" element={<MainPage />} />
+        <Route path="profile/:user_id" element={<Profile />} />
+        <Route path="course/:course_id" element={<Course />} />
+        <Route
+          path="/announcements"
+          element={authenticate(<AnnouncementList />)}
+        />
+        <Route
+          path="/announcement/:id"
+          element={authenticate(<VolunteerList />)}
+        />
+      </Route>
       <Route path="/register" element={<Register />} />
-      <Route path="profile/:user_id" element={<Profile />} />
-      <Route
-        path="/announcements"
-        element={authenticate(<AnnouncementList />)}
-      />
-      <Route
-        path="/announcement/:id"
-        element={authenticate(<VolunteerList />)}
-      />
+      <Route path="/login" element={<Login />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

@@ -1,0 +1,33 @@
+.navbar {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    background-color: #fff;
+}
+
+.navbar__container {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar__container ul {
+    display: flex;
+    gap: 0.5rem;
+
+    list-style-type: none;
+}
+
+.navbar__left {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.navbar__container a {
+    opacity: 0.6;
+    transition: opacity 0.1s ease;
+}
+
+.navbar__container a:hover {
+    opacity: 1;
+}
