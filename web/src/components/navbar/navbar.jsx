@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import { useUser } from "../../providers/UserProvider";
 import "./navbar.css";
 
 function Navbar() {
+  const { loggedIn } = useUser();
   return (
     <nav className="navbar">
       <div className="navbar__container">
@@ -11,8 +13,14 @@ function Navbar() {
           </li>
         </ul>
         <div className="navbar__left">
-          <Link to={"/login"}>ورود</Link>
-          <Link to={"/register"}>ثبت نام</Link>
+          {loggedIn ? (
+            <Link to={`/profile/${12}`}>پروفایل</Link>
+          ) : (
+            <>
+              <Link to={"/login"}>ورود</Link>
+              <Link to={"/register"}>ثبت نام</Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
