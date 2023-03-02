@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS account (
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(60) UNIQUE NOT NULL,
 	password VARCHAR(60) UNIQUE NOT NULL,
+	name VARCHAR(60) NOT NULL,
 	role VARCHAR(10) UNIQUE NOT NULL
 );
 
@@ -56,7 +57,7 @@ CREATE TABLE IF NOT EXISTS head_feedback(
 
 DROP TABLE IF EXISTS red_alert;
 
-CREATE TABLE IF NOT EXISTS  red_alert(
+CREATE TABLE IF NOT EXISTS red_alert(
 	id SERIAL PRIMARY KEY,
 	course_id INTEGER,
 	ta_id INTEGER,
@@ -76,7 +77,7 @@ CREATE TABLE IF NOT EXISTS red_alert_documents(
 DROP TABLE IF EXISTS voluntary;
 
 CREATE TABLE IF NOT EXISTS voluntary(
-	course_id INTEGER REFERENCES course(id),
+	announcement_id INTEGER REFERENCES announcement(id),
 	student_id INTEGER REFERENCES account(id),
 	status VARCHAR(10)
 );
@@ -94,3 +95,23 @@ INSERT INTO account (username, password, role) VALUES ('shahab', 'shahab', 'stud
 INSERT INTO account (username, password, role) VALUES ('omid', 'jafari', 'instructor');
 
 ALTER TABLE voluntary ADD COLUMN id SERIAL PRIMARY KEY;
+
+/* views */
+
+CREATE VIEW course_data AS
+	SELECT course.id AS course_id,
+	course.year AS year,
+	course.term AS term,
+	(SELECT account.name
+	FROM account WHERE account.id = course.professor_id) AS instructor,
+	course.head_ta AS head_ta_id,
+	(SELECT account.name
+	FROM account WHERE account.id = course.head_ta) AS head_ta_name
+	FROM course;
+
+CREATE VIEW course_ta_view AS
+	SELECT course_ta.course_id AS course_id,
+	course_ta.ta AS ta_id,
+	(SELECT account.name
+	FROM account WHERE account.id = course_ta.ta) AS ta_name
+	FROM course_ta;
