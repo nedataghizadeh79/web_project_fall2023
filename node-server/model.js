@@ -1,4 +1,14 @@
-import {DataTypes, Op, Sequelize} from 'sequelize';
+import { DataTypes, Op, Sequelize } from 'sequelize';
+
+/*
+voluntary status:
+[pending, rejected, accepted]
+*/
+
+/*
+user roles: 
+[student, instructor, admin]
+*/
 
 const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/dastad') // Example for postgres
 
@@ -19,14 +29,14 @@ export const Semester = sequelize.define('semester', {
 }, dbOpts('semester'));
 
 export const Account = sequelize.define('account', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     username: DataTypes.STRING,
     password: DataTypes.STRING,
     role: DataTypes.STRING,
 }, dbOpts('account'));
 
 export const Course = sequelize.define('course', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     year: DataTypes.STRING,
     term: DataTypes.STRING,
     professor_id: DataTypes.INTEGER,
@@ -35,8 +45,8 @@ export const Course = sequelize.define('course', {
 }, dbOpts('course'));
 
 export const CourseTA = sequelize.define('course_ta', {
-    course_id: {type: DataTypes.INTEGER, primaryKey: true},
-    ta: {type: DataTypes.INTEGER, primaryKey: true},
+    course_id: { type: DataTypes.INTEGER, primaryKey: true },
+    ta: { type: DataTypes.INTEGER, primaryKey: true },
 }, dbOpts('course_ta'));
 
 export const ProfessorFeedback = sequelize.define('professor_feedback', {
@@ -53,7 +63,7 @@ export const HeadFeedback = sequelize.define('head_feedback', {
 
 
 export const RedAlert = sequelize.define('red_alert', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     course_id: DataTypes.INTEGER,
     ta_id: DataTypes.INTEGER,
     comment: DataTypes.STRING,
@@ -62,7 +72,7 @@ export const RedAlert = sequelize.define('red_alert', {
 
 
 export const RedAlertDocuments = sequelize.define('red_alert_documents', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     red_alert: DataTypes.INTEGER,
     document: DataTypes.BLOB, // todo: this might not work with the current database...
 }, dbOpts('red_alert_documents'));
