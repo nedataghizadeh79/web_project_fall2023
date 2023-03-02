@@ -11,6 +11,7 @@ import VolunteerList from "./pages/volunteerList/volunteerList";
 import { useUser } from "./providers/UserProvider";
 import { useCallback } from "react";
 import Layout from "./layout/layout";
+import Course from "./pages/course/course";
 
 function App() {
   const { loggedIn } = useUser();
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={<WelcomePage />} />
         <Route path="/main" element={<MainPage />} />
         <Route path="profile/:user_id" element={<Profile />} />
+        <Route path="course/:course_id" element={<Course />} />
         <Route
           path="/announcements"
           element={authenticate(<AnnouncementList />)}
