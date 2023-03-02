@@ -10,7 +10,7 @@ import AnnouncementList from "./pages/announcementList/announcementList";
 import VolunteerList from "./pages/volunteerList/volunteerList";
 import { useUser } from "./providers/UserProvider";
 import { useCallback } from "react";
-import Layout from "./layout";
+import Layout from "./layout/layout";
 
 function App() {
   const { loggedIn } = useUser();
