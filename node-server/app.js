@@ -61,7 +61,7 @@ app.post("/sign_in", sign_in_validation_rules(), validate, sign_in);
 
 app.post("/logout", logout);
 
-app.post('/create_announcement', create_announcement_validation_rules, validate, create_announcement);
+// app.post('/create_announcement', create_announcement_validation_rules, validate, create_announcement);
 
 
 
