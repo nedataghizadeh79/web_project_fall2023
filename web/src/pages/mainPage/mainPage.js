@@ -1,6 +1,6 @@
 import "./mainPage.css";
 import CardCoursesWrapper from "../../components/cardCoursesWrapper/cardCoursesWrapper";
-import Modal from "react-modal";
+import ReactModal from "react-modal";
 import { useCallback, useState } from "react";
 import { useRef } from "react";
 
@@ -25,7 +25,7 @@ const MainPage = () => {
     <div ref={container}>
       <section className="header"></section>
       <CardCoursesWrapper handleClick={handleClick} />
-      <Modal
+      <ReactModal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         className="react_modal"
@@ -46,7 +46,7 @@ const MainPage = () => {
             لغو
           </button>
         </div>
-      </Modal>
+      </ReactModal>
     </div>
   );
 };
