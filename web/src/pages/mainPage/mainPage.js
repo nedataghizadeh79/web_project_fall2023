@@ -10,8 +10,8 @@ const MainPage = () => {
   const [isModalOpen, setIsOpen] = useState(false);
   const container = useRef();
 
-  const handleClick = useCallback((courseId) => {
-    setSelectedCourse(courseId);
+  const handleClick = useCallback((course) => {
+    setSelectedCourse(course);
     setIsOpen(true);
   }, []);
 
@@ -32,6 +32,8 @@ const MainPage = () => {
         appElement={container.current}
       >
         <div className="modal__body">
+          <h2>{selectedCourse?.name}</h2>
+          <p>{selectedCourse?.description}</p>
           <textarea
             value={extraInfo}
             onChange={(e) => setExtraInfo(e.target.value)}

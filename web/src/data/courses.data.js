@@ -3,6 +3,7 @@ export const fakeData = [
     id: 1,
     name: "طراحی وب سایت",
     instructor: "دکتر جعفری نژاد",
+    description: "من دستیار می‌خواهم",
     isOpen: true,
   },
   {

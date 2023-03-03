@@ -25,18 +25,18 @@ function App() {
 
   return (
     <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route path="/" element={<Layout />}>
+      <Route path="/" element={<WelcomePage />} />
+      <Route path="/" element={authenticate(<Layout />)}>
         <Route path="/main" element={<MainPage />} />
         <Route path="profile/:user_id" element={<Profile />} />
         <Route path="course/:course_id" element={<Course />} />
         <Route
           path="/announcements"
-          element={authenticate(<AnnouncementList />)}
+          element={<AnnouncementList />}
         />
         <Route
           path="/announcement/:id"
-          element={authenticate(<VolunteerList />)}
+          element={<VolunteerList />}
         />
       </Route>
       <Route path="/register" element={<Register />} />

@@ -4,7 +4,7 @@ const userContext = createContext();
 const userContextDispatcher = createContext();
 
 const initialState = {
-  loggedIn: false,
+  loggedIn: true,
   user_id: null,
   username: null,
   name: null,

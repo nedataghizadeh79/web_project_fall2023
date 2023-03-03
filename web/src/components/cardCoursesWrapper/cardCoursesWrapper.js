@@ -11,7 +11,7 @@ const CardCoursesWrapper = ({ handleClick }) => {
           courseName={course.name}
           masterName={course.instructor}
           status={course.isOpen}
-          clickHandler={() => handleClick(course.id)}
+          clickHandler={() => handleClick(course)}
         />
       ))}
     </div>
