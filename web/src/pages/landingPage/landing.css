@@ -34,7 +34,8 @@ font-size: 20px;
 .btnnn{
     width: 300px;
     font-weight: bold;
-}
+    height: 40px;
+    }
 
 .description{
     font-weight: bold;
