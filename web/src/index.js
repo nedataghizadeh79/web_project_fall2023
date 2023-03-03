@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import UserProvider from "./providers/UserProvider";
 import LoaderProvider from "./providers/loaderProvider";
 import Loader from "./components/loader/loader";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,6 +18,7 @@ root.render(
                     <Loader>
                     </Loader>
                     <App />
+                    <ToastContainer position={toast.POSITION.BOTTOM_LEFT} autoClose={5000} />
                 </UserProvider>
             </LoaderProvider>
         </BrowserRouter>

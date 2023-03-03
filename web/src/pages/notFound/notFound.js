@@ -7,8 +7,8 @@ function NotFound() {
   return (
     <div className="not-found">
       <img src={notFoundfImg} alt="not found your address" />
-      <h1>صفحه مورد نظر شما یافت نشد</h1>
-      <button>
+      <h1 className='booodMaanavi'>شما اگر به بعد معنوی اعتقاد داشتید صفحه تون راحت تر پیدا میشد!</h1>
+      <button className='goBack'>
         <Link to="/" className="link">
           برگشت به صفحه اصلی
         </Link>

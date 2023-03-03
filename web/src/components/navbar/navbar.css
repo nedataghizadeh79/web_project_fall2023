@@ -42,3 +42,24 @@
     color: white;
     padding-left: 20px;
 }
+
+.Icon{
+    width: 32px;
+    height: 32px;
+}
+
+.group{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.prof{
+    margin-right: -11px;
+    margin-left: 6px;
+}
+
+.mainI{
+    margin-right: 6px;
+}

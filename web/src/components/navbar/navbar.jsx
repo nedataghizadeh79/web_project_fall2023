@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import "./navbar.css";
+import profileIcone from "../../assets/icons/use.png";
+import homePage from "../../assets/icons/home.png";
 
 function Navbar() {
   return (
