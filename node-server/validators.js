@@ -1,8 +1,15 @@
-import {body, validationResult} from 'express-validator';
+import {body, header, validationResult} from 'express-validator';
 import {constants} from "./resources.js";
 
 const is_ostad_or_admin = function (value){
     if (value && (value === 'instructor' || value === 'admin')){
+        return true;
+    }
+    throw new Error("invalid role");
+}
+
+const is_admin = function (value){
+    if (value === 3){
         return true;
     }
     throw new Error("invalid role");
@@ -72,17 +79,31 @@ export const sign_up_validation_rules = () => {
 
 export const sign_in_validation_rules = () => {
     return[
-        body('email').isEmail(),
-        body('password').isString().isLength({min: 4})
+        body('username').isString(),
+        body('password').isString()
     ];
 }
 
 export const create_announcement_validation_rules =() => {
     return[
-        body('ROLE').custom(is_ostad_or_admin),
+        header('USER_ROLE').custom(is_ostad_or_admin),
         body('course_id').isInt(),
         body('description').isLength({max: 500})
     ];
+}
+
+export const voluntary_validation_rules = () => {
+    return[
+      body('course_id').isInt(),
+    ];
+}
+
+export const change_user_role_validation_rules = () => {
+    return[
+      header('USER_ROLE').custom(is_admin),
+      body('user_id').isInt,
+      body('role').isInt
+    ]
 }
 
 

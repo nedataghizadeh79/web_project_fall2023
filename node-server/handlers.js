@@ -6,10 +6,13 @@ import {
   get_all_announcements,
   get_announcements_by_professor_id,
   find_all_course_data,
-} from "./model.js";
+  find_user_by_id,
+  change_user_role,
+  Account,
+} from "./model.js" ;
 import { validationResult } from "express-validator";
 import axios from "axios";
-import {messages} from "./resources.js";
+import {messages, responseUtils} from "./resources.js";
 import {constants} from "./resources.js";
 
 const validation = function (req, res) {
@@ -166,5 +169,20 @@ export const view_all_course_data = async function (req, res) {
     res.send(course_datas);
   }catch (error){
     server_error(error, res);
+  }
+}
+
+export const change_role = async function (req, res){
+  try{
+    const account = find_user_by_id(req.body.user_id);
+    if (account){
+      await change_user_role(req.body.user_id, req.body.role);
+      res.send(constants.success);
+    }
+    else{
+      return responseUtils.not_found(res, constants.user_not_found);
+    }
+  }catch (error){
+    server_error(error, res)
   }
 }

@@ -24,6 +24,8 @@ export const constants = {
   "حساب کاربری وجود ندارد.",
   account_created:
   "حساب کاربری شما با موفقیت ساخته شد",
+  success:
+  "عملیات با موفقیت انجام شد",
 }
 
 export const responseUtils = {

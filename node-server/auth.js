@@ -1,5 +1,5 @@
 import { validationResult } from "express-validator";
-import {create_user, find_user_by_username, Account} from "./model.js";
+import {create_user, find_user_by_username, find_user_by_id, Account} from "./model.js";
 import jwt from "jsonwebtoken";
 import {secret} from "./config/auth.config.js";
 import {constants, messages, responseUtils} from "./resources.js";
@@ -7,21 +7,21 @@ import pkg from 'bcryptjs';
 const bcrypt = pkg;
 
 
-const verifyToken = (req, res, next) => {
+const verifyToken = (req) => {
   let token = req.session.token;
   if (!token) {
     return res.status(403).send({
       message: constants.not_signed_in,
     });
   }
-  jwt.verify(token, config.secret, (err, decoded) => {
+  jwt.verify(token, secret, async (err, decoded) => {
     if (err) {
       return res.status(401).send({
         message: constants.token_expired,
       });
     }
-    req.userId = decoded.id;
-    next();
+    req.header.USER_ID = decoded.id;
+    req.header.USER_ROLE = await find_user_by_id(decoded.id).role;
   });
 };
 const isOstadOrAdmin = async (req, res, next) => {
@@ -73,7 +73,7 @@ export const sign_in = async function (req, res) {
       });
     }
 
-    const token = jwt.sign({ id: user.id }, config.secret, {
+    const token = jwt.sign({ id: user.id }, secret, {
       expiresIn: 86400, // 24 hours
     });
 
@@ -103,19 +103,6 @@ export const logout = async (req, res) => {
   }
 };
 
-export const user = async function (token) {
-  try {
-    let req = {
-      // probably needs change
-      url: "token",
-      token: token,
-    };
-    let user_result = await proxy(req);
-    return user_result.body.user_id;
-  } catch (error) {
-    return -1;
-  }
-};
 
 export const authJwt = {
   verifyToken,

@@ -179,6 +179,20 @@ export const find_user_by_username = function (username) {
     });
 }
 
+export const find_user_by_id = async function (id) {
+    return Account.findOne({
+        where: {
+            id: id
+        }
+    });
+}
+
+export const change_user_role = async function (id, role) {
+    const account = await find_user_by_id(id);
+    account.role = role;
+    await account.save();
+}
+
 export const getCoursesById = async function (id) {
     return Course.findAll(
         {
