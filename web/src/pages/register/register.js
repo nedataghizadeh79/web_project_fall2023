@@ -14,7 +14,7 @@ const Register = () => {
   return (
     <div className="makeRegisterRow">
       <div className="registerForm">
-        <p>به صفحه ثبت نام سایت دستاد خوش آمدید!</p>
+        <p className='khoshOmadid'>به صفحه ثبت نام سایت دستاد خوش آمدید!</p>
 
         <label> نقش کاربر </label>
         <select id="role" className="selectOption">
