@@ -14,7 +14,13 @@ function WelcomePage() {
     }, []);
 
     if (showWelcome) {
-        return <section className="welcomeImg"></section>;
+        return(
+            <>
+                <h2 className='welcomeh2'>به سامانه دستاد خوش آمدید</h2>
+                <section className="welcomeImg"></section>
+            </>
+        )
+    ;
     } else {
         return <LandingPage />;
     }

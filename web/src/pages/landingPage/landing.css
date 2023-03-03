@@ -1,44 +1,67 @@
 .landing {
-    display: flex;
-    flex-direction: row;
     width: 100%;
+    height: 100vh;
+    display: flex;
+}
 
+
+.bg-container{
+    position: absolute;
+    inset: 0;
+    z-index: -5;
 
 }
 
-.landing img {
+.bg-container img {
     width: 100%;
-    max-width: 500px;
 }
 
-.rightSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-.description {
-    display: flex;
+.rightSec{
+width: 32%;
+font-size: 20px;
     text-align: justify;
 }
 
-.buttons {
-
-    align-self: flex-start;
+.buttons2{
     display: flex;
     flex-direction: row;
-    gap: 1rem;
-
+    gap: 10px;
     width: 100%;
-    max-width: 400px;
-
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.buttons a {
-    width: 50%;
+.btnnn{
+    width: 300px;
+    font-weight: bold;
+    height: 40px;
+    }
+
+.description{
+    font-weight: bold;
 }
 
-.buttons button {
-    width: 100%;
+
+@media screen and (max-width: 1440px) {
+
+    .landing {
+        flex-direction: column;
+    }
+    .bg-container {
+    position: static;
+    }
+
+    .rightSec{
+        width: 100%;
+    }
+}
+
+
+
+@media screen and (max-width: 650px) {
+
+    .btnnn{
+        width: 145px;
+    }
+
 }

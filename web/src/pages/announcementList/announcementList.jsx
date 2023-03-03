@@ -16,25 +16,26 @@ function AnnouncementList({ announcements }) {
     console.warn("update", id);
   }, []);
 
-  const handleClick = useCallback((id) => {
-    // redirect to announcement
-    navigate(`/announcement/${id}`);
-  }, []);
+  const handleClick = useCallback(
+    (id) => {
+      // redirect to announcement
+      navigate(`/announcement/${id}`);
+    },
+    [navigate]
+  );
   return (
-    <main className="padded__container">
-      <div className="announcements_wrapper">
-        {JafarinezhadData.map((announcement) => (
-          <AnnouncementCard
-            key={announcement.id}
-            course={announcement.name}
-            createDate={announcement.createDate}
-            onDelete={() => handleDelete(announcement.id)}
-            onUpdate={() => handleUpdate(announcement.id)}
-            onClick={() => handleClick(announcement.id)}
-          />
-        ))}
-      </div>
-    </main>
+    <div className="announcements_wrapper">
+      {JafarinezhadData.map((announcement) => (
+        <AnnouncementCard
+          key={announcement.id}
+          course={announcement.name}
+          createDate={announcement.createDate}
+          onDelete={() => handleDelete(announcement.id)}
+          onUpdate={() => handleUpdate(announcement.id)}
+          onClick={() => handleClick(announcement.id)}
+        />
+      ))}
+    </div>
   );
 }
 

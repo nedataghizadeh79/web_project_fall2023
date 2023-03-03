@@ -12,14 +12,14 @@ const CardCourse = ({ courseName, masterName, status, clickHandler }) => {
           <span className="mainSpan"> استاد درس: </span>{" "}
           <span className="dataSpan"> {masterName} </span>
         </div>
-        <div className="data">
+        {/* <div className="data">
           <span className="mainSpan"> وضعیت: </span>{" "}
           <span
             className={status ? "dataSpan green-text" : "dataSpan red-text"}
           >
             {status ? "باز" : "فاقد ظرفیت"}
           </span>
-        </div>
+        </div> */}
       </div>
       <div className="footer_container">
         <button type="button" onClick={clickHandler}>

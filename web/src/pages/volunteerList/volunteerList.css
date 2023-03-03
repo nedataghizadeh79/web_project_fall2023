@@ -1,14 +1,15 @@
 .volunteer__container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     gap: 1rem;
 }
 
-.volunteer__container .card {
+/* .volunteer__container .card {
     height: auto;
     flex-direction: row;
     align-items: center;
-}
+} */
 
 
 .volunteer__name {
@@ -17,7 +18,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 155px;
+    max-width: 270px;
 }
 
 @media screen and (max-width: 425px) {

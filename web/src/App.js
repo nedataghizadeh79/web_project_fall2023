@@ -25,8 +25,8 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
         <Route path="/" element={<WelcomePage />} />
+        <Route path="/" element={<Layout />}>
         <Route path="/main" element={<MainPage />} />
         <Route path="profile/:user_id" element={<Profile />} />
         <Route path="course/:course_id" element={<Course />} />

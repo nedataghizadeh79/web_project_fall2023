@@ -13,6 +13,11 @@ function VolunteerList() {
             <Link to={`/profile/${volunteer.id}`} className="volunteer__name">
               {volunteer.name}
             </Link>
+            <hr />
+            <div className="extra-info">
+              <span>توضیحات اضافه:&nbsp;</span>
+              <span>ریکام میخوام!!!</span>
+            </div>
           </div>
           <div className="footer_container">
             <button>تایید</button>
