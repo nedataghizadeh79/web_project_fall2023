@@ -5,7 +5,7 @@ export async function login(body) {
         const res = await http.post('/login', body, {
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + ''
+                Authorization: 'Bearer ' + '',
             }
         })
     } catch (error) {
