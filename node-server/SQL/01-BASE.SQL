@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS account (
 	username VARCHAR(60) UNIQUE NOT NULL,
 	password VARCHAR(60) UNIQUE NOT NULL,
 	name VARCHAR(60) NOT NULL,
-	role VARCHAR(10) UNIQUE NOT NULL
+	email VARCHAR(60),
+	role INTEGER NOT NULL
 );
 
 DROP TABLE IF EXISTS course;
@@ -93,13 +94,20 @@ CREATE TABLE IF NOT EXISTS voluntary(
 	extra_info VARCHAR(500)
 );
 
+DROP TABLE IF EXISTS roles;
+
+CREATE TABLE IF NOT EXISTS roles(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(20)
+);
+
+INSERT INTO roles (id, name) VALUES (1, 'STUDENT');
+INSERT INTO roles (id, name) VALUES (2, 'INSTRUCTOR');
+INSERT INTO roles (id, name) VALUES (3, 'ADMIN');
+
 INSERT INTO semester (year, term) VALUES ('1402', '2');
-INSERT INTO account (username, password, role, name) VALUES ('shahab', 'shahab', 'student',
-                                                             'شهاب حسینی'
-                                                             );
-INSERT INTO account (username, password, role, name) VALUES ('omid', 'jafari', 'instructor',
-                                                             'امید جعفری'
-                                                             );
+INSERT INTO account (username, password, role, name) VALUES ('shahab', 'shahab', '1', 'شهاب حسینی');
+INSERT INTO account (username, password, role, name) VALUES ('omid', 'jafari', '2', 'امید جعفری');
 
 INSERT INTO course (year, term, professor_id, course_name, head_ta) VALUES
             (1402, 2, 2,
@@ -149,6 +157,5 @@ SELECT announcement.id AS id, announcement.course_id, announcement.description, 
        c.course_name, c.professor_id AS professor_id
         FROM announcement JOIN course c on c.id = announcement.course_id
         JOIN account a on a.id = c.professor_id;
-
 
 

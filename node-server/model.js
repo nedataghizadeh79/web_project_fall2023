@@ -23,6 +23,16 @@ const dbOpts = function (db_name) {
     }
 };
 
+export const Role = sequelize.define("roles", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    name: {
+        type: Sequelize.STRING
+    }
+}, dbOpts('roles'));
+
 export const Announcement = sequelize.define('announcement', {
     id: {
         type: DataTypes.INTEGER,
@@ -47,6 +57,7 @@ export const Account = sequelize.define('account', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     username: DataTypes.STRING,
     password: DataTypes.STRING,
+    email: DataTypes.STRING,
     name: DataTypes.STRING,
     role: DataTypes.STRING,
 }, dbOpts('account'));
@@ -136,6 +147,36 @@ export const CourseData = sequelize.define('course_data', {
 
 export const test_database = async function () {
     return sequelize.authenticate();
+}
+
+export const get_user_by_username = async function (username) {
+    return Account.findOne(
+      {
+          where: {
+              username: username
+          }
+      }
+    )
+}
+
+export const create_user = function (username, password, email, name, role){
+    return Account.create(
+      {
+          username: username,
+          password: password,
+          email: email,
+          name: name,
+          role: role,
+      }
+    )
+}
+
+export const find_user_by_username = function (username) {
+    return Account.findOne({
+        where: {
+            username: username,
+        },
+    });
 }
 
 export const getCoursesById = async function (id) {

@@ -16,4 +16,39 @@ export const constants = {
   "اعلامیه جذب دستیار با موفقیت منتشر شد",
   role_does_not_match:
   "شما مجاز به ارسال این درخواست نیستید",
+  not_signed_in:
+  "برای استفاده از سرویس باید وارد حساب کاربری خود شوید",
+  token_expired:
+  "اعتبار نشست شما تمام شده است. برای استفاده از سرویس لازم است دوباره وارد شوید.",
+  user_not_found:
+  "حساب کاربری وجود ندارد.",
+  account_created:
+  "حساب کاربری شما با موفقیت ساخته شد",
+}
+
+export const responseUtils = {
+  server_error: function (error, res) {
+    console.log(error);
+    res.status(500).send(constants.internal_server_error);
+  },
+  request_error: function (error, res) {
+    // ???
+    res.status(404).send(error);
+  },
+  forbidden: function (res) {
+    res.status(403).send({
+      message: constants.role_does_not_match,
+    });
+  },
+  unauthorized: function (res){
+    res.status(401).send({
+      message: constants.not_signed_in
+    })
+  },
+  not_found: function (res, description){
+    res.status(404).send({
+      message: description || constants.user_not_found
+    });
+  }
+
 }

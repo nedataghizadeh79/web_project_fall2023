@@ -7,8 +7,10 @@ import {
   create_announcement_validation_rules,
   validate,
 } from "./validators.js";
-import { sign_in, sign_up, user, logout } from "./auth.js";
+import { sign_in, sign_up, user, logout, authJwt } from "./auth.js";
 import {view_all_course_data} from "./handlers.js";
+import cors from 'cors';
+import cookieSession from "cookie-session";
 const app = express();
 const port = 3000;
 
@@ -18,6 +20,13 @@ app.listen(port, () => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  cookieSession({
+    name: "bezkoder-session",
+    secret: "COOKIE_SECRET", // should use as secret environment variable
+    httpOnly: true
+  })
+);
 
 const ignore_auth = ["/sign_up", "/sign_in", "/create_announcement", "/volunteer", "/view_announcements_by_instructor"];
 
@@ -31,9 +40,8 @@ const get_user_from_auth = async function (token) {
 const check_user = function (req, res, next) {
   console.log("bypass token");
   if (ignore_auth.includes(req.url)) {
-    req.body.USER = 1;
-    req.body.ROLE = 'instructor';
-    next();
+    req.body.USER = 2;
+    req.body.ROLE = 'student';
   }
   next();
 };
