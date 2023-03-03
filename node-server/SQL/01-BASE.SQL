@@ -74,6 +74,15 @@ CREATE TABLE IF NOT EXISTS red_alert_documents(
 	document BYTEA
 );
 
+
+DROP TABLE IF EXISTS announcement;
+
+CREATE TABLE announcement(
+                             id SERIAL PRIMARY KEY,
+                             course_id INTEGER REFERENCES course(id),
+                             description VARCHAR(500)
+);
+
 DROP TABLE IF EXISTS voluntary;
 
 CREATE TABLE IF NOT EXISTS voluntary(
@@ -84,14 +93,6 @@ CREATE TABLE IF NOT EXISTS voluntary(
 	extra_info VARCHAR(500)
 );
 
-DROP TABLE IF EXISTS announcement;
-
-CREATE TABLE announcement(
-    id SERIAL PRIMARY KEY,
-    course_id INTEGER REFERENCES course(id),
-    description VARCHAR(500)
-);
-
 INSERT INTO semester (year, term) VALUES ('1402', '2');
 INSERT INTO account (username, password, role, name) VALUES ('shahab', 'shahab', 'student',
                                                              'شهاب حسینی'
@@ -100,8 +101,15 @@ INSERT INTO account (username, password, role, name) VALUES ('omid', 'jafari', '
                                                              'امید جعفری'
                                                              );
 
+INSERT INTO course (year, term, professor_id, course_name, head_ta) VALUES
+            (1402, 2, 2,
+             'برنامه نویسی وب',
+             null
+             );
 
 /* views */
+
+DROP VIEW IF EXISTS course_data;
 
 CREATE VIEW course_data AS
 	SELECT course.id AS course_id,
@@ -114,12 +122,16 @@ CREATE VIEW course_data AS
 	FROM account WHERE account.id = course.head_ta) AS head_ta_name
 	FROM course;
 
+DROP VIEW IF EXISTS course_ta_view;
+
 CREATE VIEW course_ta_view AS
 	SELECT course_ta.course_id AS course_id,
 	course_ta.ta AS ta_id,
 	(SELECT account.name
 	FROM account WHERE account.id = course_ta.ta) AS ta_name
 	FROM course_ta;
+
+DROP VIEW IF EXISTS volunteer_data;
 
 CREATE VIEW volunteer_data AS
 	SELECT voluntary.student_id AS student_id,
@@ -128,6 +140,8 @@ CREATE VIEW volunteer_data AS
 	voluntary.extra_info AS extra_info,
 	voluntary.status AS status
 	FROM voluntary;
+
+DROP VIEW IF EXISTS announcement_clean_list;
 
 CREATE VIEW announcement_clean_list AS
 SELECT announcement.id AS id, announcement.course_id, announcement.description,
