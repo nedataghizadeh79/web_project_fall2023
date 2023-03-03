@@ -23,7 +23,7 @@ const MainPage = () => {
 
   const volunteerForCourse = useCallback(async () => {
     try {
-      const res = await volunteerForCourse(selectedCourse.course_id);
+      const res = await volunteerForCourse({ course_id: selectedCourse.course_id, extra_info: extraInfo });
       if (res) {
 
         closeModal();
