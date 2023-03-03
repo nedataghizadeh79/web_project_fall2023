@@ -79,7 +79,8 @@ DROP TABLE IF EXISTS voluntary;
 CREATE TABLE IF NOT EXISTS voluntary(
 	announcement_id INTEGER REFERENCES announcement(id),
 	student_id INTEGER REFERENCES account(id),
-	status VARCHAR(10)
+	status VARCHAR(10),
+	extra_info VARCHAR(500)
 );
 
 DROP TABLE IF EXISTS announcement;
@@ -115,3 +116,11 @@ CREATE VIEW course_ta_view AS
 	(SELECT account.name
 	FROM account WHERE account.id = course_ta.ta) AS ta_name
 	FROM course_ta;
+
+CREATE VIEW volunteer_data AS
+	SELECT voluntary.student_id AS student_id,
+	(SELECT account.name
+	FROM account WHERE account.id = voluntary.student_id) AS student_name,
+	voluntary.extra_info AS extra_info,
+	voluntary.status AS status
+	FROM voluntary;
