@@ -1,4 +1,4 @@
-import {DataTypes, Op, Sequelize, where} from 'sequelize';
+import { DataTypes, Op, Sequelize, where } from 'sequelize';
 
 /*
 voluntary status:
@@ -8,6 +8,11 @@ voluntary status:
 /*
 user roles: 
 [student, instructor, admin]
+*/
+
+/*
+course term:
+[1, 2, 3]
 */
 
 const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/dastad') // Example for postgres
@@ -90,7 +95,7 @@ export const RedAlertDocuments = sequelize.define('red_alert_documents', {
 
 
 export const Voluntary = sequelize.define('voluntary', {
-    id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     announcement_id: DataTypes.INTEGER,
     student_id: DataTypes.INTEGER,
     status: DataTypes.STRING, // todo: this might not work with the current database...
@@ -119,33 +124,33 @@ export const test_database = async function () {
 
 export const getCoursesById = async function (id) {
     return Course.findAll(
-      {
-          where:{
-              id: id
-          }
-      }
+        {
+            where: {
+                id: id
+            }
+        }
     )
 }
 
-export const create_announcement_database = async function (course_id, description){
+export const create_announcement_database = async function (course_id, description) {
     return Announcement.create(
-      {
-          course_id: course_id,
-          description: description
-      }
+        {
+            course_id: course_id,
+            description: description
+        }
     )
 }
 
-export const create_volunteer_database = async function (student_id, course_id){
+export const create_volunteer_database = async function (student_id, course_id) {
     return Voluntary.create(
-      {
+        {
             student_id: student_id,
             course_id: course_id,
             status: "pending"
-      }
+        }
     )
 }
 
-export const get_all_announcements = async function() {
+export const get_all_announcements = async function () {
     return AnnouncementView.findAll();
 }
