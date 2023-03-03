@@ -31,7 +31,7 @@ const MainPage = () => {
     } catch (e) {
       console.log(e);
     }
-  });
+  }, [closeModal, extraInfo, selectedCourse]);
 
   return (
     <div ref={container}>
