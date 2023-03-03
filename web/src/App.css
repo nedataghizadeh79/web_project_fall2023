@@ -79,6 +79,10 @@ hr {
     margin-bottom: 1rem;
 }
 
+.text__bold {
+    font-weight: 600;
+}
+
 .card {
     background-color: #f1f1f2;
     border: var(--border-color) 1px solid;

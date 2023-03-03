@@ -21,6 +21,18 @@ const MainPage = () => {
     setIsOpen(false);
   }, []);
 
+  const volunteerForCourse = useCallback(async () => {
+    try {
+      const res = await volunteerForCourse(selectedCourse.course_id);
+      if (res) {
+
+        closeModal();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  });
+
   return (
     <div ref={container}>
       <section className="header"></section>
@@ -33,17 +45,18 @@ const MainPage = () => {
       >
         <div className="modal__body">
           <h2>{selectedCourse?.name}</h2>
-          <p>{selectedCourse?.description}</p>
+          <p><span className="text__bold">توضیحات استاد:&nbsp;</span>{selectedCourse?.description}</p>
           <textarea
             value={extraInfo}
+            id="extraInfo"
             onChange={(e) => setExtraInfo(e.target.value)}
-            placeholder="توضیحات اضافه (اختیاری)"
+            placeholder="در صورتی که توضیح اضافه‌ای برای استاد دارید در اینجا وارد کنید"
             className="extra_info"
           />
         </div>
 
         <div className="modal__footer">
-          <button>ارسال</button>
+          <button onClick={volunteerForCourse}>ارسال</button>
           <button onClick={closeModal} className="cancel">
             لغو
           </button>
