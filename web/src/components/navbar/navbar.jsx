@@ -9,12 +9,12 @@ function Navbar() {
       <div className="navbar__container">
         <ul>
           <li>
-            <Link to={"/main"}>صفحه اصلی</Link>
+              <Link className='mainButton' to={"/main"}>صفحه اصلی</Link>
           </li>
         </ul>
         <div className="navbar__left">
           {loggedIn ? (
-            <Link to={`/profile/${12}`}>پروفایل</Link>
+                <Link className='profileLink' to={`/profile/${12}`}>پروفایل</Link>
           ) : (
             <>
               <Link to={"/login"}>ورود</Link>
