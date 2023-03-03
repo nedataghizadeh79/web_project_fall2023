@@ -1,6 +1,6 @@
 import "./landing.css";
-import back from "../../assets/images/landing/landing.png";
-import {Link} from "react-router-dom";
+import back from "../../assets/images/landing/landing2.png";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
     return (
@@ -40,7 +40,7 @@ const LandingPage = () => {
 
             </section>
             <div className="bg-container">
-                <img src={back} alt='bgc'/>
+                <img src={back} alt='bgc' />
             </div>
 
         </div>
