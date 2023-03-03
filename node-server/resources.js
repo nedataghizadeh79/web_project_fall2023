@@ -14,5 +14,6 @@ export const constants = {
   "مشکلی در پردازش درخواست شما وجود داشت",
   announcement_created:
   "اعلامیه جذب دستیار با موفقیت منتشر شد",
-
+  role_does_not_match:
+  "شما مجاز به ارسال این درخواست نیستید",
 }

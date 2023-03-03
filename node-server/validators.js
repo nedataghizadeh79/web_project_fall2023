@@ -1,4 +1,12 @@
 import {body, validationResult} from 'express-validator';
+import {constants} from "./resources.js";
+
+const is_ostad_or_admin = function (value){
+    if (value && (value === 'instructor' || value === 'admin')){
+        return true;
+    }
+    throw new Error("invalid role");
+}
 
 const IATA_LEN = 3;
 export const available_offers_search_validation_rules = () => {
@@ -36,7 +44,11 @@ export const sign_in_validation_rules = () => {
 }
 
 export const create_announcement_validation_rules =() => {
-    return false;
+    return[
+        body('ROLE').custom(is_ostad_or_admin),
+        body('course_id').isInt(),
+        body('description').isLength({max: 500})
+    ];
 }
 
 
@@ -44,6 +56,11 @@ export const validate = (req, res, next) => {
     const errors = validationResult(req)
     if (errors.isEmpty()) {
         return next()
+    }
+    if (errors.errors[0].param === 'ROLE'){
+        return res.status(403).json({
+            errors: [{'ROLE': constants.role_does_not_match}],
+        })
     }
     const extractedErrors = []
     errors.array().map(err => extractedErrors.push({[err.param]: err.msg}))

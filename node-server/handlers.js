@@ -3,7 +3,9 @@ import {
   getCoursesById,
   create_announcement_database,
   create_volunteer_database,
-  get_all_announcements
+  get_all_announcements,
+  get_announcements_by_professor_id,
+  find_all_course_data,
 } from "./model.js";
 import { validationResult } from "express-validator";
 import axios from "axios";
@@ -146,4 +148,23 @@ export const view_announcements = async function (req, res){
 
 export const student_write_feedback = async function (req, res){
 
+}
+
+
+export const view_announcements_by_instructor = async function (req, res){
+  try{
+    const announcements = await get_announcements_by_professor_id(req.body.USER);
+    res.send(announcements);
+  }catch (error){
+    server_error(error, res);
+  }
+}
+
+export const view_all_course_data = async function (req, res) {
+  try {
+    const course_datas = await find_all_course_data();
+    res.send(course_datas);
+  }catch (error){
+    server_error(error, res);
+  }
 }

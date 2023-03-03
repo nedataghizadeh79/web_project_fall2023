@@ -8,6 +8,7 @@ import {
   validate,
 } from "./validators.js";
 import { sign_in, sign_up, user, logout } from "./auth.js";
+import {view_all_course_data} from "./handlers.js";
 const app = express();
 const port = 3000;
 
@@ -18,7 +19,7 @@ app.listen(port, () => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const ignore_auth = ["/sign_up", "/sign_in", "/create_announcement", "/volunteer", "/view_announcements"];
+const ignore_auth = ["/sign_up", "/sign_in", "/create_announcement", "/volunteer", "/view_announcements_by_instructor"];
 
 const get_user_from_auth = async function (token) {
     let user_result = await user();
@@ -34,6 +35,7 @@ const check_user = function (req, res, next) {
     req.body.ROLE = 'instructor';
     next();
   }
+  next();
 };
 
 app.post("*", check_user);
@@ -48,14 +50,15 @@ app.post("/sign_in", sign_in_validation_rules(), validate, sign_in);
 app.post("/logout", logout);
 
 // create_announcement_validation_rules, validate
-app.post('/create_announcement', handlers.create_announcement);
+app.post('/create_announcement', create_announcement_validation_rules(), validate, handlers.create_announcement);
 
 app.post('/volunteer', handlers.volunteer);
 
 app.get('/view_announcements', handlers.view_announcements);
 
+app.post('/view_announcements_by_instructor', handlers.view_announcements_by_instructor);
 
-
+app.post('/view_all_course_data', handlers.view_all_course_data);
 
 
 

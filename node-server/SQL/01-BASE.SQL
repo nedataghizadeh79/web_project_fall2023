@@ -115,6 +115,7 @@ CREATE VIEW course_data AS
 	SELECT course.id AS course_id,
 	course.year AS year,
 	course.term AS term,
+	course.course_name AS course_name,
 	(SELECT account.name
 	FROM account WHERE account.id = course.professor_id) AS instructor,
 	course.head_ta AS head_ta_id,
@@ -144,7 +145,10 @@ CREATE VIEW volunteer_data AS
 DROP VIEW IF EXISTS announcement_clean_list;
 
 CREATE VIEW announcement_clean_list AS
-SELECT announcement.id AS id, announcement.course_id, announcement.description,
+SELECT announcement.id AS id, announcement.course_id, announcement.description, a.name AS professor_name,
        c.course_name, c.professor_id AS professor_id
-FROM announcement JOIN course c on c.id = announcement.course_id;
+        FROM announcement JOIN course c on c.id = announcement.course_id
+        JOIN account a on a.id = c.professor_id;
+
+
 

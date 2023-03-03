@@ -107,9 +107,25 @@ export const AnnouncementView = sequelize.define('announcement_clean_list', {
     course_id: DataTypes.INTEGER,
     description: DataTypes.STRING,
     course_name: DataTypes.STRING,
-    professor_id: DataTypes.INTEGER
+    professor_id: DataTypes.INTEGER,
+    professor_name: DataTypes.STRING,
 }, {
     tableName: 'announcement_clean_list', createdAt: false, updatedAt: false
+});
+
+export const CourseData = sequelize.define('course_data', {
+    course_id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
+    },
+    year: DataTypes.STRING,
+    term: DataTypes.STRING,
+    course_name: DataTypes.STRING,
+    instructor: DataTypes.STRING,
+    head_ta_id: DataTypes.INTEGER,
+    head_ta_name: DataTypes.STRING,
+}, {
+    tableName: 'course_data', createdAt: false, updatedAt: false
 });
 
 
@@ -148,4 +164,18 @@ export const create_volunteer_database = async function (student_id, course_id){
 
 export const get_all_announcements = async function() {
     return AnnouncementView.findAll();
+}
+
+export const get_announcements_by_professor_id = async function(professor_id) {
+    return AnnouncementView.findAll(
+      {
+          where:{
+              professor_id: professor_id
+          }
+      }
+    )
+}
+
+export const find_all_course_data = async function (){
+    return CourseData.findAll();
 }
