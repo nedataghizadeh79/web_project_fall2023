@@ -18,7 +18,7 @@ app.listen(port, () => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const ignore_auth = ["/sign_up", "/sign_in"];
+const ignore_auth = ["/sign_up", "/sign_in", "/create_announcement", "/volunteer", "/view_announcements"];
 
 const get_user_from_auth = async function (token) {
     let user_result = await user();
@@ -28,25 +28,11 @@ const get_user_from_auth = async function (token) {
     return parseInt(user_result.body.userId);
 };
 const check_user = function (req, res, next) {
+  console.log("bypass token");
   if (ignore_auth.includes(req.url)) {
+    req.body.USER = 1;
+    req.body.ROLE = 'instructor';
     next();
-    return;
-  }
-  const token = req.headers["Token"];
-  console.log(token);
-  if (typeof token !== "undefined") {
-    // let bearer = token.substring(7);
-    let user_id = get_user_from_auth(token);
-    if (user_id === -1) {
-      res.status(400);
-      res.send("invalid token");
-    } else {
-      req.USER = user_id;
-      next();
-    }
-  } else {
-    res.status(400);
-    res.send("invalid token");
   }
 };
 
@@ -66,6 +52,7 @@ app.post('/create_announcement', handlers.create_announcement);
 
 app.post('/volunteer', handlers.volunteer);
 
+app.get('/view_announcements', handlers.view_announcements);
 
 
 

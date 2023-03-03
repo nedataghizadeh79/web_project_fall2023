@@ -77,6 +77,7 @@ CREATE TABLE IF NOT EXISTS red_alert_documents(
 DROP TABLE IF EXISTS voluntary;
 
 CREATE TABLE IF NOT EXISTS voluntary(
+    id SERIAL PRIMARY KEY,
 	announcement_id INTEGER REFERENCES announcement(id),
 	student_id INTEGER REFERENCES account(id),
 	status VARCHAR(10),
@@ -92,10 +93,13 @@ CREATE TABLE announcement(
 );
 
 INSERT INTO semester (year, term) VALUES ('1402', '2');
-INSERT INTO account (username, password, role) VALUES ('shahab', 'shahab', 'student');
-INSERT INTO account (username, password, role) VALUES ('omid', 'jafari', 'instructor');
+INSERT INTO account (username, password, role, name) VALUES ('shahab', 'shahab', 'student',
+                                                             'شهاب حسینی'
+                                                             );
+INSERT INTO account (username, password, role, name) VALUES ('omid', 'jafari', 'instructor',
+                                                             'امید جعفری'
+                                                             );
 
-ALTER TABLE voluntary ADD COLUMN id SERIAL PRIMARY KEY;
 
 /* views */
 
@@ -124,3 +128,9 @@ CREATE VIEW volunteer_data AS
 	voluntary.extra_info AS extra_info,
 	voluntary.status AS status
 	FROM voluntary;
+
+CREATE VIEW announcement_clean_list AS
+SELECT announcement.id AS id, announcement.course_id, announcement.description,
+       c.course_name, c.professor_id AS professor_id
+FROM announcement JOIN course c on c.id = announcement.course_id;
+

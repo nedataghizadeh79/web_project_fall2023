@@ -2,7 +2,8 @@ import {
   test_database,
   getCoursesById,
   create_announcement_database,
-  create_volunteer_database
+  create_volunteer_database,
+  get_all_announcements
 } from "./model.js";
 import { validationResult } from "express-validator";
 import axios from "axios";
@@ -127,7 +128,14 @@ export const professor_accept_reject = async function (req, res){
   }
 }
 
-
+export const view_announcements = async function (req, res){
+  try{
+    const announcements = await get_all_announcements();
+    res.send(announcements);
+  }catch (error){
+    server_error(error, res);
+  }
+}
 /*
 
   logic:

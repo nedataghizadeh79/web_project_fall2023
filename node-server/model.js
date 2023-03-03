@@ -42,6 +42,7 @@ export const Account = sequelize.define('account', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     username: DataTypes.STRING,
     password: DataTypes.STRING,
+    name: DataTypes.STRING,
     role: DataTypes.STRING,
 }, dbOpts('account'));
 
@@ -90,11 +91,25 @@ export const RedAlertDocuments = sequelize.define('red_alert_documents', {
 
 export const Voluntary = sequelize.define('voluntary', {
     id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
-    course_id: DataTypes.INTEGER,
+    announcement_id: DataTypes.INTEGER,
     student_id: DataTypes.INTEGER,
     status: DataTypes.STRING, // todo: this might not work with the current database...
 }, {
     tableName: 'voluntary', createdAt: false, updatedAt: false
+});
+
+export const AnnouncementView = sequelize.define('announcement_clean_list', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    course_id: DataTypes.INTEGER,
+    description: DataTypes.STRING,
+    course_name: DataTypes.STRING,
+    professor_id: DataTypes.INTEGER
+}, {
+    tableName: 'announcement_clean_list', createdAt: false, updatedAt: false
 });
 
 
@@ -129,4 +144,8 @@ export const create_volunteer_database = async function (student_id, course_id){
             status: "pending"
       }
     )
+}
+
+export const get_all_announcements = async function() {
+    return AnnouncementView.findAll();
 }
