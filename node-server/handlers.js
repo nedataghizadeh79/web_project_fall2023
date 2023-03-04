@@ -10,6 +10,7 @@ import {
   change_user_role,
   Account,
 } from "./model.js" ;
+import * as model from "./model.js";
 import { validationResult } from "express-validator";
 import axios from "axios";
 import {messages, responseUtils} from "./resources.js";
@@ -174,7 +175,7 @@ export const view_all_course_data = async function (req, res) {
 
 export const change_role = async function (req, res){
   try{
-    const account = find_user_by_id(req.body.user_id);
+    const account = await find_user_by_id(req.body.user_id);
     if (account){
       await change_user_role(req.body.user_id, req.body.role);
       res.send(constants.success);
@@ -184,5 +185,34 @@ export const change_role = async function (req, res){
     }
   }catch (error){
     server_error(error, res)
+  }
+}
+
+export const write_comment = async function (req, res){
+  try{
+    const ta = await model.get_ta_by_id(req.body.ta_id);
+    if (! ta){
+      responseUtils.not_found(res, "TA not found");
+    }
+    const course = model.get_course_by_id(req.body.course_id);
+    if (! course){
+      responseUtils.not_found(res, "Course not found");
+    }
+    const {ta_id, comment, rate} = req.body;
+    if (course.instructor === req.body.USER_ID){
+      await model.insert_instructor_feedback(
+        course.instructor, course.id, ta_id, comment, rate
+      );
+    }
+    else if (course.head_ta === req.body.USER_ID){
+      await model.insert_head_ta_feedback(
+        course.head_ta, course.id, ta_id, comment, rate
+      );
+    }
+    else{
+      responseUtils.forbidden(res);
+    }
+  }catch (error){
+    responseUtils.server_error(error, res);
   }
 }

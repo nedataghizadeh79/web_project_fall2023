@@ -7,22 +7,17 @@ import pkg from 'bcryptjs';
 const bcrypt = pkg;
 
 
-const verifyToken = (req, res) => {
+const verifyToken = async (req, res) => {
   let token = req.session.token;
   if (!token) {
-    res.status(403).send({
+    return res.status(403).send({
       message: constants.not_signed_in,
     });
   }
-  jwt.verify(token, secret, async (err, decoded) => {
-    if (err) {
-      res.status(401).send({
-        message: constants.token_expired,
-      });
-    }
-    req.header.USER_ID = decoded.id;
-    req.header.USER_ROLE = await find_user_by_id(decoded.id).role;
-  });
+  let user;
+  const decoded = jwt.verify(token, secret);
+  user = await find_user_by_id(decoded.id);
+  return user;
 };
 const isOstadOrAdmin = async (req, res, next) => {
   try {

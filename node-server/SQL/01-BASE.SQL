@@ -158,4 +158,11 @@ SELECT announcement.id AS id, announcement.course_id, announcement.description, 
         FROM announcement JOIN course c on c.id = announcement.course_id
         JOIN account a on a.id = c.professor_id;
 
+ALTER TABLE professor_feedback ADD COLUMN rate INTEGER;
+ALTER TABLE professor_feedback ADD COLUMN comment VARCHAR(500);
+ALTER TABLE professor_feedback ADD COLUMN id SERIAL PRIMARY KEY;
+
+ALTER TABLE head_feedback ADD COLUMN rate INTEGER;
+ALTER TABLE head_feedback ADD COLUMN comment VARCHAR(500);
+ALTER TABLE head_feedback ADD COLUMN id SERIAL PRIMARY KEY;
 

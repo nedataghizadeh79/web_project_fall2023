@@ -77,15 +77,29 @@ export const CourseTA = sequelize.define('course_ta', {
 }, dbOpts('course_ta'));
 
 export const ProfessorFeedback = sequelize.define('professor_feedback', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
     professor_id: DataTypes.INTEGER,
     course_id: DataTypes.INTEGER,
     ta_id: DataTypes.INTEGER,
+    comment: DataTypes.STRING,
+    rate: DataTypes.INTEGER
 }, dbOpts('professor_feedback'));
 
 export const HeadFeedback = sequelize.define('head_feedback', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
     head_id: DataTypes.INTEGER,
     course_id: DataTypes.INTEGER,
-    ta_id: DataTypes.INTEGER
+    ta_id: DataTypes.INTEGER,
+    comment: DataTypes.STRING,
+    rate: DataTypes.INTEGER,
 }, dbOpts('head_feedback'));
 
 
@@ -185,6 +199,50 @@ export const find_user_by_id = async function (id) {
             id: id
         }
     });
+}
+
+export const get_ta_by_id = async function (id){
+  return CourseTA.findOne({
+    where: {
+      id: id
+    }
+  });
+}
+
+export const get_course_by_id = async function (id){
+    return Course.findOne({
+        where: {
+            id: id
+        }
+    });
+}
+
+export const insert_instructor_feedback = async function (
+  professor_id, course_id, ta_id, comment, rate
+){
+    return ProfessorFeedback.create(
+      {
+          professor_id: professor_id,
+          course_id: course_id,
+          ta_id: ta_id,
+          comment: course_id,
+          rate: rate,
+      }
+    )
+}
+
+export const insert_head_ta_feedback = async function (
+  head_id, course_id, ta_id, comment, rate
+){
+    return HeadFeedback.create(
+      {
+          head_id: professor_id,
+          course_id: course_id,
+          ta_id: ta_id,
+          comment: course_id,
+          rate: rate,
+      }
+    )
 }
 
 export const change_user_role = async function (id, role) {

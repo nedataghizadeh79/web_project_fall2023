@@ -7,6 +7,7 @@ import {
   create_announcement_validation_rules,
   voluntary_validation_rules,
   change_user_role_validation_rules,
+  write_comment_validation_rules,
   validate,
 } from "./validators.js";
 import { sign_in, sign_up, logout, authJwt } from "./auth.js";
@@ -34,16 +35,14 @@ app.use(cors({
 
 const ignore_auth = ["/sign_up", "/sign_in"];
 
-const get_user_from_auth = function (token, res) {
-  authJwt.verifyToken(token, res);
-};
-const check_user = function (req, res, next) {
+const check_user = async function (req, res, next) {
   if (ignore_auth.includes(req.url)) {
     req.header.USER_ID = -1;
     req.header.USER_ROLE = -1;
-  }
-  else {
-    get_user_from_auth(req, res);
+  } else {
+    const user = await authJwt.verifyToken(req, res);
+    req.body.USER_ID = user.id;
+    req.body.USER_ROLE = user.role;
   }
   next();
 };
@@ -72,7 +71,7 @@ app.post('/view_all_course_data', handlers.view_all_course_data);
 
 app.post('/change_user_role', change_user_role_validation_rules(), validate, handlers.change_role);
 
-
+app.post('/write_comment', write_comment_validation_rules(), validate, handlers.write_comment);
 
 
 
