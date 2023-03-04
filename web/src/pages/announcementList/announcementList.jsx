@@ -25,16 +25,17 @@ function AnnouncementList({ announcements }) {
   );
   return (
     <div className="announcements_wrapper">
-      {JafarinezhadData.map((announcement) => (
-        <AnnouncementCard
-          key={announcement.id}
-          course={announcement.name}
-          createDate={announcement.createDate}
-          onDelete={() => handleDelete(announcement.id)}
-          onUpdate={() => handleUpdate(announcement.id)}
-          onClick={() => handleClick(announcement.id)}
-        />
-      ))}
+      {announcements &&
+        announcements.map((announcement) => (
+          <AnnouncementCard
+            key={announcement.id}
+            course={announcement.name}
+            createDate={announcement.createDate}
+            onDelete={() => handleDelete(announcement.id)}
+            onUpdate={() => handleUpdate(announcement.id)}
+            onClick={() => handleClick(announcement.id)}
+          />
+        ))}
     </div>
   );
 }

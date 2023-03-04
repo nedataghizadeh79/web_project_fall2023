@@ -1,6 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactModal from "react-modal";
+import { toast } from "react-toastify";
+import { getInstructorAnnouncements } from "../../api/http/announcement";
+import { getInstructorCourses } from "../../api/http/courses";
+import { JafarinezhadData } from "../../data/courses.data";
 import AnnouncementList from "../../pages/announcementList/announcementList";
+import { useLoaderDispatcher } from "../../providers/loaderProvider";
 
 const initialCourseForm = {
   courseName: "",
@@ -8,11 +13,20 @@ const initialCourseForm = {
   term: "1",
 };
 
+const initialAnnouncementForm = {
+  course_id: "",
+  description: "",
+};
+
 function InstructorProfile() {
   const container = useRef();
   const [isCreatingCourse, setIsCreatingCourse] = useState(false);
+  const [courses, setCourses] = useState({});
+  const [announcements, setAnnouncements] = useState(JafarinezhadData);
 
   const [courseForm, setCourseForm] = useState(initialCourseForm);
+
+  const dispatch = useLoaderDispatcher();
 
   const updateCourseForm = (e) => {
     setCourseForm((form) => ({ ...form, [e.target.name]: e.target.value }));
@@ -22,6 +36,31 @@ function InstructorProfile() {
     setIsCreatingCourse(false);
     setCourseForm(initialCourseForm);
   };
+
+  useEffect(() => {
+    dispatch({ type: "show" });
+
+    let error = null;
+
+    getInstructorCourses()
+      .then((data) => {
+        setCourses(data);
+      })
+      .catch(async (err) => {
+        error = await err.response.data.message;
+      });
+
+    getInstructorAnnouncements()
+      .then((data) => {
+        setAnnouncements(data);
+      })
+      .catch(async (err) => {
+        error = await err.response.data.message;
+      });
+
+    dispatch({ type: "hide" });
+    error && toast.error(error);
+  }, [dispatch]);
 
   return (
     <main className="profile padded__container" ref={container}>
@@ -34,7 +73,7 @@ function InstructorProfile() {
           <button>ایجاد اعلان جدید</button>
         </div>
         <hr />
-        <AnnouncementList />
+        <AnnouncementList announcements={announcements} />
       </section>
       <section>
         <div className="section__header">
@@ -44,6 +83,7 @@ function InstructorProfile() {
           </button>
         </div>
         <hr />
+        <div>{courses}</div>
       </section>
       <ReactModal
         isOpen={isCreatingCourse}
