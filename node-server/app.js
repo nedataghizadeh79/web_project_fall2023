@@ -11,6 +11,7 @@ import {
 } from "./validators.js";
 import { sign_in, sign_up, logout, authJwt } from "./auth.js";
 import cookieSession from "cookie-session";
+import cors from 'cors';
 const app = express();
 const port = 8080;
 
@@ -27,6 +28,9 @@ app.use(
     httpOnly: true
   })
 );
+app.use(cors({
+  origin: "*",
+}));
 
 const ignore_auth = ["/sign_up", "/sign_in"];
 

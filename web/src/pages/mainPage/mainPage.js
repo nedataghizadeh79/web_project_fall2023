@@ -3,6 +3,9 @@ import CardCoursesWrapper from "../../components/cardCoursesWrapper/cardCoursesW
 import ReactModal from "react-modal";
 import { useCallback, useState } from "react";
 import { useRef } from "react";
+import { volunteerForAnnouncement } from "../../api/announcement/volunteerForAnnouncement";
+import { toast } from "react-toastify";
+import { updateToastToError, updateToastToSuccess } from "../../utils";
 
 const MainPage = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
@@ -22,15 +25,32 @@ const MainPage = () => {
   }, []);
 
   const volunteerForCourse = useCallback(async () => {
-    try {
-      const res = await volunteerForCourse({ course_id: selectedCourse.course_id, extra_info: extraInfo });
-      if (res) {
-
+    // toast.promise(volunteerForAnnouncement({ course_id: selectedCourse.course_id, extra_info: extraInfo }),
+    //   {
+    //     pending: "در حال ارسال...",
+    //     success: {
+    //       render() {
+    //         closeModal();
+    //         return "درخواست با موفقیت ارسال شد"
+    //       }
+    //     },
+    //     error: {
+    //       async render({ data }) {
+    //         const message = await data.response.data.message;
+    //         return message
+    //       }
+    //     }
+    //   })
+    const pend = toast.loading("در حال ارسال...")
+    volunteerForAnnouncement({ course_id: selectedCourse.course_id, extra_info: extraInfo })
+      .then((res) => {
         closeModal();
-      }
-    } catch (e) {
-      console.log(e);
-    }
+        updateToastToSuccess(pend, "درخواست با موفقیت ارسال شد.");
+      })
+      .catch(async (err) => {
+        const data = await err.response.data.message;
+        updateToastToError(pend, data);
+      })
   }, [closeModal, extraInfo, selectedCourse]);
 
   return (

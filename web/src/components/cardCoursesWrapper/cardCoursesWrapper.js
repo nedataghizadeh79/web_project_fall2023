@@ -7,7 +7,7 @@ const CardCoursesWrapper = ({ handleClick }) => {
     <div className="cardCoursesWrapper padded__container">
       {fakeData.map((course) => (
         <CardCourse
-          key={course.id}
+          key={course.course_id}
           courseName={course.name}
           masterName={course.instructor}
           status={course.isOpen}

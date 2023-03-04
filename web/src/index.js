@@ -18,7 +18,7 @@ root.render(
                     <Loader>
                     </Loader>
                     <App />
-                    <ToastContainer position={toast.POSITION.BOTTOM_LEFT} autoClose={5000} />
+                    <ToastContainer rtl position={toast.POSITION.BOTTOM_LEFT} autoClose={5000} />
                 </UserProvider>
             </LoaderProvider>
         </BrowserRouter>
