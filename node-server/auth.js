@@ -1,22 +1,22 @@
 import { validationResult } from "express-validator";
-import {create_user, find_user_by_username, find_user_by_id, Account} from "./model.js";
+import { create_user, find_user_by_username, find_user_by_id, Account } from "./model.js";
 import jwt from "jsonwebtoken";
-import {secret} from "./config/auth.config.js";
-import {constants, messages, responseUtils} from "./resources.js";
+import { secret } from "./config/auth.config.js";
+import { constants, messages, responseUtils } from "./resources.js";
 import pkg from 'bcryptjs';
 const bcrypt = pkg;
 
 
-const verifyToken = (req) => {
+const verifyToken = (req, res) => {
   let token = req.session.token;
   if (!token) {
-    return res.status(403).send({
+    res.status(403).send({
       message: constants.not_signed_in,
     });
   }
   jwt.verify(token, secret, async (err, decoded) => {
     if (err) {
-      return res.status(401).send({
+      res.status(401).send({
         message: constants.token_expired,
       });
     }
@@ -28,7 +28,7 @@ const isOstadOrAdmin = async (req, res, next) => {
   try {
     const user = await Account.findByPk(req.userId);
     const role = await user.role;
-    if (role in [2, 3]){
+    if (role in [2, 3]) {
       return next();
     }
     return responseUtils.forbidden(res);

@@ -12,7 +12,7 @@ import {
 import { sign_in, sign_up, logout, authJwt } from "./auth.js";
 import cookieSession from "cookie-session";
 const app = express();
-const port = 3000;
+const port = 8080;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
@@ -30,16 +30,16 @@ app.use(
 
 const ignore_auth = ["/sign_up", "/sign_in"];
 
-const get_user_from_auth = function (token) {
-  authJwt.verifyToken(token);
+const get_user_from_auth = function (token, res) {
+  authJwt.verifyToken(token, res);
 };
 const check_user = function (req, res, next) {
   if (ignore_auth.includes(req.url)) {
     req.header.USER_ID = -1;
     req.header.USER_ROLE = -1;
   }
-  else{
-    get_user_from_auth(req);
+  else {
+    get_user_from_auth(req, res);
   }
   next();
 };
