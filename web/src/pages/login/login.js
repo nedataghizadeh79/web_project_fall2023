@@ -1,16 +1,44 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 import "./login.css";
 import loginImg from "../../assets/images/login/login.png";
-import { Link } from "react-router-dom";
+import { login } from "../../api/http/auth";
+import { useUserDispatcher } from "../../providers/UserProvider";
+import { USER_LOGIN } from "../../providers/UserProvider/action";
+import { updateToastToError, updateToastToSuccess } from "../../utils";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useUserDispatcher();
+  const navigate = useNavigate();
+
+  const toastRef = useRef(null);
+
+  const submitLogin = useCallback((event) => {
+    event.preventDefault();
+    toastRef.current = toast.loading("در حال ارسال")
+
+    login({ username, password })
+      .then((data) => {
+        dispatch({ type: USER_LOGIN, payload: data })
+        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("token", data.token);
+        updateToastToSuccess(toastRef.current, "شما با موفقیت وارد حساب کاربری خود شدید")
+        navigate('/main');
+      }).catch(async (err) => {
+        const errorMessage = await err.response.data.message;
+        updateToastToError(toastRef.current, errorMessage);
+      })
+  }
+    , [dispatch, password, username, navigate])
+
   return (
     <div className="makeRow">
-      <div className="loginForm">
-        <label>شماره دانشجویی / کد پرسنلی</label>
+      <form className="loginForm" onSubmit={submitLogin}>
+        <label>شناسه کاربری</label>
         <input
           type="text"
           value={username}
@@ -18,7 +46,7 @@ function Login() {
         />
         <br />
 
-        <label>رمز</label>
+        <label>رمز عبور</label>
         <input
           type="password"
           value={password}
@@ -26,10 +54,8 @@ function Login() {
         />
         <br />
 
-        <Link to="/main">
-          <button type="submit">ورود به صفحه اصلی</button>{" "}
-        </Link>
-      </div>
+        <button className="login__button" type="submit">ورود</button>
+      </form>
       <img src={loginImg} alt="login page" />
     </div>
   );

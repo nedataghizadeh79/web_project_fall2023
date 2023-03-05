@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
+import { useUser } from "../../providers/UserProvider";
+import { ROLE } from "../../utils";
 
-function StudentProfile() {
+function StudentProfile({ userData }) {
   const [isEditing, setIsEditing] = useState(false);
 
-  const [userData, setUserData] = useState({
-    name: "ندا تقی زاده",
-    email: "Nedath1378@gmail.com",
-    role: "Student",
-    imageUrl: "https://via.placeholder.com/150",
-  });
+  const { user_id } = useParams();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -16,7 +16,7 @@ function StudentProfile() {
   };
 
   const handleChange = (event) => {
-    setUserData({ ...userData, [event.target.name]: event.target.value });
+    // setUserData({ ...userData, [event.target.username]: event.target.value });
   };
 
   const handleEditClick = () => {
@@ -31,7 +31,7 @@ function StudentProfile() {
           <input
             id="name-input"
             type="text"
-            value={userData.name}
+            value={userData.username}
             name="name"
             onChange={handleChange}
           />
@@ -48,9 +48,13 @@ function StudentProfile() {
         </div>
         <div>
           <label htmlFor="role-input">نقش کاربر : </label>
-          <select id="role-input" value={userData.role} onChange={handleChange}>
-            <option value="Master">User</option>
-            <option value="Student">Admin</option>
+          <select
+            id="role-input"
+            value={userData.roles}
+            onChange={handleChange}
+          >
+            <option value="2">استاد</option>
+            <option value="1">دانشجو</option>
           </select>
         </div>
         <div>
@@ -77,25 +81,25 @@ function StudentProfile() {
         <>
           <section className="profile__section profile__section--profile">
             <div className="profile__header">
-              <img
+              {/* <img
                 className="img"
                 src={userData.imageUrl}
                 alt="StudentProfile"
-              />
-              <h2>{userData.name}</h2>
+              /> */}
+              <h2>{userData.username}</h2>
             </div>
 
             <div className="info">
               <span>
-                <i class="fa-regular fa-envelope"></i>
+                <FontAwesomeIcon icon={faEnvelope} />
                 <p>{userData.email}</p>
               </span>
               <span>
-                <i className="fa-regular fa-user"></i>
-                <p>{userData.role}</p>
+                <FontAwesomeIcon icon={faUser} />
+                <p>{ROLE[userData.roles]}</p>
               </span>
             </div>
-            <button onClick={handleEditClick}>ویرایش</button>
+            {!user_id && <button onClick={handleEditClick}>ویرایش</button>}
           </section>
           <section className="profile__section profile__section--background">
             <h2>سوابق دستیاری</h2>

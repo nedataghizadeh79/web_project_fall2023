@@ -15,7 +15,7 @@ function Navbar() {
           </li>
         </ul>
         <div className="navbar__left">
-          <Link className="profileLink" to={`/profile/${12}`}>
+          <Link className="profileLink" to="/profile">
             پروفایل
           </Link>
         </div>

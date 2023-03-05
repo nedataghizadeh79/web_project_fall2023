@@ -5,17 +5,18 @@ const userContextDispatcher = createContext();
 
 const initialState = {
   loggedIn: true,
-  user_id: null,
+  id: null,
   username: null,
   name: null,
   email: null,
-  role: null,
+  roles: null,
+  token: null,
 }
 
 const reducer = (state, action) => {
   switch (action.type) {
     case USER_LOGIN:
-      return { ...state, ...action.payload }
+      return { ...state, loggedIn: true, ...action.payload }
     case USER_LOGOUT:
       return { ...initialState }
     default:
@@ -24,7 +25,7 @@ const reducer = (state, action) => {
 };
 
 function UserProvider({ children }) {
-  const [user, dispatch] = useReducer(reducer, initialState);
+  const [user, dispatch] = useReducer(reducer, { ...initialState, ...(JSON.parse(localStorage.getItem("user") || {})) });
 
   return (
     <userContext.Provider value={user}>

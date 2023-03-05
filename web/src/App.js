@@ -27,7 +27,8 @@ function App() {
     <Routes>
       <Route path="/" element={<WelcomePage />} />
       <Route path="/" element={authenticate(<Layout />)}>
-        <Route path="/main" element={<MainPage />} />
+        <Route path="main" element={<MainPage />} />
+        <Route path="profile" element={<Profile />} />
         <Route path="profile/:user_id" element={<Profile />} />
         <Route path="course/:course_id" element={<Course />} />
         <Route
