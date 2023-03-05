@@ -25,6 +25,7 @@ function Login() {
       .then((data) => {
         dispatch({ type: USER_LOGIN, payload: data })
         localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("token", data.token);
         updateToastToSuccess(toastRef.current, "شما با موفقیت وارد حساب کاربری خود شدید")
         navigate('/main');
       }).catch(async (err) => {
