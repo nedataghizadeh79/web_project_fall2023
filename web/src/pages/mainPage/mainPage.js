@@ -3,8 +3,8 @@ import CardCoursesWrapper from "../../components/cardCoursesWrapper/cardCoursesW
 import ReactModal from "react-modal";
 import { useCallback, useState } from "react";
 import { useRef } from "react";
-import { volunteerForAnnouncement } from "../../api/announcement/volunteerForAnnouncement";
 import { toast } from "react-toastify";
+import { volunteerForAnnouncement } from '../../api/http/announcement';
 import { updateToastToError, updateToastToSuccess } from "../../utils";
 
 const MainPage = () => {
@@ -12,6 +12,8 @@ const MainPage = () => {
   const [extraInfo, setExtraInfo] = useState("");
   const [isModalOpen, setIsOpen] = useState(false);
   const container = useRef();
+
+  const toastRef = useRef(null);
 
   const handleClick = useCallback((course) => {
     setSelectedCourse(course);
@@ -25,31 +27,15 @@ const MainPage = () => {
   }, []);
 
   const volunteerForCourse = useCallback(async () => {
-    // toast.promise(volunteerForAnnouncement({ course_id: selectedCourse.course_id, extra_info: extraInfo }),
-    //   {
-    //     pending: "در حال ارسال...",
-    //     success: {
-    //       render() {
-    //         closeModal();
-    //         return "درخواست با موفقیت ارسال شد"
-    //       }
-    //     },
-    //     error: {
-    //       async render({ data }) {
-    //         const message = await data.response.data.message;
-    //         return message
-    //       }
-    //     }
-    //   })
-    const pend = toast.loading("در حال ارسال...")
+    toastRef.current = toast.loading("در حال ارسال...")
     volunteerForAnnouncement({ course_id: selectedCourse.course_id, extra_info: extraInfo })
       .then((res) => {
         closeModal();
-        updateToastToSuccess(pend, "درخواست با موفقیت ارسال شد.");
+        updateToastToSuccess(toastRef.current, "درخواست با موفقیت ارسال شد.");
       })
       .catch(async (err) => {
         const data = await err.response.data.message;
-        updateToastToError(pend, data);
+        updateToastToError(toastRef.current, data);
       })
   }, [closeModal, extraInfo, selectedCourse]);
 

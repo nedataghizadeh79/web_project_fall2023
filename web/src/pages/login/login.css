@@ -38,6 +38,10 @@
     justify-content: center;
 }
 
+.login__button {
+    align-self: stretch;
+}
+
 
 @media screen and (max-width: 768px) {
 
@@ -47,7 +51,7 @@
 
 
     .makeRow img {
-        width: 77%;
+        width: 55%;
     }
 
 }

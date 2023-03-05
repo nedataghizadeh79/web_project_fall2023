@@ -44,7 +44,7 @@ textarea {
     font-family: 'Vazirmatn', sans-serif;
 }
 
-button {
+button:not(.Toastify__close-button) {
     background-color: var(--light-blue);
     color: #fff;
     padding: 0.3rem 0.5rem;
@@ -65,7 +65,7 @@ button.cancel:hover {
     background-color: var(--hover-red);
 }
 
-button:hover {
+button:not(.Toastify__close-button):hover {
     background-color: var(--hover-blue);
 }
 
