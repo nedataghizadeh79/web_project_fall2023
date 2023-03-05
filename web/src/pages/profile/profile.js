@@ -6,23 +6,23 @@ import { useUser } from "../../providers/UserProvider";
 import "./profile.css";
 
 function Profile() {
-  const { roles } = useUser();
+  const userData = useUser();
   const { user_id } = useParams();
 
   const profileRole = useMemo(() => {
-    return user_id || roles;
-  }, [roles, user_id]);
+    return user_id || userData.roles;
+  }, [userData, user_id]);
 
   const getProfile = useCallback(() => {
-    switch (roles) {
+    switch (userData.roles) {
       case 1:
-        return <StudentProfile />;
+        return <StudentProfile userData={userData} />;
       case 2:
-        return <InstructorProfile />
+        return <InstructorProfile userData={userData} />
       default:
         return null
     }
-  }, [roles]);
+  }, [userData]);
 
   return getProfile();
 }

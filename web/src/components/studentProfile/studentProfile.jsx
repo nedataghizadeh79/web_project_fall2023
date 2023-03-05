@@ -5,9 +5,8 @@ import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 import { useUser } from "../../providers/UserProvider";
 import { ROLE } from "../../utils";
 
-function StudentProfile() {
+function StudentProfile({ userData }) {
   const [isEditing, setIsEditing] = useState(false);
-  const userData = useUser();
 
   const { user_id } = useParams();
 

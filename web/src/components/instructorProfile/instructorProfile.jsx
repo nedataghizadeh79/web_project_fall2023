@@ -19,7 +19,7 @@ const initialAnnouncementForm = {
   description: "",
 };
 
-function InstructorProfile() {
+function InstructorProfile({ userData }) {
   const container = useRef();
   const [isCreatingCourse, setIsCreatingCourse] = useState(false);
   const [courses, setCourses] = useState({});
