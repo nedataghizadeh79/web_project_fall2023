@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 import { useUser } from "../../providers/UserProvider";
@@ -7,6 +8,8 @@ import { ROLE } from "../../utils";
 function StudentProfile() {
   const [isEditing, setIsEditing] = useState(false);
   const userData = useUser();
+
+  const { user_id } = useParams();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -97,7 +100,7 @@ function StudentProfile() {
                 <p>{ROLE[userData.roles]}</p>
               </span>
             </div>
-            <button onClick={handleEditClick}>ویرایش</button>
+            {!user_id && <button onClick={handleEditClick}>ویرایش</button>}
           </section>
           <section className="profile__section profile__section--background">
             <h2>سوابق دستیاری</h2>

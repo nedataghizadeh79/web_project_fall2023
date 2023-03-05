@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import ReactModal from "react-modal";
 import { toast } from "react-toastify";
 import { getInstructorAnnouncements } from "../../api/http/announcement";
@@ -27,6 +28,8 @@ function InstructorProfile() {
   const [courseForm, setCourseForm] = useState(initialCourseForm);
 
   const dispatch = useLoaderDispatcher();
+
+  const { user_id } = useParams();
 
   const updateCourseForm = (e) => {
     setCourseForm((form) => ({ ...form, [e.target.name]: e.target.value }));
@@ -70,7 +73,7 @@ function InstructorProfile() {
       <section>
         <div className="section__header">
           <h2>اعلان‌ها</h2>
-          <button>ایجاد اعلان جدید</button>
+          {!user_id && <button>ایجاد اعلان جدید</button>}
         </div>
         <hr />
         <AnnouncementList announcements={announcements} />
@@ -78,9 +81,11 @@ function InstructorProfile() {
       <section>
         <div className="section__header">
           <h2>دروس ارائه شده</h2>
-          <button onClick={() => setIsCreatingCourse(true)}>
-            ایجاد درس جدید
-          </button>
+          {!user_id && (
+            <button onClick={() => setIsCreatingCourse(true)}>
+              ایجاد درس جدید
+            </button>
+          )}
         </div>
         <hr />
         <div>{courses}</div>
