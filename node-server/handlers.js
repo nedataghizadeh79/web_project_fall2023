@@ -216,3 +216,42 @@ export const write_comment = async function (req, res){
     responseUtils.server_error(error, res);
   }
 }
+
+export const find_comments = async function (req, res){
+  const {ta_id} = req.body;
+  const head_comments = model.HeadFeedback.findAll(
+    {
+      where: {
+        ta_id: ta_id
+      }
+    }
+  );
+  const instructor_comments = model.ProfessorFeedback.findAll(
+    {
+      where: {
+        ta_id: ta_id
+      }
+    }
+  );
+  const comments = [...(await head_comments), ...(await instructor_comments)];
+  res.send(comments);
+}
+
+export const view_volunteers = async function (req, res){
+  let query;
+  if (req.body.USER_ROLE === 3){
+    query = {
+      where: {
+      }
+    }
+  }
+  else if (req.body.USER_ROLE === 2){
+    query = {
+      where: {
+        professor_id: req.body.USER_ID
+      }
+    }
+  }
+  const announcements = await model.VoluntaryList.findAll(query);
+  res.send(announcements);
+}

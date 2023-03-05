@@ -10,9 +10,11 @@ import {
   write_comment_validation_rules,
   validate,
 } from "./validators.js";
+import * as validators from "./validators.js";
 import { sign_in, sign_up, logout, authJwt } from "./auth.js";
 import cookieSession from "cookie-session";
 import cors from 'cors';
+import {find_comments} from "./handlers.js";
 const app = express();
 const port = 8080;
 
@@ -73,6 +75,8 @@ app.post('/change_user_role', change_user_role_validation_rules(), validate, han
 
 app.post('/write_comment', write_comment_validation_rules(), validate, handlers.write_comment);
 
+app.post('/comments', validators.find_comments_by_ta_validation_rules(), validate, handlers.find_comments);
 
+app.post('/view_volunteers', validators.view_volunteers_validation_rules(), validate, handlers.view_volunteers);
 
 

@@ -8,7 +8,10 @@ const bcrypt = pkg;
 
 
 const verifyToken = async (req, res) => {
-  let token = req.session.token;
+  //todo: this is some diabolical shit.
+  let token = req.headers.authorization.split(" ")[1];
+  console.log(req.headers.authorization);
+  console.log(token);
   if (!token) {
     return res.status(403).send({
       message: constants.not_signed_in,
@@ -34,7 +37,6 @@ const isOstadOrAdmin = async (req, res, next) => {
 
 
 export const sign_up = async function (req, res) {
-  console.log("nigga");
   try {
     const user = await create_user(
       req.body.username,
@@ -43,7 +45,11 @@ export const sign_up = async function (req, res) {
       req.body.name,
       1,
     );
-    res.send(constants.account_created);
+    const {username, name} = req.body;
+    res.send({
+      'username': username,
+      'name': name,
+    });
   } catch (error) {
     responseUtils.server_error(error, res);
   }
@@ -73,13 +79,14 @@ export const sign_in = async function (req, res) {
     });
 
     // todo: is sending token here valid?
-    req.session.token = token;
+    req.headers.authorization = 'Bearer ' + token;
 
     return res.status(200).send({
       id: user.id,
       username: user.username,
       email: user.email,
       roles: user.role,
+      name: user.name,
       token: token
     });
   } catch (error) {

@@ -158,6 +158,21 @@ export const CourseData = sequelize.define('course_data', {
     tableName: 'course_data', createdAt: false, updatedAt: false
 });
 
+export const VoluntaryList = sequelize.define('voluntary_clean_list',{
+  announcement_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+  },
+  student_id: DataTypes.INTEGER,
+  status: DataTypes.STRING,
+  extra_info: DataTypes.STRING,
+  course_id: DataTypes.INTEGER,
+  year: DataTypes.STRING,
+  term: DataTypes.STRING,
+  professor_id: DataTypes.INTEGER,
+  course_name: DataTypes.STRING,
+}, dbOpts('voluntary_clean_list'));
+
 
 export const test_database = async function () {
     return sequelize.authenticate();
@@ -295,5 +310,5 @@ export const get_announcements_by_professor_id = async function(professor_id) {
 }
 
 export const find_all_course_data = async function (){
-    return CourseData.findAll();
+
 }

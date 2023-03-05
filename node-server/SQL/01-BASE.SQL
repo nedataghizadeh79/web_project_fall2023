@@ -166,3 +166,9 @@ ALTER TABLE head_feedback ADD COLUMN rate INTEGER;
 ALTER TABLE head_feedback ADD COLUMN comment VARCHAR(500);
 ALTER TABLE head_feedback ADD COLUMN id SERIAL PRIMARY KEY;
 
+CREATE VIEW voluntary_clean_list AS
+    SELECT v.announcement_id, v.student_id, v.status, v.extra_info,
+           a.course_id,
+           c.year, c.term, c.professor_id, c.course_name
+    FROM announcement a JOIN course c on a.course_id = c.id
+    JOIN voluntary v on a.id = v.announcement_id;

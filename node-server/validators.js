@@ -91,6 +91,21 @@ export const write_comment_validation_rules = () => {
     ];
 }
 
+export const find_comments_by_ta_validation_rules = () => {
+    return[
+      body('USER_ROLE').custom(role_checker([3, 2])),
+      body('ta_id'),
+    ]
+}
+
+export const view_volunteers_validation_rules = () => {
+    return[
+      body('USER_ROLE').custom(role_checker([2, 3])),
+      body('announcement_id').isInt(),
+    ];
+}
+
+
 export const validate = (req, res, next) => {
     const errors = validationResult(req)
     if (errors.isEmpty()) {
