@@ -4,7 +4,7 @@ import AnnouncementList from "../../pages/announcementList/announcementList";
 
 const initialCourseForm = {
   courseName: "",
-  year: "",
+  year: "1401",
   term: "1",
 };
 
@@ -51,6 +51,7 @@ function InstructorProfile() {
         appElement={container.current}
         className="react_modal right_float_modal"
       >
+        <h3>ایجاد درس جدید</h3>
         <div className="modal__body">
           <div>
             <label htmlFor="courseName">نام درس:</label>
