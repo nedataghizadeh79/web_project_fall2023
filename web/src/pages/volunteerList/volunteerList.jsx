@@ -1,9 +1,29 @@
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { getAnnouncementVolunteers } from "../../api/http/announcement";
 import { VOLUNTEERS } from "../../data/volunteers.data";
+import { useLoaderDispatcher } from "../../providers/loaderProvider";
 import "./volunteerList.css";
 
 function VolunteerList() {
-  const { id } = useParams();
+  const { announcement_id } = useParams();
+
+  // get announcements from server using announcment_id
+  const [volunteers, setVolunteers] = useState({});
+  const dispatch = useLoaderDispatcher();
+  useEffect(() => {
+    // call http request to get announcement
+    dispatch({ type: "show" });
+    getAnnouncementVolunteers(announcement_id)
+      .then((res) => {
+        setVolunteers(res.data);
+        dispatch({ type: "hide" });
+      })
+      .catch((err) => {
+        toast.error("خطایی رخ داده است");
+      });
+  }, [announcement_id, dispatch]);
 
   return (
     <div className="volunteer__container padded__container">

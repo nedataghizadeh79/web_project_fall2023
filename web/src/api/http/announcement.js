@@ -35,3 +35,8 @@ export function volunteerForAnnouncement(volunteershipData) {
             return res.data
         })
 }
+
+export function getAnnouncementVolunteers(announcment_id) {
+    return http.post('/view_volunteers', announcment_id)
+        .then(res => res.data)
+}
