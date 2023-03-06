@@ -6,5 +6,5 @@ export async function login(body) {
 }
 
 export function signup(body) {
-
+    return http.post('/sign_up', body);
 }

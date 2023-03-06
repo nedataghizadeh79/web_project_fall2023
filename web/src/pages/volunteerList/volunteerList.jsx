@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getAnnouncementVolunteers } from "../../api/http/announcement";
@@ -20,7 +20,7 @@ function VolunteerList() {
         setVolunteers(res.data);
         dispatch({ type: "hide" });
       })
-      .catch((err) => {
+      .catch(() => {
         toast.error("خطایی رخ داده است");
       });
   }, [announcement_id, dispatch]);
