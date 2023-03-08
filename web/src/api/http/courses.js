@@ -8,3 +8,12 @@ export function getInstructorCourses() {
     })
         .then(res => res.data);
 }
+
+export function createNewCourse(courseData) {
+    return http.post('/create_course', { ...courseData }, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem("token"),
+        }
+    })
+        .then(res => res.data);
+}

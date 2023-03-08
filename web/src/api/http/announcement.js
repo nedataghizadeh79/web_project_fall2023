@@ -12,7 +12,11 @@ export async function createAnnouncement(announcementData) {
 
 
 export function getAllAnnouncements() {
-    return http.get('/vew_announcements')
+    return http.get('/view_announcements', {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem("token")
+        }
+    })
         .then(res => res.data)
 }
 
