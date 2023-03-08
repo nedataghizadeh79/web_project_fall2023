@@ -15,6 +15,7 @@ import { sign_in, sign_up, logout, authJwt } from "./auth.js";
 import cookieSession from "cookie-session";
 import cors from 'cors';
 import {find_comments} from "./handlers.js";
+import {responseUtils} from "./resources.js";
 const app = express();
 const port = 8080;
 
@@ -42,9 +43,13 @@ const check_user = async function (req, res, next) {
     req.header.USER_ID = -1;
     req.header.USER_ROLE = -1;
   } else {
-    const user = await authJwt.verifyToken(req, res);
-    req.body.USER_ID = user.id;
-    req.body.USER_ROLE = user.role;
+    try{
+      const user = await authJwt.verifyToken(req, res);
+      req.body.USER_ID = user.id;
+      req.body.USER_ROLE = user.role;
+    }catch (error){
+      return responseUtils.unauthorized(res);
+    }
   }
   next();
 };
