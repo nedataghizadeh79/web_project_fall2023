@@ -1,15 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReactModal from "react-modal";
 import { toast } from "react-toastify";
 import { getInstructorAnnouncements } from "../../api/http/announcement";
-import { getInstructorCourses } from "../../api/http/courses";
+import { createNewCourse, getInstructorCourses } from "../../api/http/courses";
 import { JafarinezhadData } from "../../data/courses.data";
 import AnnouncementList from "../../pages/announcementList/announcementList";
 import { useLoaderDispatcher } from "../../providers/loaderProvider";
+import { useUser } from "../../providers/UserProvider";
+import { updateToastToError, updateToastToSuccess } from "../../utils";
 
 const initialCourseForm = {
-  courseName: "",
+  course_name: "",
   year: "1401",
   term: "1",
 };
@@ -21,11 +23,14 @@ const initialAnnouncementForm = {
 
 function InstructorProfile({ userData }) {
   const container = useRef();
+  const toastRef = useRef();
   const [isCreatingCourse, setIsCreatingCourse] = useState(false);
-  const [courses, setCourses] = useState({});
-  const [announcements, setAnnouncements] = useState(JafarinezhadData);
+  const [courses, setCourses] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
 
   const [courseForm, setCourseForm] = useState(initialCourseForm);
+
+  const user = useUser();
 
   const dispatch = useLoaderDispatcher();
 
@@ -40,22 +45,40 @@ function InstructorProfile({ userData }) {
     setCourseForm(initialCourseForm);
   };
 
+  const createCourse = useCallback(() => {
+    toastRef.current = toast.loading("در حال ایجاد درس...");
+    createNewCourse({
+      ...courseForm,
+      USER_ROLE: 2,
+      professor_id: user?.id || user_id,
+    })
+      .then(() => {
+        setCourses((courses) => [...courses, { ...courseForm }]);
+        closeCourseModal();
+        updateToastToSuccess(toastRef.current, "درس با موفقیت ایجاد شد.");
+      })
+      .catch((err) => {
+        console.log(err);
+        updateToastToError(toastRef.current, "خطایی در ایجاد درس رخ داد.");
+      });
+  }, [courseForm, user, user_id]);
+
   useEffect(() => {
     dispatch({ type: "show" });
 
     let error = null;
 
-    getInstructorCourses()
+    getInstructorCourses(user.id)
       .then((data) => {
-        setCourses(data);
+        data && setCourses(data);
       })
       .catch(async (err) => {
         error = await err.response.data.message;
       });
 
-    getInstructorAnnouncements()
+    getInstructorAnnouncements(user?.id || user_id)
       .then((data) => {
-        setAnnouncements(data);
+        data && setAnnouncements(data);
       })
       .catch(async (err) => {
         error = await err.response.data.message;
@@ -63,7 +86,7 @@ function InstructorProfile({ userData }) {
 
     dispatch({ type: "hide" });
     error && toast.error(error);
-  }, [dispatch]);
+  }, [dispatch, user_id, user]);
 
   return (
     <main className="profile padded__container" ref={container}>
@@ -88,7 +111,13 @@ function InstructorProfile({ userData }) {
           )}
         </div>
         <hr />
-        <div>{courses}</div>
+        <div>
+          {courses.map((course) => (
+            <div key={course.id} className="card">
+              <div className="card__body"></div>
+            </div>
+          ))}
+        </div>
       </section>
       <ReactModal
         isOpen={isCreatingCourse}
@@ -99,12 +128,12 @@ function InstructorProfile({ userData }) {
         <h3>ایجاد درس جدید</h3>
         <div className="modal__body">
           <div>
-            <label htmlFor="courseName">نام درس:</label>
+            <label htmlFor="course_name">نام درس:</label>
             <input
-              value={courseForm.courseName}
+              value={courseForm.course_name}
               onChange={updateCourseForm}
-              id="courseName"
-              name="courseName"
+              id="course_name"
+              name="course_name"
               type="text"
             />
           </div>
@@ -133,7 +162,7 @@ function InstructorProfile({ userData }) {
           </div>
         </div>
         <div className="modal__footer">
-          <button>ثبت</button>
+          <button onClick={createCourse}>ثبت</button>
           <button onClick={closeCourseModal} className="cancel">
             لغو
           </button>

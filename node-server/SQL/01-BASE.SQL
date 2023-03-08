@@ -124,6 +124,7 @@ CREATE VIEW course_data AS
 	course.year AS year,
 	course.term AS term,
 	course.course_name AS course_name,
+	course.professor_id AS instructor_id,
 	(SELECT account.name
 	FROM account WHERE account.id = course.professor_id) AS instructor,
 	course.head_ta AS head_ta_id,

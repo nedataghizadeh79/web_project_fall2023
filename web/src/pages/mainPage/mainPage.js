@@ -1,13 +1,14 @@
 import "./mainPage.css";
 import CardCoursesWrapper from "../../components/cardCoursesWrapper/cardCoursesWrapper";
 import ReactModal from "react-modal";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRef } from "react";
 import { toast } from "react-toastify";
-import { volunteerForAnnouncement } from '../../api/http/announcement';
+import { getAllAnnouncements, volunteerForAnnouncement } from '../../api/http/announcement';
 import { updateToastToError, updateToastToSuccess } from "../../utils";
 
 const MainPage = () => {
+  const [announcements, setAnnouncements] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [extraInfo, setExtraInfo] = useState("");
   const [isModalOpen, setIsOpen] = useState(false);
@@ -26,6 +27,15 @@ const MainPage = () => {
     setIsOpen(false);
   }, []);
 
+  useEffect(() => {
+    getAllAnnouncements()
+      .then(data => {
+        data && setAnnouncements(data);
+      }).catch(err => {
+        console.log(err);
+      })
+  }, [])
+
   const volunteerForCourse = useCallback(async () => {
     toastRef.current = toast.loading("در حال ارسال...")
     volunteerForAnnouncement({ course_id: selectedCourse.course_id, extra_info: extraInfo })
@@ -42,7 +52,7 @@ const MainPage = () => {
   return (
     <div ref={container}>
       <section className="header"></section>
-      <CardCoursesWrapper handleClick={handleClick} />
+      <CardCoursesWrapper handleClick={handleClick} cardItems={announcements} />
       <ReactModal
         isOpen={isModalOpen}
         onRequestClose={closeModal}

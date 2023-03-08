@@ -1,11 +1,10 @@
-import { fakeData } from "../../data/courses.data";
 import CardCourse from "../cardCourses/cardCourse";
 import "./cardCoursesWrapper.css";
 
-const CardCoursesWrapper = ({ handleClick }) => {
+const CardCoursesWrapper = ({ handleClick, cardItems }) => {
   return (
     <div className="cardCoursesWrapper padded__container">
-      {fakeData.map((course) => (
+      {cardItems.map((course) => (
         <CardCourse
           key={course.course_id}
           courseName={course.name}
