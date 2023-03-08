@@ -14,7 +14,6 @@ import * as validators from "./validators.js";
 import { sign_in, sign_up, logout, authJwt } from "./auth.js";
 import cookieSession from "cookie-session";
 import cors from 'cors';
-import {find_comments} from "./handlers.js";
 import {responseUtils} from "./resources.js";
 const app = express();
 const port = 8080;
@@ -84,4 +83,15 @@ app.post('/comments', validators.find_comments_by_ta_validation_rules(), validat
 
 app.post('/view_volunteers', validators.view_volunteers_validation_rules(), validate, handlers.view_volunteers);
 
+app.post('/create_course', validators.create_course_validation_rules(), validate, handlers.create_course);
+
+// create course - admin
+
+// create readAlert - ta
+
+// view readAlerts - instructor
+
+// approve redAlert - instructor
+
+// view volunteer_results - student
 

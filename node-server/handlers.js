@@ -255,3 +255,18 @@ export const view_volunteers = async function (req, res){
   const announcements = await model.VoluntaryList.findAll(query);
   res.send(announcements);
 }
+
+export const create_course = async function (req, res){
+  try {
+    const {year, term, professor_id, course_name} = req.body;
+    model.create_course(year, term, professor_id, course_name).then(
+      (value) => {
+        res.send(value);
+      }, (error) => {
+        res.send (error);
+      }
+    );
+  }catch (error){
+    responseUtils.server_error(error, res);
+  }
+}

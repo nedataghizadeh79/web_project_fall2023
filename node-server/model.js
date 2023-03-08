@@ -309,6 +309,18 @@ export const get_announcements_by_professor_id = async function(professor_id) {
     )
 }
 
+export const create_course = async function (year, term, professor_id, course_name, head_ta) {
+  return Course.create(
+    {
+      year: year,
+      term: term,
+      professor_id: professor_id,
+      course_name: course_name,
+      head_ta: head_ta || null
+    }
+  )
+}
+
 export const find_all_course_data = async function (){
 
 }

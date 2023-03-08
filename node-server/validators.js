@@ -105,6 +105,16 @@ export const view_volunteers_validation_rules = () => {
     ];
 }
 
+export const create_course_validation_rules = () => {
+    return[
+      body('USER_ROLE').custom(role_checker([3])),
+      body('year').isString().isLength({min: 4, max: 4}),
+      body('term').isString().isLength({min: 1, max: 1}),
+      body('professor_id').isInt(),
+      body('course_name').isString().isLength({min: 1, max: 50})
+    ];
+}
+
 
 export const validate = (req, res, next) => {
     const errors = validationResult(req)
