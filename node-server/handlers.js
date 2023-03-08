@@ -157,7 +157,7 @@ export const student_write_feedback = async function (req, res){
 
 export const view_announcements_by_instructor = async function (req, res){
   try{
-    const announcements = await get_announcements_by_professor_id(req.body.USER);
+    const announcements = await get_announcements_by_professor_id(req.body.USER_ID);
     res.send(announcements);
   }catch (error){
     server_error(error, res);
