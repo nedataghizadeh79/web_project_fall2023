@@ -3,10 +3,18 @@ import "./navbar.css";
 import profileIcone from "../../assets/icons/use.png";
 import homePage from "../../assets/icons/home.png";
 import DropDown from "../dropDown/dropDown";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 function Navbar() {
   const [isDropdownOpen, setDropDownOpen] = useState(false);
+
+  const openDrowndown = useCallback(() => {
+    isDropdownOpen || setDropDownOpen(true);
+  }, [isDropdownOpen]);
+
+  const closeDrowndown = useCallback(() => {
+    isDropdownOpen && setDropDownOpen(false);
+  }, [isDropdownOpen]);
   return (
     <nav className="navbar">
       <div className="navbar__container">
@@ -23,12 +31,9 @@ function Navbar() {
               className="Icon prof"
               src={profileIcone}
               alt="profile"
-              onClick={() => setDropDownOpen(true)}
+              onClick={openDrowndown}
             />
-            <DropDown
-              open={isDropdownOpen}
-              onCloseRequest={() => setDropDownOpen(false)}
-            >
+            <DropDown open={isDropdownOpen} onCloseRequest={closeDrowndown}>
               <ul className="dropdown-menu">
                 <li>
                   <Link to={`/profile/${12}`}>پروفایل کاربری</Link>

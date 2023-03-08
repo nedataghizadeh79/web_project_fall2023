@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './dropDown.css'
 
 
@@ -6,18 +6,18 @@ const DropDown = ({ children, open, onCloseRequest }) => {
 
     const dropdownRef = useRef(null);
 
-    const handleOutsideClick = (event) => {
+    const handleOutsideClick = useCallback((event) => {
         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
             onCloseRequest && onCloseRequest();
         }
-    }
+    }, [onCloseRequest]);
 
     useEffect(() => {
         document.addEventListener('mousedown', handleOutsideClick);
         return () => {
             document.removeEventListener('mousedown', handleOutsideClick);
         }
-    }, []);
+    }, [handleOutsideClick]);
 
     return (
         open &&
