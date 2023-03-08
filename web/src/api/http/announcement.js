@@ -16,8 +16,8 @@ export function getAllAnnouncements() {
         .then(res => res.data)
 }
 
-export function getInstructorAnnouncements() {
-    return http.get('/vew_announcements_by_instructor', {
+export function getInstructorAnnouncements(id) {
+    return http.post('/view_announcements_by_instructor', { USER_ID: id }, {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem("token"),
         }

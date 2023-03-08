@@ -1,7 +1,7 @@
 import http from ".";
 
 export function getInstructorCourses() {
-    http.get('/view_all_course_data', {
+    return http.post('/view_all_course_data', {}, {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem("token"),
         }

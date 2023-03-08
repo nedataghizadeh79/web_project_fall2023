@@ -7,6 +7,7 @@ import { getInstructorCourses } from "../../api/http/courses";
 import { JafarinezhadData } from "../../data/courses.data";
 import AnnouncementList from "../../pages/announcementList/announcementList";
 import { useLoaderDispatcher } from "../../providers/loaderProvider";
+import { useUser } from "../../providers/UserProvider";
 
 const initialCourseForm = {
   courseName: "",
@@ -22,10 +23,12 @@ const initialAnnouncementForm = {
 function InstructorProfile({ userData }) {
   const container = useRef();
   const [isCreatingCourse, setIsCreatingCourse] = useState(false);
-  const [courses, setCourses] = useState({});
+  const [courses, setCourses] = useState([]);
   const [announcements, setAnnouncements] = useState(JafarinezhadData);
 
   const [courseForm, setCourseForm] = useState(initialCourseForm);
+
+  const user = useUser();
 
   const dispatch = useLoaderDispatcher();
 
@@ -47,15 +50,15 @@ function InstructorProfile({ userData }) {
 
     getInstructorCourses()
       .then((data) => {
-        setCourses(data);
+        data && setCourses(data);
       })
       .catch(async (err) => {
         error = await err.response.data.message;
       });
 
-    getInstructorAnnouncements()
+    getInstructorAnnouncements(user?.id || user_id)
       .then((data) => {
-        setAnnouncements(data);
+        data && setAnnouncements(data);
       })
       .catch(async (err) => {
         error = await err.response.data.message;
@@ -63,7 +66,7 @@ function InstructorProfile({ userData }) {
 
     dispatch({ type: "hide" });
     error && toast.error(error);
-  }, [dispatch]);
+  }, [dispatch, user_id, user]);
 
   return (
     <main className="profile padded__container" ref={container}>
@@ -88,7 +91,13 @@ function InstructorProfile({ userData }) {
           )}
         </div>
         <hr />
-        <div>{courses}</div>
+        <div>
+          {courses.map((course) => (
+            <div key={course.id} className="card">
+              <div className="card__body"></div>
+            </div>
+          ))}
+        </div>
       </section>
       <ReactModal
         isOpen={isCreatingCourse}

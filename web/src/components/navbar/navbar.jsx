@@ -36,7 +36,7 @@ function Navbar() {
             <DropDown open={isDropdownOpen} onCloseRequest={closeDrowndown}>
               <ul className="dropdown-menu">
                 <li>
-                  <Link to={`/profile/${12}`}>پروفایل کاربری</Link>
+                  <Link to={`/profile`}>پروفایل کاربری</Link>
                 </li>
                 <li>خروج</li>
               </ul>
