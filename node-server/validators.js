@@ -100,7 +100,7 @@ export const find_comments_by_ta_validation_rules = () => {
 
 export const view_volunteers_validation_rules = () => {
     return[
-      body('USER_ROLE').custom(role_checker([2, 3])),
+      body('USER_ROLE').custom(role_checker([1, 2, 3])),
       body('announcement_id').isInt(),
     ];
 }

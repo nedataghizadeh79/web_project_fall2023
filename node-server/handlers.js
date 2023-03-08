@@ -252,8 +252,15 @@ export const view_volunteers = async function (req, res){
       }
     }
   }
-  const announcements = await model.VoluntaryList.findAll(query);
-  res.send(announcements);
+  else if (req.body.USER_ROLE === 1){
+    query = {
+      where: {
+        student_id: req.body.USER_ID
+      }
+    }
+  }
+  const volunteers = await model.VoluntaryList.findAll(query);
+  res.send(volunteers);
 }
 
 export const create_course = async function (req, res){
