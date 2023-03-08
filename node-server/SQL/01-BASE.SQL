@@ -182,3 +182,11 @@ CREATE VIEW red_alert_view AS
            c.year, c.term, c.course_name, c.professor_id,
            a.name AS ta_name
     FROM red_alert r JOIN course c on r.course_id = c.id JOIN account a on a.id = r.ta_id;
+
+DROP TABLE IF EXISTS push_receiver;
+
+CREATE TABLE push_receiver(
+    id  SERIAL PRIMARY KEY,
+    user_id INTEGER,
+    body    VARCHAR(1000)
+);

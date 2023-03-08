@@ -15,6 +15,7 @@ import { validationResult } from "express-validator";
 import axios from "axios";
 import {messages, responseUtils} from "./resources.js";
 import {constants} from "./resources.js";
+import webpush from "web-push";
 
 const validation = function (req, res) {
   const errors = validationResult(req);
@@ -333,5 +334,35 @@ export const approve_red_alert = async function (req, res){
     res.send(red_alert);
   }catch (error){
     responseUtils.server_error(error, res);
+  }
+}
+
+const push_client = async function (client){
+  //get push subscription object from the request
+  console.log(client);
+  const subscription = JSON.parse(client);
+  console.log(subscription);
+
+  //create paylod: specified the detals of the push notification
+  const payload = JSON.stringify({title: 'Dastad Notification' , customBody: 'this is a test notification from dastad'});
+
+  //pass the object into sendNotification fucntion and catch any error
+  webpush.sendNotification(subscription, payload).catch(err=> console.error(err));
+}
+
+export const push_test = async function (req, res){
+  try {
+    const {USER_ID} = req.body;
+    const push_client = await model.PushReceiver.findOne(
+      {
+        where: {
+          user_id: USER_ID
+        }
+      }
+    );
+    tempo(push_client.body, null);
+    res.send('success');
+  }catch (error){
+    server_error(error, res);
   }
 }

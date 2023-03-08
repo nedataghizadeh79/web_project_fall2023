@@ -1,6 +1,7 @@
 import * as handlers from "./handlers.js";
 import express from "express";
 import bodyParser from "body-parser";
+import webpush from "web-push";
 import {
   sign_in_validation_rules,
   sign_up_validation_rules,
@@ -17,7 +18,12 @@ import cors from 'cors';
 import {responseUtils} from "./resources.js";
 const app = express();
 const port = 8080;
+//storing the keys in variables
+const publicVapidKey = 'BBjA76bD2-HNsufU7HT94uyT9Y69rhD5XQlaI1p39wc-TT_yaR_dJgAghsKSXQaJ2ePvdEqVCKbPFN28wYHYUYo';
+const privateVapidKey = '8hSrDUxDosJ6SU9GU67JhOzw7Z2fQQyGyDfmO8AOPcU';
 
+//setting vapid keys details
+webpush.setVapidDetails('mailto:shhm3834@gmail.com', publicVapidKey, privateVapidKey);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
@@ -35,7 +41,7 @@ app.use(cors({
   origin: "*",
 }));
 
-const ignore_auth = ["/sign_up", "/sign_in"];
+const ignore_auth = ["/sign_up", "/sign_in", "/subscribe"];
 
 const check_user = async function (req, res, next) {
   if (ignore_auth.includes(req.url)) {
@@ -94,3 +100,7 @@ app.post('/view_red_alert_docs', validators.view_red_alert_docs_validation_rules
 
 app.post('/approve_red_alert', validators.approve_red_alert_validation_rules(), validate, handlers.approve_red_alert);
 
+//subscribe route
+app.post('/subscribe', handlers.tempo);
+
+app.post('/test_push', validators.validate_push_test(), validate, handlers.push_test);

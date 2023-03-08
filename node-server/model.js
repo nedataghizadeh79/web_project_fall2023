@@ -188,6 +188,15 @@ export const RedAlertView = sequelize.define('red_alert_view',{
   ta_name: DataTypes.STRING
 }, dbOpts('red_alert_view'));
 
+export const PushReceiver = sequelize.define('push_receiver',{
+  id: {
+    type: DataTypes.INTEGER,
+    body: DataTypes.STRING,
+    primaryKey: true,
+  },
+  body: DataTypes.STRING,
+}, dbOpts('push_receiver'));
+
 export const test_database = async function () {
     return sequelize.authenticate();
 }
