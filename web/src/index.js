@@ -24,3 +24,8 @@ root.render(
         </BrowserRouter>
     </React.StrictMode>
 );
+
+if ("Notification" in window) {
+    Notification.requestPermission();
+}
+
