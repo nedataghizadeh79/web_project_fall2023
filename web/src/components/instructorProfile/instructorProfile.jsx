@@ -68,7 +68,7 @@ function InstructorProfile({ userData }) {
 
     let error = null;
 
-    getInstructorCourses()
+    getInstructorCourses(user.id)
       .then((data) => {
         data && setCourses(data);
       })

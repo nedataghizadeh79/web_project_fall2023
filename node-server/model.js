@@ -376,6 +376,12 @@ export const find_red_alert_by_id = async function (id) {
     }
   );
 }
-export const find_all_course_data = async function () {
-
+export const find_all_course_data = async function (id) {
+  return CourseData.findAll(
+    {
+      where: {
+        instructor_id: id
+      }
+    }
+  )
 }
