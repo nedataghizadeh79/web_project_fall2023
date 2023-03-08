@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 import { useUser } from "../../providers/UserProvider";
 import { ROLE } from "../../utils";
+import ReactModal from "react-modal";
 
 function StudentProfile({ userData }) {
   const [isEditing, setIsEditing] = useState(false);
 
   const { user_id } = useParams();
+  const pageRef = useRef(null);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedBackground, setSelectedBackground] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -101,10 +106,13 @@ function StudentProfile({ userData }) {
             </div>
             {!user_id && <button onClick={handleEditClick}>ویرایش</button>}
           </section>
-          <section className="profile__section profile__section--background">
+          <section
+            ref={pageRef}
+            className="profile__section profile__section--background"
+          >
             <h2>سوابق دستیاری</h2>
             <hr />
-            <div className="card">
+            <div className="card" onClick={() => setIsModalOpen(true)}>
               <div className="data_container">
                 <h4>مدارهای منطقی</h4>
                 <div className="ta_info">
@@ -114,6 +122,33 @@ function StudentProfile({ userData }) {
               </div>
             </div>
           </section>
+          <ReactModal
+            isOpen={isModalOpen}
+            onRequestClose={() => setIsModalOpen(false)}
+            appElement={pageRef.current}
+            className="react_modal"
+          >
+            <div className="modal__body">
+              <h2>مدارهای منطقی</h2>
+              <p>پاییز ۱۴۰۱ - دستیار آموزشی</p>
+              <div className="background__data">
+                <label htmlFor="instructorFeedback">بازخورد استاد:</label>
+                <textarea
+                  id="instructorFeedback"
+                  value={selectedBackground?.instructorFeedback}
+                  disabled
+                />
+              </div>
+              <div className="background__data">
+                <label htmlFor="headTaFeedback">بازخورد هد دستیار:</label>
+                <textarea
+                  id="headTaFeedback"
+                  value={selectedBackground?.headTaFeedback}
+                  disabled
+                />
+              </div>
+            </div>
+          </ReactModal>
         </>
       )}
     </main>
