@@ -108,7 +108,7 @@ export const RedAlert = sequelize.define('red_alert', {
     course_id: DataTypes.INTEGER,
     ta_id: DataTypes.INTEGER,
     comment: DataTypes.STRING,
-    Professor_approval: DataTypes.BOOLEAN,
+    professor_approval: DataTypes.BOOLEAN,
 }, dbOpts('red_alert'));
 
 
@@ -173,6 +173,20 @@ export const VoluntaryList = sequelize.define('voluntary_clean_list',{
   course_name: DataTypes.STRING,
 }, dbOpts('voluntary_clean_list'));
 
+export const RedAlertView = sequelize.define('red_alert_view',{
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+  },
+  course_id: DataTypes.INTEGER,
+  comment: DataTypes.STRING,
+  professor_approval: DataTypes.BOOLEAN,
+  year: DataTypes.STRING,
+  term: DataTypes.STRING,
+  course_name: DataTypes.STRING,
+  professor_id: DataTypes.INTEGER,
+  ta_name: DataTypes.STRING
+}, dbOpts('red_alert_view'));
 
 export const test_database = async function () {
     return sequelize.authenticate();
@@ -321,6 +335,46 @@ export const create_course = async function (year, term, professor_id, course_na
   )
 }
 
+export const create_red_alert = async function (course_id, ta_id, comment, documents) {
+  const red_alert = await RedAlert.create(
+    {
+      course_id: course_id,
+      ta_id: ta_id,
+      comment: comment,
+      professor_approval: false
+    }
+  );
+  for (let i = 0; i< documents.length; i++){
+    await RedAlertDocuments.create(
+      {
+        red_alert: red_alert.id,
+        document: documents[i]
+      }
+    )
+  }
+}
+
+export const find_red_alerts = async function (query) {
+  return RedAlertView.findAll(query);
+}
+
+export const view_red_alert_docs = async function (id){
+  return RedAlertDocuments.findAll(
+    {
+      where: {
+        red_alert: id
+      }
+    }
+  );
+}
+
+export const find_red_alert_by_id = async function (id){
+  return RedAlert.findOne(
+    {
+      where: {id: id}
+    }
+  );
+}
 export const find_all_course_data = async function (){
 
 }

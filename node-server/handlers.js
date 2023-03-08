@@ -277,3 +277,61 @@ export const create_course = async function (req, res){
     responseUtils.server_error(error, res);
   }
 }
+
+export const create_red_alert = async function (req, res){
+  try{
+    const {course_id, ta_id, comment, documents} = req.body;
+    await model.create_red_alert(course_id, ta_id, comment, documents);
+    res.send(constants.success);
+  }catch (error){
+    responseUtils.server_error(error, res);
+  }
+}
+
+export const view_red_alerts = async function (req, res){
+  try {
+    const role = req.body.USER_ROLE;
+    let query;
+    if (role === 2){
+      query = {
+        where:{
+          professor_id: req.body.USER_ID
+        }
+      }
+    }
+    if (role === 3){
+      query = {
+        where: {
+
+        }
+      }
+    }
+    const red_alerts = await model.find_red_alerts(query);
+    res.send(red_alerts);
+  }catch (error){
+    responseUtils.server_error(error, res);
+  }
+}
+
+export const view_red_alert_docs = async function (req, res){
+  try{
+    const red_alert_docs = await model.view_red_alert_docs(req.body.red_alert_id);
+    res.send(red_alert_docs);
+  }catch (error){
+    responseUtils.server_error(error, res);
+  }
+}
+
+export const approve_red_alert = async function (req, res){
+  try{
+    const red_alert = await model.find_red_alert_by_id(req.body.red_alert_id);
+    if (!red_alert){
+      return responseUtils.not_found(res);
+    }
+    red_alert.professor_approval = true;
+    await red_alert.save();
+    res.send(red_alert);
+  }catch (error){
+    responseUtils.server_error(error, res);
+  }
+}

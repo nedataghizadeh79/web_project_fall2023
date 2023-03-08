@@ -85,13 +85,12 @@ app.post('/view_volunteers', validators.view_volunteers_validation_rules(), vali
 
 app.post('/create_course', validators.create_course_validation_rules(), validate, handlers.create_course);
 
-// create course - admin
-
 // create readAlert - ta
+app.post('/create_red_alert', validators.create_red_alert_validation_rules(), validate, handlers.create_red_alert);
 
-// view readAlerts - instructor
+app.post('/view_red_alerts', validators.view_red_alerts_validation_rules(), validate, handlers.view_red_alerts);
 
-// approve redAlert - instructor
+app.post('/view_red_alert_docs', validators.view_red_alert_docs_validation_rules(), validate, handlers.view_red_alert_docs);
 
-// view volunteer_results - student
+app.post('/approve_red_alert', validators.approve_red_alert_validation_rules(), validate, handlers.approve_red_alert);
 

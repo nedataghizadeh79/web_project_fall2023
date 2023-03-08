@@ -166,9 +166,19 @@ ALTER TABLE head_feedback ADD COLUMN rate INTEGER;
 ALTER TABLE head_feedback ADD COLUMN comment VARCHAR(500);
 ALTER TABLE head_feedback ADD COLUMN id SERIAL PRIMARY KEY;
 
+DROP VIEW IF EXISTS voluntary_clean_list;
+
 CREATE VIEW voluntary_clean_list AS
     SELECT v.announcement_id, v.student_id, v.status, v.extra_info,
            a.course_id,
            c.year, c.term, c.professor_id, c.course_name
     FROM announcement a JOIN course c on a.course_id = c.id
     JOIN voluntary v on a.id = v.announcement_id;
+
+DROP VIEW IF EXISTS red_alert_view;
+
+CREATE VIEW red_alert_view AS
+    SELECT r.id, r.course_id, r.comment, r.professor_approval,
+           c.year, c.term, c.course_name, c.professor_id,
+           a.name AS ta_name
+    FROM red_alert r JOIN course c on r.course_id = c.id JOIN account a on a.id = r.ta_id;

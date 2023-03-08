@@ -115,6 +115,32 @@ export const create_course_validation_rules = () => {
     ];
 }
 
+export const create_red_alert_validation_rules = () => {
+  return[
+    body('USER_ROLE').custom(role_checker([1])),
+    body('ta_id').isInt(),
+    body('comment').isString(),
+  ];
+}
+
+export const view_red_alerts_validation_rules = () => {
+  return[
+    body('USER_ROLE').custom(role_checker([2, 3])),
+  ]
+}
+
+export const view_red_alert_docs_validation_rules = () => {
+  return[
+    body('USER_ROLE').custom(role_checker([2, 3])),
+    body('red_alert_id').isInt()
+  ]
+}
+
+export const approve_red_alert_validation_rules = () => {
+  return[
+    body('USER_ROLE').custom(role_checker([2, 3]))
+  ]
+}
 
 export const validate = (req, res, next) => {
     const errors = validationResult(req)

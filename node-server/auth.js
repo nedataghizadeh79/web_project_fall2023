@@ -10,8 +10,6 @@ const bcrypt = pkg;
 const verifyToken = async (req, res) => {
   //todo: this is some diabolical shit.
   let token = req.headers.authorization.split(" ")[1];
-  console.log(req.headers.authorization);
-  console.log(token);
   if (!token) {
     return res.status(403).send({
       message: constants.not_signed_in,
