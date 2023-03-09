@@ -15,7 +15,7 @@ function VolunteerList() {
   useEffect(() => {
     // call http request to get announcement
     dispatch({ type: "show" });
-    getAnnouncementVolunteers({ USER_ROLE: 2, announcement_id: parseInt(id) })
+    getAnnouncementVolunteers({ announcement_id: parseInt(id) })
       .then((res) => {
         setVolunteers(res.data);
       })
