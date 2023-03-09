@@ -2,19 +2,15 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReactModal from "react-modal";
 import { toast } from "react-toastify";
-import { getInstructorAnnouncements } from "../../api/http/announcement";
-import { createNewCourse, getInstructorCourses } from "../../api/http/courses";
-import { JafarinezhadData } from "../../data/courses.data";
+import {
+  getInstructorAnnouncements,
+  createAnnouncement,
+} from "../../api/http/announcement";
+import { getInstructorCourses } from "../../api/http/courses";
 import AnnouncementList from "../../pages/announcementList/announcementList";
 import { useLoaderDispatcher } from "../../providers/loaderProvider";
 import { useUser } from "../../providers/UserProvider";
-import { updateToastToError, updateToastToSuccess } from "../../utils";
-
-const initialCourseForm = {
-  course_name: "",
-  year: "1401",
-  term: "1",
-};
+import { TERM, updateToastToError, updateToastToSuccess } from "../../utils";
 
 const initialAnnouncementForm = {
   course_id: "",
@@ -24,11 +20,13 @@ const initialAnnouncementForm = {
 function InstructorProfile({ userData }) {
   const container = useRef();
   const toastRef = useRef();
-  const [isCreatingCourse, setIsCreatingCourse] = useState(false);
+  const [isCreatingAnnouncement, setIsCreatingAnnouncement] = useState(false);
   const [courses, setCourses] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
 
-  const [courseForm, setCourseForm] = useState(initialCourseForm);
+  const [announcementForm, setAnnouncementForm] = useState(
+    initialAnnouncementForm
+  );
 
   const user = useUser();
 
@@ -36,32 +34,37 @@ function InstructorProfile({ userData }) {
 
   const { user_id } = useParams();
 
-  const updateCourseForm = (e) => {
-    setCourseForm((form) => ({ ...form, [e.target.name]: e.target.value }));
+  const updateAnnouncementForm = (e) => {
+    setAnnouncementForm((form) => ({
+      ...form,
+      [e.target.name]: e.target.value,
+    }));
   };
 
-  const closeCourseModal = () => {
-    setIsCreatingCourse(false);
-    setCourseForm(initialCourseForm);
+  const closeAnnouncementModal = () => {
+    setIsCreatingAnnouncement(false);
+    setAnnouncementForm(initialAnnouncementForm);
   };
 
-  const createCourse = useCallback(() => {
-    toastRef.current = toast.loading("در حال ایجاد درس...");
-    createNewCourse({
-      ...courseForm,
-      USER_ROLE: 2,
-      professor_id: user?.id || user_id,
+  const buildAnnouncement = useCallback(() => {
+    toastRef.current = toast.loading("در حال ایجاد اعلان...");
+    createAnnouncement({
+      ...announcementForm,
+      course_id: parseInt(announcementForm.course_id),
     })
       .then(() => {
-        setCourses((courses) => [...courses, { ...courseForm }]);
-        closeCourseModal();
-        updateToastToSuccess(toastRef.current, "درس با موفقیت ایجاد شد.");
+        setAnnouncements((announcements) => [
+          ...announcements,
+          { ...announcementForm },
+        ]);
+        closeAnnouncementModal();
+        updateToastToSuccess(toastRef.current, "اعلانیه با موفقیت ایجاد شد.");
       })
       .catch((err) => {
         console.log(err);
-        updateToastToError(toastRef.current, "خطایی در ایجاد درس رخ داد.");
+        updateToastToError(toastRef.current, "خطایی در ایجاد اعلانیه رخ داد.");
       });
-  }, [courseForm, user, user_id]);
+  }, [announcementForm]);
 
   useEffect(() => {
     dispatch({ type: "show" });
@@ -96,7 +99,11 @@ function InstructorProfile({ userData }) {
       <section>
         <div className="section__header">
           <h2>اعلان‌ها</h2>
-          {!user_id && <button>ایجاد اعلان جدید</button>}
+          {!user_id && (
+            <button onClick={() => setIsCreatingAnnouncement(true)}>
+              ایجاد اعلان جدید
+            </button>
+          )}
         </div>
         <hr />
         <AnnouncementList announcements={announcements} />
@@ -104,66 +111,59 @@ function InstructorProfile({ userData }) {
       <section>
         <div className="section__header">
           <h2>دروس ارائه شده</h2>
-          {!user_id && (
-            <button onClick={() => setIsCreatingCourse(true)}>
-              ایجاد درس جدید
-            </button>
-          )}
         </div>
         <hr />
-        <div>
+        <div className="announcements_wrapper">
           {courses.map((course) => (
             <div key={course.id} className="card">
-              <div className="card__body"></div>
+              <div className="data_container">
+                <h3>{course.course_name}</h3>
+                <p>
+                  {TERM[course.term]}&nbsp;{course.year}
+                </p>
+              </div>
             </div>
           ))}
         </div>
       </section>
       <ReactModal
-        isOpen={isCreatingCourse}
-        onRequestClose={closeCourseModal}
+        isOpen={isCreatingAnnouncement}
+        onRequestClose={closeAnnouncementModal}
         appElement={container.current}
-        className="react_modal right_float_modal"
+        className="react_modal"
       >
         <h3>ایجاد درس جدید</h3>
-        <div className="modal__body">
+        <div className="modal__body announcement_form">
           <div>
-            <label htmlFor="course_name">نام درس:</label>
-            <input
-              value={courseForm.course_name}
-              onChange={updateCourseForm}
-              id="course_name"
-              name="course_name"
-              type="text"
-            />
-          </div>
-          <div>
-            <label htmlFor="presentYear">سال ارائه:</label>
-            <input
-              value={courseForm.year}
-              onChange={updateCourseForm}
-              id="presentYear"
-              name="year"
-              type="number"
-            />
-          </div>
-          <div>
-            <label htmlFor="term">نیم‌سال تحصیلی:</label>
+            <label>درس مربوطه: </label>
             <select
-              value={courseForm.term}
-              onChange={updateCourseForm}
-              id="term"
-              name="term"
+              value={announcementForm.course_id}
+              name="course_id"
+              onChange={updateAnnouncementForm}
             >
-              <option value="1">پاییز</option>
-              <option value="2">بهار</option>
-              <option value="3">تابستان</option>
+              <option value={""} disabled>
+                -- درس مربوط به اعلان را انتخاب کنید --
+              </option>
+              {courses.map((course) => (
+                <option key={course.course_id} value={course.course_id}>
+                  {course.course_name}
+                </option>
+              ))}
             </select>
+          </div>
+
+          <div>
+            <label>توضیحات اضافه:</label>
+            <textarea
+              name="description"
+              value={announcementForm.description}
+              onChange={updateAnnouncementForm}
+            />
           </div>
         </div>
         <div className="modal__footer">
-          <button onClick={createCourse}>ثبت</button>
-          <button onClick={closeCourseModal} className="cancel">
+          <button onClick={buildAnnouncement}>ثبت</button>
+          <button onClick={closeAnnouncementModal} className="cancel">
             لغو
           </button>
         </div>

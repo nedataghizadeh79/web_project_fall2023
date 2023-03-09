@@ -15,7 +15,7 @@ import * as validators from "./validators.js";
 import { sign_in, sign_up, logout, authJwt } from "./auth.js";
 import cookieSession from "cookie-session";
 import cors from 'cors';
-import {responseUtils} from "./resources.js";
+import { responseUtils } from "./resources.js";
 const app = express();
 const port = 8080;
 //storing the keys in variables
@@ -48,11 +48,11 @@ const check_user = async function (req, res, next) {
     req.header.USER_ID = -1;
     req.header.USER_ROLE = -1;
   } else {
-    try{
+    try {
       const user = await authJwt.verifyToken(req, res);
       req.body.USER_ID = user.id;
       req.body.USER_ROLE = user.role;
-    }catch (error){
+    } catch (error) {
       return responseUtils.unauthorized(res);
     }
   }
@@ -101,6 +101,6 @@ app.post('/view_red_alert_docs', validators.view_red_alert_docs_validation_rules
 app.post('/approve_red_alert', validators.approve_red_alert_validation_rules(), validate, handlers.approve_red_alert);
 
 //subscribe route
-app.post('/subscribe', handlers.tempo);
+// app.post('/subscribe', handlers.tempo);
 
-app.post('/test_push', validators.validate_push_test(), validate, handlers.push_test);
+// app.post('/test_push', validators.validate_push_test(), validate, handlers.push_test);

@@ -1,5 +1,5 @@
-import { login } from "../../api/auth";
 import { USER_LOGIN, USER_LOGOUT } from "./action";
+import { login } from "../../api/http/auth";
 
 export async function loginUser(data) {
     try {
@@ -10,7 +10,7 @@ export async function loginUser(data) {
     }
 }
 
-export async function logout() {
+export function logout() {
 
     try {
         return { type: USER_LOGOUT }

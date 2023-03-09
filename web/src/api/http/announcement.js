@@ -2,7 +2,7 @@ import http from "./index";
 
 
 export async function createAnnouncement(announcementData) {
-    return http.post('/create_announcemnt', announcementData, {
+    return http.post('/create_announcement', announcementData, {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token'),
         }

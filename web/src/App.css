@@ -62,6 +62,10 @@ button:not(.Toastify__close-button) {
     min-width: 2.8rem;
 }
 
+button:not(.Toastify__close-button):not(.cancel):hover {
+    background-color: var(--hover-blue);
+}
+
 button.cancel {
     background-color: var(--red);
 }
@@ -70,9 +74,6 @@ button.cancel:hover {
     background-color: var(--hover-red);
 }
 
-button:not(.Toastify__close-button):hover {
-    background-color: var(--hover-blue);
-}
 
 a {
     text-decoration: none;

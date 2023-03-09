@@ -4,9 +4,13 @@ import profileIcone from "../../assets/icons/use.png";
 import homePage from "../../assets/icons/home.png";
 import DropDown from "../dropDown/dropDown";
 import { useCallback, useState } from "react";
+import { useUserDispatcher } from "../../providers/UserProvider";
+import { logout } from "../../providers/UserProvider/reducers";
 
 function Navbar() {
   const [isDropdownOpen, setDropDownOpen] = useState(false);
+
+  const dispatch = useUserDispatcher();
 
   const openDrowndown = useCallback(() => {
     isDropdownOpen || setDropDownOpen(true);
@@ -15,6 +19,13 @@ function Navbar() {
   const closeDrowndown = useCallback(() => {
     isDropdownOpen && setDropDownOpen(false);
   }, [isDropdownOpen]);
+
+  const handleLogout = useCallback(() => {
+    dispatch(logout());
+    localStorage.removeItem("user");
+    window.location.reload();
+  }, [dispatch]);
+
   return (
     <nav className="navbar">
       <div className="navbar__container">
@@ -38,7 +49,7 @@ function Navbar() {
                 <li>
                   <Link to={`/profile`}>پروفایل کاربری</Link>
                 </li>
-                <li>خروج</li>
+                <li onClick={handleLogout}>خروج</li>
               </ul>
             </DropDown>
           </section>
