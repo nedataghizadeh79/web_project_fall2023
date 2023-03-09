@@ -85,13 +85,18 @@
     align-items: stretch;
 }
 
-.right_float_modal .modal__body div {
+.announcement_form div {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: stretch;
     gap: 0.5rem;
+
+    width: 100%;
+    flex-wrap: wrap;
+    white-space: nowrap;
 }
 
-.right_float_modal .modal__body input {
+.announcement_form input {
     flex-grow: 1;
 }
 
@@ -109,7 +114,7 @@
     }
 }
 
-@media screen and (min-width: 769) {
+@media screen and (min-width: 769px) {
     .info {
         grid-template-columns: repeat(3, 1fr);
     }

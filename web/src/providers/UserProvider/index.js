@@ -4,7 +4,7 @@ const userContext = createContext();
 const userContextDispatcher = createContext();
 
 const initialState = {
-  loggedIn: true,
+  loggedIn: false,
   id: null,
   username: null,
   name: null,
@@ -25,7 +25,9 @@ const reducer = (state, action) => {
 };
 
 function UserProvider({ children }) {
-  const [user, dispatch] = useReducer(reducer, { ...initialState, ...(JSON.parse(localStorage.getItem("user") || {})) });
+  const [user, dispatch] = useReducer(reducer, localStorage.getItem("user") ?
+    { ...JSON.parse(localStorage.getItem("user")), loggedIn: true } :
+    { ...initialState });
 
   return (
     <userContext.Provider value={user}>

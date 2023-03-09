@@ -15,7 +15,7 @@ import * as validators from "./validators.js";
 import { sign_in, sign_up, logout, authJwt } from "./auth.js";
 import cookieSession from "cookie-session";
 import cors from 'cors';
-import {responseUtils} from "./resources.js";
+import { responseUtils } from "./resources.js";
 const app = express();
 const port = 8080;
 //storing the keys in variables
@@ -99,5 +99,8 @@ app.post('/view_red_alerts', validators.view_red_alerts_validation_rules(), vali
 app.post('/view_red_alert_docs', validators.view_red_alert_docs_validation_rules(), validate, handlers.view_red_alert_docs);
 
 app.post('/approve_red_alert', validators.approve_red_alert_validation_rules(), validate, handlers.approve_red_alert);
+
+//subscribe route
+app.post('/subscribe', handlers.tempo);
 
 app.post('/test_push', validators.validate_push_test(), validate, handlers.push_test);
