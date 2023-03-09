@@ -9,7 +9,7 @@ import Profile from "./pages/profile/profile";
 import AnnouncementList from "./pages/announcementList/announcementList";
 import VolunteerList from "./pages/volunteerList/volunteerList";
 import { useUser } from "./providers/UserProvider";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Layout from "./layout/layout";
 import Course from "./pages/course/course";
 
@@ -22,6 +22,37 @@ function App() {
     },
     [loggedIn]
   );
+
+  const [subscription, setSubscription] = useState(null);
+
+  useEffect(() => {
+    // Request permission from the user to send push notifications
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        // Subscribe the user to push notifications
+        navigator.serviceWorker.register('/sw.js').then(registration => {
+          registration.pushManager.subscribe({ userVisibleOnly: true }).then(subscription => {
+            // Send the subscription object to the server
+            fetch('/subscribe', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(subscription)
+            });
+            setSubscription(subscription);
+          });
+        });
+      }
+    });
+
+    // navigator.serviceWorker.addEventListener('message', event => {
+    //   if (event.data && event.data.type === 'push-notification') {
+    //     setNotification(event.data.notification);
+    //   }
+    // });
+
+  }, []);
 
   return (
     <Routes>
