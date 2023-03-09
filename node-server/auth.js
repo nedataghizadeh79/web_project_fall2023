@@ -1,8 +1,7 @@
-import { validationResult } from "express-validator";
 import { create_user, find_user_by_username, find_user_by_id, Account } from "./model.js";
 import jwt from "jsonwebtoken";
 import { secret } from "./config/auth.config.js";
-import { constants, messages, responseUtils } from "./resources.js";
+import { constants, responseUtils } from "./resources.js";
 import pkg from 'bcryptjs';
 const bcrypt = pkg;
 
@@ -49,8 +48,8 @@ export const sign_up = async function (req, res) {
       1,
     );
     res.send({
-      'username': username,
-      'name': name,
+      'username': user.username,
+      'name': user.name,
     });
   } catch (error) {
     responseUtils.server_error(error, res);
@@ -58,22 +57,25 @@ export const sign_up = async function (req, res) {
 };
 
 export const sign_in = async function (req, res) {
+  const {username, password} = req.body;
   try {
-    const user = await find_user_by_username(req.body.username);
+    const user = await find_user_by_username(username);
 
     if (!user) {
-      return responseUtils.not_found(res);
+      return res.status(401).send(
+        constants.wrong_user_password
+      );
     }
 
     const passwordIsValid = bcrypt.compareSync(
-      req.body.password,
+      password,
       user.password
     );
 
     if (!passwordIsValid) {
-      return res.status(401).send({
-        message: "Invalid Password!",
-      });
+      return res.status(401).send(
+        constants.wrong_user_password
+      );
     }
 
     const token = jwt.sign({ id: user.id }, secret, {

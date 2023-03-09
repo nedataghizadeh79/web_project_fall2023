@@ -27,7 +27,9 @@ export const constants = {
   success:
   "عملیات با موفقیت انجام شد",
   user_already_exists:
-  "حسابی با این نام کاربری وجود دارد"
+  "حسابی با این نام کاربری وجود دارد",
+  wrong_user_password:
+  "نام کاربری یا رمز عبور وارد شده اشتباه است",
 }
 
 export const responseUtils = {
