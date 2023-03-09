@@ -30,7 +30,7 @@ function Login() {
         navigate('/main');
       }).catch(async (err) => {
         console.log(err);
-        const errorMessage = await err.response?.data.message || err.message;
+        const errorMessage = await (err.response?.data.message || err.message);
         updateToastToError(toastRef.current, errorMessage);
       })
   }
