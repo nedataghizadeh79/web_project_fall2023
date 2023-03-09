@@ -1,8 +1,6 @@
 import {
   test_database,
-  getCoursesById,
   create_announcement_database,
-  create_volunteer_database,
   get_all_announcements,
   get_announcements_by_professor_id,
   find_all_course_data,
@@ -45,72 +43,42 @@ export const test_runs = function (req, res) {
   );
 };
 
-/*
-  a professor
-  defines an announcement
-  for a course that they teach
-  with a description
-
-
-  req: description, presentation_id, USER(set in request){id, ROLE}
- */
 export const create_announcement = async function (req, res) {
   try {
-    const courses = await getCoursesById(req.body.course_id);
-    if (courses.length === 0) {
-      return request_error(constants.course_does_not_exist, res);
+    const {USER_ID, course_id, description} = req.body;
+    const course = await model.Course.findOne({where: {id: course_id, professor_id: USER_ID}});
+    if (!course) {
+      return responseUtils.not_found(res, constants.course_does_not_exist);
     }
-    create_announcement_database(
-      req.body.course_id,
-      req.body.description
-    ).then(
-      (value) => {
-        res.send(value);
-      },
-      (error) => {
-        throw error;
-      }
+    const announcement = await create_announcement_database(
+      course_id,
+      description
     );
+    res.send(announcement);
   } catch (error) {
     server_error(error, res)
   }
 }
 
-/*
-  a student
-  requests to become ta
-  for a presentation
-
-  req: presentation,
-*/
 
 export const volunteer = async function (req, res) {
   try {
-    const courses = await getCoursesById(req.body.course_id);
-    if (courses.length === 0) {
-      return request_error(constants.course_does_not_exist, res);
+    const {course_id, USER_ID, extra_info} = req.body;
+    const announcement = await model.Announcement.findByPk(course_id);
+    if (!announcement) {
+      return responseUtils.not_found(res);
     }
-    create_volunteer_database(
-      req.body.USER,
-      req.body.course_id,
-    ).then(
-      (value) => {
-        res.send(constants.voluntary_request_created);
-      },
-      (error) => {
-        throw error;
-      }
+    const voluntary = await model.create_volunteer_database(
+      USER_ID,
+      course_id,
+      extra_info
     );
+    res.send(voluntary);
   } catch (error) {
     server_error(error, res);
   }
 }
 
-/*
-
-
-req: volunteer_id, result
- */
 export const professor_accept_reject = async function (req, res) {
   try {
     const volunteers = await db.get_volunteer(req.body.volunteer_id);
@@ -143,18 +111,6 @@ export const view_announcements = async function (req, res) {
     server_error(error, res);
   }
 }
-/*
-
-  logic:
-    a professor
-    writes feedback
-
- */
-
-export const student_write_feedback = async function (req, res) {
-
-}
-
 
 export const view_announcements_by_instructor = async function (req, res) {
   try {

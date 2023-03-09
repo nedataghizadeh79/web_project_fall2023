@@ -63,7 +63,7 @@ export const sign_in_validation_rules = () => {
 
 export const create_announcement_validation_rules =() => {
     return[
-        body('USER_ROLE').custom(role_checker([2, 3])),
+        body('USER_ROLE').custom(role_checker([2])),
         body('course_id').isInt(),
         body('description').isLength({max: 500})
     ];
@@ -71,6 +71,7 @@ export const create_announcement_validation_rules =() => {
 
 export const voluntary_validation_rules = () => {
     return[
+      // this is announcement_id
       body('course_id').isInt(),
     ];
 }

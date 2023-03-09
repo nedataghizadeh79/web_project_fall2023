@@ -310,12 +310,13 @@ export const create_announcement_database = async function (course_id, descripti
   )
 }
 
-export const create_volunteer_database = async function (student_id, course_id) {
+export const create_volunteer_database = async function (student_id, course_id, extra_info) {
   return Voluntary.create(
     {
       student_id: student_id,
       course_id: course_id,
-      status: "pending"
+      status: "pending",
+      extra_info: extra_info,
     }
   )
 }
