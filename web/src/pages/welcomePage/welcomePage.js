@@ -15,10 +15,11 @@ function WelcomePage() {
 
     if (showWelcome) {
         return(
-            <>
+            <div>
                 <h2 className='welcomeh2'>به سامانه دستاد خوش آمدید</h2>
+                <br/>
                 <section className="welcomeImg"></section>
-            </>
+            </div>
         )
     ;
     } else {

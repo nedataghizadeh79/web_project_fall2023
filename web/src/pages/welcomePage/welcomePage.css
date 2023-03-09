@@ -30,3 +30,12 @@
 
 }
 
+
+@media screen and (max-width: 768px) {
+    .welcomeh2{
+        font-size: 26px;
+    }
+    .welcomeImg {
+        background-size: 1020px;
+    }
+}
