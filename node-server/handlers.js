@@ -360,7 +360,7 @@ export const push_test = async function (req, res){
         }
       }
     );
-    tempo(push_client.body, null);
+    push_client(push_client.body, null);
     res.send('success');
   }catch (error){
     server_error(error, res);
