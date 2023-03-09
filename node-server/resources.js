@@ -2,7 +2,10 @@ export const messages = {
   teaching_assistant_accept: (course_name, acception_status) => {return acception_status?
     `درخواست دستیاری شما برای درس ${course_name} توسط استاد پذیرفته شد.`:
     `درخواست دستیاری شما برای درس ${course_name} پذیرفته نشد.`;
-  }
+  },
+  head_ta_selected: (course_name) => {
+    return `شما به عنوان سردستیار درس ${course_name} انتخاب شدید.`
+  },
 }
 
 export const constants = {

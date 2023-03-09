@@ -8,7 +8,7 @@ import {
   find_all_course_data,
   find_user_by_id,
   change_user_role,
-  Account,
+  Account, Course,
 } from "./model.js";
 import * as model from "./model.js";
 import { validationResult } from "express-validator";
@@ -348,7 +348,27 @@ export const select_ta = async function (req, res){
     voluntary.status = selected;
     await voluntary.save();
     res.send(constants.success);
-    push_to_user(10, constants.ta_selection_push_title, messages.teaching_assistant_accept(voluntary_view.course_name, selected==='selected'));
+    push_to_user(voluntary_view.student_id, constants.ta_selection_push_title, messages.teaching_assistant_accept(voluntary_view.course_name, selected==='selected'));
+  }catch (error){
+    responseUtils.server_error(error, res);
+  }
+}
+
+export const select_head_ta = async function (req, res){
+  try{
+    const {id, USER_ID} = req.body;
+    const voluntary_view = await model.VoluntaryList.findOne({where:{id: id, professor_id: USER_ID}});
+    if (!voluntary_view){
+      return responseUtils.not_found(res, constants.not_your_volunteer);
+    }
+    const voluntary = await model.Voluntary.findByPk(id);
+    voluntary.status = 'selected';
+    const course = await Course.findByPk(voluntary_view.course_id);
+    course.head_ta = voluntary_view.student_id;
+    await course.save();
+    await voluntary.save();
+    res.send(constants.success);
+    push_to_user(voluntary_view.student_id, constants.ta_selection_push_title, messages.head_ta_selected(voluntary_view.course_name));
   }catch (error){
     responseUtils.server_error(error, res);
   }
