@@ -7,7 +7,7 @@ import { useLoaderDispatcher } from "../../providers/loaderProvider";
 import "./volunteerList.css";
 
 function VolunteerList() {
-  const { announcement_id } = useParams();
+  const { id } = useParams();
 
   // get announcements from server using announcment_id
   const [volunteers, setVolunteers] = useState({});
@@ -15,15 +15,18 @@ function VolunteerList() {
   useEffect(() => {
     // call http request to get announcement
     dispatch({ type: "show" });
-    getAnnouncementVolunteers(announcement_id)
+    getAnnouncementVolunteers({ USER_ROLE: 2, announcement_id: parseInt(id) })
       .then((res) => {
         setVolunteers(res.data);
-        dispatch({ type: "hide" });
       })
-      .catch(() => {
-        toast.error("خطایی رخ داده است");
+      .catch(async (err) => {
+        const errMessage = await err.response.data.message;
+        toast.error(errMessage);
+      })
+      .finally(() => {
+        dispatch({ type: "hide" });
       });
-  }, [announcement_id, dispatch]);
+  }, [id, dispatch]);
 
   return (
     <div className="volunteer__container padded__container">

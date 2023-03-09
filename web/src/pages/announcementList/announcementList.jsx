@@ -29,8 +29,8 @@ function AnnouncementList({ announcements }) {
         announcements.map((announcement) => (
           <AnnouncementCard
             key={announcement.id}
-            course={announcement.name}
-            createDate={announcement.createDate}
+            course={announcement.course_name}
+            createDate={announcement.description}
             onDelete={() => handleDelete(announcement.id)}
             onUpdate={() => handleUpdate(announcement.id)}
             onClick={() => handleClick(announcement.id)}

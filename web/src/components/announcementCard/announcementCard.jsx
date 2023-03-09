@@ -21,7 +21,7 @@ function AnnouncementCard({ course, createDate, onClick, onDelete, onUpdate }) {
     <div className="card announcementCard" onClick={onClick}>
       <div className="data_container announcementCard__body">
         <p>نام درس: {course}</p>
-        <p>تاریخ ایجاد: {createDate}</p>
+        <p> توضیحات: {createDate}</p>
       </div>
       <div className="footer_container announcementCard__footer">
         <button type="button" className="cancel" onClick={handleDelete}>

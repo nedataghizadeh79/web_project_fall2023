@@ -65,7 +65,7 @@ export const create_announcement = async function (req, res) {
       req.body.description
     ).then(
       (value) => {
-        res.send(constants.announcement_created);
+        res.send(value);
       },
       (error) => {
         throw error;
@@ -337,22 +337,22 @@ export const approve_red_alert = async function (req, res) {
   }
 }
 
-const push_client = async function (client){
+const push_client = async function (client) {
   //get push subscription object from the request
   console.log(client);
   const subscription = JSON.parse(client);
   console.log(subscription);
 
   //create paylod: specified the detals of the push notification
-  const payload = JSON.stringify({title: 'Dastad Notification' , customBody: 'this is a test notification from dastad'});
+  const payload = JSON.stringify({ title: 'Dastad Notification', customBody: 'this is a test notification from dastad' });
 
   //pass the object into sendNotification fucntion and catch any error
-  webpush.sendNotification(subscription, payload).catch(err=> console.error(err));
+  webpush.sendNotification(subscription, payload).catch(err => console.error(err));
 }
 
-export const push_test = async function (req, res){
+export const push_test = async function (req, res) {
   try {
-    const {USER_ID} = req.body;
+    const { USER_ID } = req.body;
     const push_client = await model.PushReceiver.findOne(
       {
         where: {
@@ -362,7 +362,7 @@ export const push_test = async function (req, res){
     );
     push_client(push_client.body, null);
     res.send('success');
-  }catch (error){
+  } catch (error) {
     server_error(error, res);
   }
 }

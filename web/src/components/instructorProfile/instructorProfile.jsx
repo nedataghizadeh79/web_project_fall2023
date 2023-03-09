@@ -52,7 +52,8 @@ function InstructorProfile({ userData }) {
       ...announcementForm,
       course_id: parseInt(announcementForm.course_id),
     })
-      .then(() => {
+      .then((data) => {
+        console.log(data);
         setAnnouncements((announcements) => [
           ...announcements,
           { ...announcementForm },
@@ -71,24 +72,26 @@ function InstructorProfile({ userData }) {
 
     let error = null;
 
-    getInstructorCourses(user.id)
-      .then((data) => {
-        data && setCourses(data);
-      })
-      .catch(async (err) => {
-        error = await err.response.data.message;
-      });
+    setTimeout(() => {
+      getInstructorCourses(user.id)
+        .then((data) => {
+          data && setCourses(data);
+        })
+        .catch(async (err) => {
+          error = await err.response.data.message;
+        });
 
-    getInstructorAnnouncements(user?.id || user_id)
-      .then((data) => {
-        data && setAnnouncements(data);
-      })
-      .catch(async (err) => {
-        error = await err.response.data.message;
-      });
+      getInstructorAnnouncements(user?.id || user_id)
+        .then((data) => {
+          data && setAnnouncements(data);
+        })
+        .catch(async (err) => {
+          error = await err.response.data.message;
+        });
 
-    dispatch({ type: "hide" });
-    error && toast.error(error);
+      dispatch({ type: "hide" });
+      error && toast.error(error);
+    }, 2000);
   }, [dispatch, user_id, user]);
 
   return (

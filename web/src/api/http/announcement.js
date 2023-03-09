@@ -41,6 +41,10 @@ export function volunteerForAnnouncement(volunteershipData) {
 }
 
 export function getAnnouncementVolunteers(announcment_id) {
-    return http.post('/view_volunteers', announcment_id)
+    return http.post('/view_volunteers', announcment_id, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem("token"),
+        }
+    })
         .then(res => res.data)
 }
