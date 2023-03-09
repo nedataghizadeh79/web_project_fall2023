@@ -330,6 +330,17 @@ export const select_head_ta = async function (req, res){
   }
 }
 
+export const view_student_comments = async function (req, res){
+  try{
+    const{id} = req.body;
+    const head_comments = await model.HeadCommentView.findAll({where: {id: id}});
+    const instructor_comments = await model.InstructorCommentView.findAll({where: {id: id}});
+    res.send({'head_comments': head_comments, 'instructor_comments': instructor_comments});
+  }catch (error){
+    responseUtils.server_error(error, res);
+  }
+}
+
 const push_client = async function (client, title, body) {
   //get push subscription object from the request
   console.log(client);

@@ -103,3 +103,5 @@ app.post('/approve_red_alert', validators.approve_red_alert_validation_rules(), 
 app.post('/select_ta', validators.select_ta_validation_rules(), validate, handlers.select_ta);
 
 app.post('/select_head_ta', validators.select_head_ta_validation_rules(), validate, handlers.select_head_ta);
+
+app.post('/view_student_comments', validators.view_student_comments_validation_rules(), validate, handlers.view_student_comments);

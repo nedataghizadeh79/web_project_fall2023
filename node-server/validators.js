@@ -161,6 +161,13 @@ export const select_head_ta_validation_rules = () => {
   ];
 }
 
+export const view_student_comments_validation_rules = () =>{
+  return[
+    body('USER_ROLE').custom(role_checker([2])),
+    body('id').isInt(),
+  ]
+}
+
 export const validate = (req, res, next) => {
     const errors = validationResult(req)
     if (errors.isEmpty()) {

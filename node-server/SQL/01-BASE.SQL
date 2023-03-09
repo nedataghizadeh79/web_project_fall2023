@@ -191,3 +191,24 @@ CREATE TABLE push_receiver(
     user_id INTEGER,
     body    VARCHAR(1000)
 );
+
+DROP VIEW IF EXISTS head_comment_view;
+
+CREATE VIEW head_comment_view AS
+SELECT h.rate, h.comment,
+       c.term, c.year, c.course_name,
+       a.name, a.id
+FROM head_feedback h JOIN course_ta ct on h.course_id = ct.course_id and h.ta_id = ct.ta
+                     JOIN course c on c.id = h.course_id
+                     JOIN account a on ct.ta = a.id;
+
+
+DROP VIEW IF EXISTS instructor_comment_view;
+
+CREATE VIEW instructor_comment_view AS
+SELECT p.rate, p.comment,
+       c.term, c.year, c.course_name,
+       a.name, a.id
+FROM professor_feedback p JOIN course_ta ct on p.course_id = ct.course_id and p.ta_id = ct.ta
+                     JOIN course c on c.id = p.course_id
+                     JOIN account a on ct.ta = a.id;

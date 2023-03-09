@@ -199,6 +199,36 @@ export const PushReceiver = sequelize.define('push_receiver',{
   body: DataTypes.STRING,
 }, dbOpts('push_receiver'));
 
+
+export const HeadCommentView = sequelize.define('head_comment_view', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  name: DataTypes.STRING,
+  course_name: DataTypes.STRING,
+  term: DataTypes.STRING,
+  year: DataTypes.STRING,
+  comment: DataTypes.STRING,
+  rate: DataTypes.INTEGER
+}, dbOpts('head_comment_view'));
+
+// export const InstructorCommentView;
+export const InstructorCommentView = sequelize.define('instructor_comment_view', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  name: DataTypes.STRING,
+  course_name: DataTypes.STRING,
+  term: DataTypes.STRING,
+  year: DataTypes.STRING,
+  comment: DataTypes.STRING,
+  rate: DataTypes.INTEGER
+}, dbOpts('instructor_comment_view'));
+
 export const test_database = async function () {
   return sequelize.authenticate();
 }
