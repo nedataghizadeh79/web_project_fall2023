@@ -101,5 +101,3 @@ app.post('/view_red_alert_docs', validators.view_red_alert_docs_validation_rules
 app.post('/approve_red_alert', validators.approve_red_alert_validation_rules(), validate, handlers.approve_red_alert);
 
 app.post('/select_ta', validators.select_ta_validation_rules(), validate, handlers.select_ta);
-
-app.post('/test_push', handlers.push_test);

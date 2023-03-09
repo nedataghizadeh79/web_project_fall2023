@@ -1,7 +1,7 @@
 export const messages = {
   teaching_assistant_accept: (course_name, acception_status) => {return acception_status?
-    "your request to become TA for course {$course_name} has been accepted":
-    "your request to become TA for course {$course_name} has been rejected";
+    `درخواست دستیاری شما برای درس ${course_name} توسط استاد پذیرفته شد.`:
+    `درخواست دستیاری شما برای درس ${course_name} پذیرفته نشد.`;
   }
 }
 
@@ -32,6 +32,8 @@ export const constants = {
   "نام کاربری یا رمز عبور وارد شده اشتباه است",
   not_your_volunteer:
   "این درخواست مربوط به درس شما نیست!",
+  ta_selection_push_title:
+  "دستاد: انتخاب تی ای"
 }
 
 export const responseUtils = {

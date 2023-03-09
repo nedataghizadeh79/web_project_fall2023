@@ -348,37 +348,40 @@ export const select_ta = async function (req, res){
     voluntary.status = selected;
     await voluntary.save();
     res.send(constants.success);
+    push_to_user(10, constants.ta_selection_push_title, messages.teaching_assistant_accept(voluntary_view.course_name, selected==='selected'));
   }catch (error){
     responseUtils.server_error(error, res);
   }
 }
 
-const push_client = async function (client) {
+const push_client = async function (client, title, body) {
   //get push subscription object from the request
   console.log(client);
   const subscription = JSON.parse(client);
   console.log(subscription);
 
   //create paylod: specified the detals of the push notification
-  const payload = JSON.stringify({ title: 'Dastad Notification', customBody: 'this is a test notification from dastad' });
+  const payload = JSON.stringify({ title: title, customBody: body });
 
   //pass the object into sendNotification fucntion and catch any error
   webpush.sendNotification(subscription, payload).catch(err => console.error(err));
 }
 
-export const push_test = async function (req, res) {
+export const push_to_user = async function (user_id, subject, body) {
   try {
-    const { USER_ID } = req.body;
-    const push_client = await model.PushReceiver.findOne(
+    const receiver = await model.PushReceiver.findOne(
       {
         where: {
-          user_id: USER_ID
+          user_id: user_id
         }
       }
     );
-    push_client(push_client.body, null);
-    res.send('success');
+    if (!receiver){
+      return;
+    }
+    // dont need await
+    push_client(receiver.body, subject, body);
   } catch (error) {
-    server_error(error, res);
+    console.log(error);
   }
 }
