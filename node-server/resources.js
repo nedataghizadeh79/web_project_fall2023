@@ -26,6 +26,8 @@ export const constants = {
   "حساب کاربری شما با موفقیت ساخته شد",
   success:
   "عملیات با موفقیت انجام شد",
+  user_already_exists:
+  "حسابی با این نام کاربری وجود دارد"
 }
 
 export const responseUtils = {

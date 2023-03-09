@@ -47,6 +47,7 @@ const checkRolesExisted = (req, res, next) => {
 
 export const sign_up_validation_rules = () => {
     return[
+        body('username').isString().isLength({min: 4, max: 50}),
         body('name').isString().isLength({min: 1, max: 50}),
         body('email').isEmail(),
         body('password').isString().isLength({min:4})

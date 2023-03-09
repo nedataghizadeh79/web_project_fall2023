@@ -36,14 +36,18 @@ const isOstadOrAdmin = async (req, res, next) => {
 
 export const sign_up = async function (req, res) {
   try {
+    const {username, password, email, name} = req.body;
+    const existingUser = await find_user_by_username(username);
+    if (existingUser){
+      return res.status(409).send(constants.user_already_exists);
+    }
     const user = await create_user(
-      req.body.username,
-      bcrypt.hashSync(req.body.password, 8),
-      req.body.email,
-      req.body.name,
+      username,
+      bcrypt.hashSync(password, 8),
+      email,
+      name,
       1,
     );
-    const {username, name} = req.body;
     res.send({
       'username': username,
       'name': name,
