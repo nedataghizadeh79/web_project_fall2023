@@ -7,9 +7,9 @@ const CardCoursesWrapper = ({ handleClick, cardItems }) => {
       {cardItems.map((course) => (
         <CardCourse
           key={course.course_id}
-          courseName={course.name}
-          masterName={course.instructor}
-          status={course.isOpen}
+          courseName={course.course_name}
+          masterName={course.professor_name}
+          status={course.description}
           clickHandler={() => handleClick(course)}
         />
       ))}
