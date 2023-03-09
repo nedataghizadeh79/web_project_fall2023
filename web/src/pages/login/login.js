@@ -29,7 +29,8 @@ function Login() {
         updateToastToSuccess(toastRef.current, "شما با موفقیت وارد حساب کاربری خود شدید")
         navigate('/main');
       }).catch(async (err) => {
-        const errorMessage = await err.response.data.message;
+        console.log(err);
+        const errorMessage = await err.response?.data.message || err.message;
         updateToastToError(toastRef.current, errorMessage);
       })
   }
