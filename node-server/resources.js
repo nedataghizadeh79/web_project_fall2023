@@ -30,6 +30,8 @@ export const constants = {
   "حسابی با این نام کاربری وجود دارد",
   wrong_user_password:
   "نام کاربری یا رمز عبور وارد شده اشتباه است",
+  not_your_volunteer:
+  "این درخواست مربوط به درس شما نیست!",
 }
 
 export const responseUtils = {

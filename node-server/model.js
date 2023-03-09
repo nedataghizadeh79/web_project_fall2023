@@ -160,10 +160,11 @@ export const CourseData = sequelize.define('course_data', {
 });
 
 export const VoluntaryList = sequelize.define('voluntary_clean_list', {
-  announcement_id: {
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
   },
+  announcement_id: DataTypes.INTEGER,
   student_id: DataTypes.INTEGER,
   status: DataTypes.STRING,
   extra_info: DataTypes.STRING,

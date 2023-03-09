@@ -19,19 +19,6 @@ const verifyToken = async (req, res) => {
   user = await find_user_by_id(decoded.id);
   return user;
 };
-const isOstadOrAdmin = async (req, res, next) => {
-  try {
-    const user = await Account.findByPk(req.userId);
-    const role = await user.role;
-    if (role in [2, 3]) {
-      return next();
-    }
-    return responseUtils.forbidden(res);
-  } catch (error) {
-    return responseUtils.server_error(error, res);
-  }
-};
-
 
 export const sign_up = async function (req, res) {
   try {
@@ -98,6 +85,7 @@ export const sign_in = async function (req, res) {
   }
 };
 
+// we don't handle this with session anymore, it should be cleared from token.
 export const logout = async (req, res) => {
   try {
     req.session = null;
@@ -112,5 +100,4 @@ export const logout = async (req, res) => {
 
 export const authJwt = {
   verifyToken,
-  isOstadOrAdmin,
 };

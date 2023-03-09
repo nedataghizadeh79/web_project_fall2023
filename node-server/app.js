@@ -45,8 +45,8 @@ const ignore_auth = ["/sign_up", "/sign_in", "/subscribe"];
 
 const check_user = async function (req, res, next) {
   if (ignore_auth.includes(req.url)) {
-    req.header.USER_ID = -1;
-    req.header.USER_ROLE = -1;
+    req.body.USER_ID = -1;
+    req.body.USER_ROLE = -1;
   } else {
     try{
       const user = await authJwt.verifyToken(req, res);
@@ -99,5 +99,7 @@ app.post('/view_red_alerts', validators.view_red_alerts_validation_rules(), vali
 app.post('/view_red_alert_docs', validators.view_red_alert_docs_validation_rules(), validate, handlers.view_red_alert_docs);
 
 app.post('/approve_red_alert', validators.approve_red_alert_validation_rules(), validate, handlers.approve_red_alert);
+
+app.post('/select_ta', validators.select_ta_validation_rules(), validate, handlers.select_ta);
 
 app.post('/test_push', handlers.push_test);

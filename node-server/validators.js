@@ -143,6 +143,16 @@ export const approve_red_alert_validation_rules = () => {
   ]
 }
 
+export const select_ta_validation_rules = () => {
+  return [
+    body('USER_ROLE').custom(role_checker([2])),
+    body('id').isInt(),
+    body('selected').custom((value) => {
+      return ['selected', 'rejected'].includes(value)
+    })
+  ];
+}
+
 export const validate = (req, res, next) => {
     const errors = validationResult(req)
     if (errors.isEmpty()) {

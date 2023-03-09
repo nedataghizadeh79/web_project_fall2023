@@ -337,6 +337,22 @@ export const approve_red_alert = async function (req, res) {
   }
 }
 
+export const select_ta = async function (req, res){
+  try {
+    const {id, USER_ID, selected} = req.body;
+    const voluntary_view = await model.VoluntaryList.findOne({where:{id: id, professor_id: USER_ID}});
+    if (!voluntary_view){
+      return responseUtils.not_found(res, constants.not_your_volunteer);
+    }
+    const voluntary = await model.Voluntary.findByPk(id);
+    voluntary.status = selected;
+    await voluntary.save();
+    res.send(constants.success);
+  }catch (error){
+    responseUtils.server_error(error, res);
+  }
+}
+
 const push_client = async function (client) {
   //get push subscription object from the request
   console.log(client);

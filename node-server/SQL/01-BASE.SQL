@@ -170,7 +170,7 @@ ALTER TABLE head_feedback ADD COLUMN id SERIAL PRIMARY KEY;
 DROP VIEW IF EXISTS voluntary_clean_list;
 
 CREATE VIEW voluntary_clean_list AS
-    SELECT v.announcement_id, v.student_id, v.status, v.extra_info,
+    SELECT v.id, v.announcement_id, v.student_id, v.status, v.extra_info,
            a.course_id,
            c.year, c.term, c.professor_id, c.course_name
     FROM announcement a JOIN course c on a.course_id = c.id
