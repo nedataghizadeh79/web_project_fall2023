@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import ReactModal from 'react-modal';
+import { ROLE } from '../../utils';
 import './userList.css';
 
 
@@ -55,10 +56,10 @@ function UserListRole({ users }) {
                 <div className='modal__body'>
                     <div>
                         <label value={selectedUser.role} htmlFor='newRole'>تغییر نقش به: </label>
-                        <select id='newRole' name='newRole'>
-                            <option value='1'>دانشجو</option>
-                            <option value='2'>استاد</option>
-                            <option value='3'>مدیر</option>
+                        <select id='newRole' name='newRole' value={selectedUser.role}>
+                            {Object.items(ROLE).map(([key, value]) =>
+                                <option key={key} value={key}>{value}</option>
+                            )}
                         </select>
                     </div>
                 </div>

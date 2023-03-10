@@ -132,6 +132,7 @@ export const Voluntary = sequelize.define('voluntary', {
   announcement_id: DataTypes.INTEGER,
   student_id: DataTypes.INTEGER,
   status: DataTypes.STRING, // todo: this might not work with the current database...
+  extra_info: DataTypes.STRING,
 }, {
   tableName: 'voluntary', createdAt: false, updatedAt: false
 });
@@ -198,7 +199,7 @@ export const RedAlertView = sequelize.define('red_alert_view', {
   ta_name: DataTypes.STRING
 }, dbOpts('red_alert_view'));
 
-export const PushReceiver = sequelize.define('push_receiver',{
+export const PushReceiver = sequelize.define('push_receiver', {
   id: {
     type: DataTypes.INTEGER,
     body: DataTypes.STRING,
