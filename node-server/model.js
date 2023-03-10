@@ -182,6 +182,7 @@ export const VoluntaryList = sequelize.define('voluntary_clean_list', {
   term: DataTypes.STRING,
   professor_id: DataTypes.INTEGER,
   course_name: DataTypes.STRING,
+  student_name: DataTypes.STRING,
 }, dbOpts('voluntary_clean_list'));
 
 export const RedAlertView = sequelize.define('red_alert_view', {

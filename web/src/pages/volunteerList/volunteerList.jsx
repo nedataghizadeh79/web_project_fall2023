@@ -10,14 +10,14 @@ function VolunteerList() {
   const { id } = useParams();
 
   // get announcements from server using announcment_id
-  const [volunteers, setVolunteers] = useState({});
+  const [volunteers, setVolunteers] = useState([]);
   const dispatch = useLoaderDispatcher();
   useEffect(() => {
     // call http request to get announcement
     dispatch({ type: "show" });
     getAnnouncementVolunteers({ announcement_id: parseInt(id) })
       .then((res) => {
-        setVolunteers(res.data);
+        setVolunteers(res);
       })
       .catch(async (err) => {
         const errMessage = await err.response.data.message;
@@ -30,16 +30,19 @@ function VolunteerList() {
 
   return (
     <div className="volunteer__container padded__container">
-      {VOLUNTEERS.map((volunteer) => (
+      {volunteers.map((volunteer) => (
         <div className="card" key={volunteer.id}>
           <div className="data_container">
-            <Link to={`/profile/${volunteer.id}`} className="volunteer__name">
-              {volunteer.name}
+            <Link
+              to={`/user/${volunteer.student_id}`}
+              className="volunteer__name"
+            >
+              {volunteer.student_name}
             </Link>
             <hr />
             <div className="extra-info">
               <span>توضیحات اضافه:&nbsp;</span>
-              <span>ریکام میخوام!!!</span>
+              <span>{volunteer.extra_info || "-"}</span>
             </div>
           </div>
           <div className="footer_container">
