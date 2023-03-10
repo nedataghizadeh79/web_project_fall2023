@@ -229,7 +229,7 @@ CREATE VIEW course_info AS
            a1.name AS professor_name,
            a2.name AS head_ta_name
         FROM course c JOIN account a1 ON c.professor_id = a1.id
-            JOIN account a2 ON c.head_ta = a2.id;
+            LEFT JOIN account a2 ON c.head_ta = a2.id;
 
 DROP VIEW IF EXISTS account_info_for_admin_view;
 
