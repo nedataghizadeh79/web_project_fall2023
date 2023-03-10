@@ -16,3 +16,19 @@ export function getAllUsers() {
         }
     }).then(res => res.data);
 }
+
+export function getUserById(id) {
+    return http.post("/account_info", { id }, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }).then(res => res.data);
+}
+
+export function getUserHistory(id) {
+    return http.post('/ta_history', { id }, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }).then(res => res.data);
+}

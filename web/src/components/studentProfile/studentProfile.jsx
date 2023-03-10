@@ -1,13 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 import { useUser } from "../../providers/UserProvider";
-import { ROLE } from "../../utils";
+import { ROLE, TERM } from "../../utils";
 import ReactModal from "react-modal";
+import { getUserHistory } from "../../api/http/auth";
+import { toast } from "react-toastify";
 
 function StudentProfile({ userData }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [history, setHistory] = useState([]);
 
   const { user_id } = useParams();
   const pageRef = useRef(null);
@@ -27,6 +30,17 @@ function StudentProfile({ userData }) {
   const handleEditClick = () => {
     setIsEditing(true);
   };
+
+  useEffect(() => {
+    getUserHistory(userData.id)
+      .then((res) => {
+        setHistory(res);
+      })
+      .catch(async (err) => {
+        const res = await err.response.data.message;
+        toast.error(res);
+      });
+  }, [userData]);
 
   const renderForm = () => {
     return (
@@ -112,15 +126,20 @@ function StudentProfile({ userData }) {
           >
             <h2>سوابق دستیاری</h2>
             <hr />
-            <div className="card" onClick={() => setIsModalOpen(true)}>
-              <div className="data_container">
-                <h4>مدارهای منطقی</h4>
-                <div className="ta_info">
-                  <p>مدرس: دکتر لاله ارشدی</p>
-                  <p>ترم: پاییز ۱۴۰۱</p>
+            {history.map((item) => (
+              <div className="card">
+                <div className="data_container">
+                  <h4>{item.course_name}</h4>
+                  <div className="ta_info">
+                    {/* <p>مدرس: دکتر لاله ارشدی</p> */}
+                    <p>
+                      ترم: {TERM[item.term]}
+                      {item.year}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </section>
           <ReactModal
             isOpen={isModalOpen}

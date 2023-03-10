@@ -72,7 +72,7 @@ export const accounts_info_validation_rules = () => {
 
 export const account_info_validation_rules = () => {
   return [
-    body('USER_ROLE').custom(role_checker([1])),
+    body('USER_ROLE').custom(role_checker([1, 2, 3])),
     body('id').isInt()
   ]
 }
