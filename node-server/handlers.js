@@ -77,6 +77,17 @@ export const view_accounts_info = async function (req, res) {
   }
 }
 
+export const view_account_info = async function (req, res) {
+  try {
+    const {id} = req.body;
+    const accounts = await model.AccountInfoView.findOne({where: {id: id}});
+    res.send(accounts);
+  } catch (error) {
+    responseUtils.server_error(error, res);
+  }
+}
+
+
 export const create_announcement = async function (req, res) {
   try {
     const { USER_ID, course_id, description } = req.body;
@@ -199,7 +210,6 @@ export const view_announcements_by_instructor = async function (req, res) {
 }
 
 export const view_all_course_data = async function (req, res) {
-  // todo: instructor_id does not exist
   try {
     const course_datas = await find_all_course_data(req.body.USER_ID);
     res.send(course_datas);
@@ -225,24 +235,26 @@ export const change_role = async function (req, res) {
 
 export const write_comment = async function (req, res) {
   try {
-    const ta = await model.get_ta_by_id(req.body.ta_id);
+    const {ta_id, course_id, comment, rate, USER_ID} = req.body;
+    const ta = await model.get_ta_by_id(ta_id);
     if (!ta) {
       responseUtils.not_found(res, "TA not found");
     }
-    const course = model.get_course_by_id(req.body.course_id);
+    const course = await model.get_course_by_id(course_id);
     if (!course) {
       responseUtils.not_found(res, "Course not found");
     }
-    const { ta_id, comment, rate } = req.body;
-    if (course.instructor === req.body.USER_ID) {
-      await model.insert_instructor_feedback(
-        course.instructor, course.id, ta_id, comment, rate
+    if (course.professor_id === USER_ID) {
+      const feedback = await model.insert_instructor_feedback(
+        course.professor_id, course.id, ta_id, comment, rate
       );
+      res.send(feedback);
     }
-    else if (course.head_ta === req.body.USER_ID) {
-      await model.insert_head_ta_feedback(
+    else if (course.head_ta === USER_ID) {
+      const feedback = await model.insert_head_ta_feedback(
         course.head_ta, course.id, ta_id, comment, rate
       );
+      res.send(feedback);
     }
     else {
       responseUtils.forbidden(res);

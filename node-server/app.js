@@ -70,6 +70,8 @@ app.post("/sign_in", sign_in_validation_rules(), validate, sign_in);
 
 app.post('/accounts_info', validators.accounts_info_validation_rules(), validate, handlers.view_accounts_info);
 
+app.post('/account_info', validators.account_info_validation_rules(), validate, handlers.view_account_info);
+
 // not implemented
 app.post("/logout", logout);
 

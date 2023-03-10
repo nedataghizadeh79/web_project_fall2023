@@ -70,6 +70,13 @@ export const accounts_info_validation_rules =() => {
   ]
 }
 
+export const account_info_validation_rules =() => {
+  return[
+    body('USER_ROLE').custom(role_checker([1])),
+    body('id').isInt()
+  ]
+}
+
 export const create_announcement_validation_rules =() => {
     return[
         body('USER_ROLE').custom(role_checker([2])),
@@ -117,8 +124,8 @@ export const change_user_role_validation_rules = () => {
 
 export const write_comment_validation_rules = () => {
     return[
-      body('USER_ROLE').custom(role_checker([3])),
-      body('ta_id').isInt,
+      body('USER_ROLE').custom(role_checker([1, 2, 3])),
+      body('ta_id').isInt(),
       body('comment').isString().isLength({max: 1000}),
       body('rate').isInt({min: 1, max: 5}),
     ];

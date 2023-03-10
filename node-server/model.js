@@ -312,7 +312,7 @@ export const find_user_by_id = async function (id) {
 export const get_ta_by_id = async function (id) {
   return CourseTA.findOne({
     where: {
-      id: id
+      ta: id
     }
   });
 }
@@ -328,15 +328,24 @@ export const get_course_by_id = async function (id) {
 export const insert_instructor_feedback = async function (
   professor_id, course_id, ta_id, comment, rate
 ) {
-  return ProfessorFeedback.create(
-    {
-      professor_id: professor_id,
-      course_id: course_id,
-      ta_id: ta_id,
-      comment: course_id,
-      rate: rate,
-    }
-  )
+  const existing_feedback = await ProfessorFeedback.findOne({where: {professor_id: professor_id,
+    ta_id: ta_id, course_id: course_id}})
+  if (existing_feedback){
+    existing_feedback.rate = rate;
+    existing_feedback.comment = comment;
+    return existing_feedback.save();
+  }
+  else {
+    return ProfessorFeedback.create(
+      {
+        professor_id: professor_id,
+        course_id: course_id,
+        ta_id: ta_id,
+        comment: course_id,
+        rate: rate,
+      }
+    )
+  }
 }
 
 export const insert_head_ta_feedback = async function (
