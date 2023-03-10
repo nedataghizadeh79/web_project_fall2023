@@ -264,23 +264,27 @@ export const find_comments = async function (req, res) {
 
 export const view_volunteers = async function (req, res) {
   let query;
-  if (req.body.USER_ROLE === 3) {
+  const {announcement_id, USER_ROLE, USER_ID} = req.body;
+  if (USER_ROLE === 3) {
     query = {
       where: {
+        announcement_id: announcement_id
       }
     }
   }
-  else if (req.body.USER_ROLE === 2) {
+  else if (USER_ROLE === 2) {
     query = {
       where: {
-        professor_id: req.body.USER_ID
+        announcement_id: announcement_id,
+        professor_id: USER_ID,
       }
     }
   }
-  else if (req.body.USER_ROLE === 1) {
+  else if (USER_ROLE === 1) {
     query = {
       where: {
-        student_id: req.body.USER_ID
+        announcement_id: announcement_id,
+        student_id: USER_ID,
       }
     }
   }
