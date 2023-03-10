@@ -102,7 +102,7 @@ export const delete_announcement_validation_rules = () => {
 
 export const view_course_info_validation_rules = () => {
   return [
-    body('USER_ROLE').custom(role_checker([2])),
+    body('USER_ROLE').custom(role_checker([1, 2, 3])),
     body('course_id').isInt()
   ]
 }

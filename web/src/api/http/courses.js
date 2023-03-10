@@ -25,3 +25,11 @@ export function getCourseInfo(course_id) {
         }
     }).then(res => res.data);
 }
+
+export function getAllCourses() {
+    return http.post('/view_all_courses', {}, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem("token"),
+        }
+    }).then(res => res.data);
+}

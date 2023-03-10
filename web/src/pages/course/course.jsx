@@ -4,21 +4,28 @@ import { useEffect, useMemo, useState } from "react";
 import { useUser } from "../../providers/UserProvider";
 import { getCourseInfo } from "../../api/http/courses";
 import { TERM } from "../../utils";
+import { toast } from "react-toastify";
 
 function Course() {
   const { course_id } = useParams();
   const [courseData, setCourseData] = useState(null);
+  const [canEdit, setCanEdit] = useState(false);
   const { id } = useUser();
 
-  const canEdit = useMemo(() => {
-    return courseData.course.professor_id === id;
-  }, [courseData, id]);
+  // const canEdit = useMemo(() => {
+  //   return courseData?.course.professor_id === id || false;
+  // }, [courseData, id]);
 
   useEffect(() => {
-    getCourseInfo(course_id).then((res) => {
-      setCourseData(res);
-    });
-  }, [course_id]);
+    getCourseInfo(course_id)
+      .then((res) => {
+        setCourseData(res);
+        setCanEdit(res.course_info.professor_id === id);
+      })
+      .catch(() => {
+        toast.error("خطایی رخ داده است");
+      });
+  }, [course_id, id]);
   return (
     courseData && (
       <div className="padded__container course__container">

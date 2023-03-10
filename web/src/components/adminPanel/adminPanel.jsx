@@ -6,11 +6,16 @@ import { getAllUsers } from "../../api/http/auth";
 import { toast } from "react-toastify";
 import { changeUserRole } from "../../api/http/users";
 import { ROLE, updateToastToError, updateToastToSuccess } from "../../utils";
+import { useLoaderDispatcher } from "../../providers/loaderProvider";
+import { getAllCourses } from "../../api/http/courses";
 
 function AdminPanel() {
   const [tab, setTab] = useState(0);
   const [users, setUsers] = useState([]);
+  const [courses, setCourses] = useState([]);
   const toastRef = useRef(null);
+
+  const dispatch = useLoaderDispatcher();
 
   const changeRole = (user) => {
     toastRef.current = toast.loading("در حال ارسال...");
@@ -28,6 +33,7 @@ function AdminPanel() {
   };
 
   useEffect(() => {
+    dispatch({ type: "show" });
     getAllUsers()
       .then((res) => {
         setUsers(res);
@@ -36,7 +42,19 @@ function AdminPanel() {
         const errorMessages = await err.response.data.message;
         toast.error(errorMessages);
       });
-  }, []);
+
+    getAllCourses()
+      .then((res) => {
+        setCourses(res);
+      })
+      .catch(async (err) => {
+        const errorMessages = await err.response.data.message;
+        toast.error(errorMessages);
+      })
+      .finally(() => {
+        dispatch({ type: "hide" });
+      });
+  }, [dispatch]);
   return (
     <main>
       <div className="tabbar">
@@ -47,7 +65,7 @@ function AdminPanel() {
         {tab === 0 ? (
           <UserListRole users={users} onRoleChange={changeRole} />
         ) : (
-          <CourseManage />
+          <CourseManage courses={courses} />
         )}
       </div>
     </main>

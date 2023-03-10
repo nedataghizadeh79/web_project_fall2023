@@ -34,7 +34,7 @@ function CourseManage({ courses, onCreateCourse }) {
           <button onClick={() => setIsModalOpen(true)}>ایجاد درس جدید</button>
         </div>
         <hr />
-        <div>
+        <div className="announcements_wrapper">
           {courses.map((course) => (
             <Link
               to={`/course/${course.course_id}`}
