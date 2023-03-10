@@ -257,7 +257,13 @@ export const CourseInfo = sequelize.define('course_info', {
 export const CourseTAView = sequelize.define('course_ta_view', {
   course_id: { type: DataTypes.INTEGER, primaryKey: true },
   ta_id: { type: DataTypes.INTEGER, primaryKey: true },
-  ta_name: DataTypes.STRING
+  ta_name: DataTypes.STRING,
+  head_id: DataTypes.INTEGER,
+  head_rate: DataTypes.INTEGER,
+  head_comment: DataTypes.STRING,
+  professor_id: DataTypes.INTEGER,
+  professor_rate: DataTypes.INTEGER,
+  professor_comment: DataTypes.STRING,
 }, dbOpts('course_ta_view'));
 
 export const TaHistory = sequelize.define('ta_history', {
