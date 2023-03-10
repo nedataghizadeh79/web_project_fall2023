@@ -351,15 +351,24 @@ export const insert_instructor_feedback = async function (
 export const insert_head_ta_feedback = async function (
   head_id, course_id, ta_id, comment, rate
 ) {
-  return HeadFeedback.create(
-    {
-      head_id: professor_id,
-      course_id: course_id,
-      ta_id: ta_id,
-      comment: course_id,
-      rate: rate,
-    }
-  )
+  const existing_feedback = await HeadFeedback.findOne({where: {head_id: head_id,
+      ta_id: ta_id, course_id: course_id}})
+  if (existing_feedback){
+    existing_feedback.rate = rate;
+    existing_feedback.comment = comment;
+    return existing_feedback.save();
+  }
+  else {
+    return HeadFeedback.create(
+      {
+        head_id: head_id,
+        course_id: course_id,
+        ta_id: ta_id,
+        comment: course_id,
+        rate: rate,
+      }
+    )
+  }
 }
 
 export const change_user_role = async function (id, role) {

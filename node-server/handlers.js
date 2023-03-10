@@ -266,21 +266,21 @@ export const write_comment = async function (req, res) {
 
 export const find_comments = async function (req, res) {
   const { ta_id } = req.body;
-  const head_comments = model.HeadFeedback.findAll(
+  const head_comments = await model.HeadFeedback.findAll(
     {
       where: {
         ta_id: ta_id
       }
     }
   );
-  const instructor_comments = model.ProfessorFeedback.findAll(
+  const instructor_comments = await model.ProfessorFeedback.findAll(
     {
       where: {
         ta_id: ta_id
       }
     }
   );
-  const comments = [...(await head_comments), ...(await instructor_comments)];
+  const comments = {'head_comments': head_comments, 'instructor_comments': instructor_comments};
   res.send(comments);
 }
 
