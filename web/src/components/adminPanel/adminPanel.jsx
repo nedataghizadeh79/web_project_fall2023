@@ -1,10 +1,24 @@
 import "./adminPanel.css";
 import UserListRole from "../userList/userListRole";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CourseManage from "../courseManage/courseManage";
+import { getAllUsers } from "../../api/http/auth";
+import { toast } from "react-toastify";
 
 function AdminPanel() {
   const [tab, setTab] = useState(0);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    getAllUsers()
+      .then((res) => {
+        setUsers(res);
+      })
+      .catch(async (err) => {
+        const errorMessages = await err.response.data.message;
+        toast.error(errorMessages);
+      });
+  }, []);
   return (
     <main>
       <div className="tabbar">

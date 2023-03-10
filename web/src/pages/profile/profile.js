@@ -1,5 +1,6 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+import { getUserById } from "../../api/http/auth";
 import AdminPanel from "../../components/adminPanel/adminPanel";
 import InstructorProfile from "../../components/instructorProfile/instructorProfile";
 import StudentProfile from "../../components/studentProfile/studentProfile";
@@ -7,12 +8,26 @@ import { useUser } from "../../providers/UserProvider";
 import "./profile.css";
 
 function Profile() {
-  const userData = useUser();
+  const [userData, setUserData] = useState({})
+  const loggedUser = useUser();
   const { user_id } = useParams();
 
-  const profileRole = useMemo(() => {
-    return user_id || userData.roles;
-  }, [userData, user_id]);
+
+  // useEffect(() => {
+  //   if (user_id) {
+  //     getUserById(user_id).then(res => {
+  //       setUserData(res);
+  //     }).catch()
+  //   } else {
+  //     setUserData(loggedUser);
+  //   }
+  // }, [user_id, loggedUser])
+
+  useEffect(() => {
+    setUserData(loggedUser);
+  }, []);
+
+
 
   const getProfile = useCallback(() => {
     switch (userData.roles) {

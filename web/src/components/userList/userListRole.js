@@ -41,7 +41,7 @@ function UserListRole({ users }) {
                                 </div>
                                 <div className="data">
                                     <span className="mainSpan"> نقش: </span>{" "}
-                                    <span className="dataSpan"> دانشجو </span>
+                                    <span className="dataSpan"> {ROLE[user.role]} </span>
                                 </div>
                             </div>
                             <div className='footer_container'>
@@ -53,19 +53,21 @@ function UserListRole({ users }) {
 
             </div>
             <ReactModal className="react_modal" isOpen={!!selectedUser} onRequestClose={closeModal}>
-                <div className='modal__body'>
-                    <div>
-                        <label value={selectedUser.role} htmlFor='newRole'>تغییر نقش به: </label>
-                        <select id='newRole' name='newRole' value={selectedUser.role}>
-                            {Object.items(ROLE).map(([key, value]) =>
-                                <option key={key} value={key}>{value}</option>
-                            )}
-                        </select>
+                {selectedUser &&
+                    <div className='modal__body'>
+                        <div>
+                            <label value={selectedUser.role} htmlFor='newRole'>تغییر نقش به: </label>
+                            <select id='newRole' name='newRole' value={selectedUser.role}>
+                                {Object.entries(ROLE).map(([key, value]) =>
+                                    <option key={key} value={key}>{value}</option>
+                                )}
+                            </select>
+                        </div>
                     </div>
-                </div>
+                }
                 <div className='modal__footer'>
-                    <button onClick={closeModal}>بستن</button>
-
+                    <button onClick={closeModal} className="cancel">لغو</button>
+                    <button>تایید</button>
                 </div>
             </ReactModal>
         </>

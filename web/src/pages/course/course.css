@@ -4,8 +4,28 @@
     gap: 1rem;
 }
 
+.course__container section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 .ta__container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 0.5rem;
+
+}
+
+.ta__container {
+    list-style-type: none;
+}
+
+.ta__container li {
+    text-align: center;
+}
+
+.ta__container a {
+    text-decoration: underline;
+    font-size: 1.2rem;
 }

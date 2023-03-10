@@ -1,12 +1,18 @@
 import "./course.css";
-import { VOLUNTEERS } from "../../data/volunteers.data";
 import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useUser } from "../../providers/UserProvider";
 import { getCourseInfo } from "../../api/http/courses";
+import { TERM } from "../../utils";
 
 function Course() {
   const { course_id } = useParams();
-  const [courseData, setCourseData] = useState({});
+  const [courseData, setCourseData] = useState(null);
+  const { id } = useUser();
+
+  const canEdit = useMemo(() => {
+    return courseData.course.professor_id === id;
+  }, [courseData, id]);
 
   useEffect(() => {
     getCourseInfo(course_id).then((res) => {
@@ -14,31 +20,38 @@ function Course() {
     });
   }, [course_id]);
   return (
-    <div className="padded__container course__container">
-      <section>
-        <h1>طراحی الگوریتم‌ها</h1>
-        <h3>دکتر حمید ضرابی‌زاده</h3>
-        <p>ترم پاییز ۱۴۰۱</p>
-      </section>
-      <section>
+    courseData && (
+      <div className="padded__container course__container">
+        <section>
+          <h1>{courseData.course_info.course_name}</h1>
+          <h3>{courseData.course_info.professor_name}</h3>
+          <p>
+            ترم {TERM[courseData.course_info.term]}{" "}
+            {courseData.course_info.year}
+          </p>
+        </section>
+        {/* <section>
         <h2>سر‌ دستیار آموزشی</h2>
         <hr />
         <div>
           <div className="card" />
         </div>
-      </section>
-      <section>
-        <h2>دستیاران آموزشی</h2>
-        <hr />
-        <div className="ta__container">
-          {VOLUNTEERS.map((volunteer) => (
-            <Link to={`/profile/${volunteer.id}`} className="card">
-              <div className="data_container">{volunteer.name}</div>
-            </Link>
-          ))}
-        </div>
-      </section>
-    </div>
+      </section> */}
+        <section>
+          <h2>دستیاران آموزشی</h2>
+          <hr />
+          <ul className="ta__container">
+            {courseData.tas.map((ta) => (
+              <li key={ta.ta_id} className="card text__bold announcementCard">
+                <Link to={`/student/${ta.ta_id}`} className="">
+                  {ta.ta_name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    )
   );
 }
 

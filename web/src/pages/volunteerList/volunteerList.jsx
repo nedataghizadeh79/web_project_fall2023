@@ -92,7 +92,7 @@ function VolunteerList() {
           <div className="card" key={volunteer.id}>
             <div className="data_container">
               <Link
-                to={`/user/${volunteer.student_id}`}
+                to={`/student/${volunteer.student_id}`}
                 className="volunteer__name"
               >
                 {volunteer.student_name}
