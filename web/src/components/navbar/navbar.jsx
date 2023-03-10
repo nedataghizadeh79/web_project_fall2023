@@ -34,7 +34,6 @@ function Navbar() {
           <Link className="mainButton" to={"/main"}>
             صفحه اصلی
           </Link>
-          <img className="Icon mainI" src={homePage} alt="main page" />
         </section>
 
         <div className="navbar__left">
