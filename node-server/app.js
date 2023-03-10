@@ -89,6 +89,8 @@ app.post('/view_announcements_by_instructor', handlers.view_announcements_by_ins
 
 app.post('/view_all_course_data', handlers.view_all_course_data);
 
+app.post('/view_all_courses', handlers.view_all_courses);
+
 app.post('/change_user_role', change_user_role_validation_rules(), validate, handlers.change_role);
 
 app.post('/write_comment', write_comment_validation_rules(), validate, handlers.write_comment);

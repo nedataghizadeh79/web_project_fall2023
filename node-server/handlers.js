@@ -218,6 +218,15 @@ export const view_all_course_data = async function (req, res) {
   }
 }
 
+export const view_all_courses = async function (req, res){
+  try{
+    const courses = await model.CourseData.findAll();
+    res.send(courses);
+  }catch(error){
+    responseUtils.server_error(error, res);
+  }
+}
+
 export const change_role = async function (req, res) {
   try {
     const account = await find_user_by_id(req.body.user_id);
