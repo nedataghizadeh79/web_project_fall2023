@@ -61,6 +61,12 @@ export const sign_in_validation_rules = () => {
     ];
 }
 
+export const accounts_info_validation_rules =() => {
+  return[
+    body('USER_ROLE').custom(role_checker([3]))
+  ]
+}
+
 export const create_announcement_validation_rules =() => {
     return[
         body('USER_ROLE').custom(role_checker([2])),

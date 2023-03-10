@@ -58,6 +58,15 @@ export const test_runs = function (req, res) {
   );
 };
 
+export const view_accounts_info = async function (req, res){
+  try{
+    const accounts = await model.AccountInfoView.findAll();
+    res.send(accounts);
+  }catch (error){
+    responseUtils.server_error(error, res);
+  }
+}
+
 export const create_announcement = async function (req, res) {
   try {
     const {USER_ID, course_id, description} = req.body;

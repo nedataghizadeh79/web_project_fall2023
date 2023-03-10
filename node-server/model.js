@@ -62,6 +62,14 @@ export const Account = sequelize.define('account', {
   role: DataTypes.STRING,
 }, dbOpts('account'));
 
+export const AccountInfoView = sequelize.define('account_info_for_admin_view', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  username: DataTypes.STRING,
+  email: DataTypes.STRING,
+  name: DataTypes.STRING,
+  role: DataTypes.STRING,
+}, dbOpts('account_info_for_admin_view'));
+
 export const Course = sequelize.define('course', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   year: DataTypes.STRING,
