@@ -137,9 +137,12 @@ DROP VIEW IF EXISTS course_ta_view;
 CREATE VIEW course_ta_view AS
 	SELECT course_ta.course_id AS course_id,
 	course_ta.ta AS ta_id,
+	hf.head_id, hf.rate AS head_rate, hf.comment AS head_comment,
+	pf.professor_id, pf.rate AS professor_rate, pf.comment AS professor_comment,
 	(SELECT account.name
 	FROM account WHERE account.id = course_ta.ta) AS ta_name
-	FROM course_ta;
+	FROM course_ta LEFT JOIN head_feedback hf on course_ta.course_id = hf.course_id and course_ta.ta = hf.ta_id
+    LEFT JOIN professor_feedback pf on course_ta.course_id = pf.course_id and course_ta.ta = pf.ta_id;
 
 DROP VIEW IF EXISTS volunteer_data;
 
