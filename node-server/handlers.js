@@ -494,13 +494,6 @@ export const ta_history = async function (req, res){
   }catch (error){responseUtils.server_error(error, res);}
 }
 
-export const get_file = async function (req, res) {
-  const options = {
-    root: path.join("./")
-  };
-  return res.sendFile("./media/" + req.params.name, options);
-}
-
 export const view_course_info = async function (req, res) {
   try {
     const { course_id } = req.body;
