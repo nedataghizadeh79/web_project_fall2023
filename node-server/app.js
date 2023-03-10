@@ -114,8 +114,12 @@ app.post('/view_student_comments', validators.view_student_comments_validation_r
 
 app.post('/view_course_info', validators.view_course_info_validation_rules(), validate, handlers.view_course_info);
 
-// app.post('/ta_history', handlers.student_resume);
-
 app.post('/upload', handlers.upload_file);
 
 app.get('/media/:name', handlers.get_file);
+
+app.post('/upload_pfp', handlers.upload_pfp);
+
+app.post('/pfp/:id', handlers.download_pfp);
+
+app.post('/ta_history', validators.ta_history(), validate, handlers.ta_history);

@@ -258,6 +258,13 @@ export const CourseTAView = sequelize.define('course_ta_view', {
   ta_name: DataTypes.STRING
 }, dbOpts('course_ta_view'));
 
+export const TaHistory = sequelize.define('ta_history', {
+  id: { type: DataTypes.INTEGER, primaryKey: true },
+  course_name: DataTypes.STRING,
+  term: DataTypes.STRING,
+  year: DataTypes.STRING,
+}, dbOpts('ta_history'));
+
 export const test_database = async function () {
   return sequelize.authenticate();
 }
