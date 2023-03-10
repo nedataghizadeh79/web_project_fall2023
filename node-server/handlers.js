@@ -30,12 +30,12 @@ const pfp_storage = multer.diskStorage({
 });
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: function (req, file, cb) {
     cb(null, 'media/');
   },
 
   // By default, multer removes file extensions so let's add them back
-  filename: function(req, file, cb) {
+  filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
 });
@@ -68,24 +68,24 @@ export const test_runs = function (req, res) {
   );
 };
 
-export const view_accounts_info = async function (req, res){
-  try{
+export const view_accounts_info = async function (req, res) {
+  try {
     const accounts = await model.AccountInfoView.findAll();
     res.send(accounts);
-  }catch (error){
+  } catch (error) {
     responseUtils.server_error(error, res);
   }
 }
 
 export const create_announcement = async function (req, res) {
   try {
-    const {USER_ID, course_id, description} = req.body;
-    const course = await model.Course.findOne({where: {id: course_id, professor_id: USER_ID}});
+    const { USER_ID, course_id, description } = req.body;
+    const course = await model.Course.findOne({ where: { id: course_id, professor_id: USER_ID } });
     if (!course) {
       return responseUtils.not_found(res, constants.course_does_not_exist);
     }
-    const existing_announcement = await model.AnnouncementView.findOne({where: {course_id: course_id, professor_id: USER_ID}});
-    if (existing_announcement){
+    const existing_announcement = await model.AnnouncementView.findOne({ where: { course_id: course_id, professor_id: USER_ID } });
+    if (existing_announcement) {
       return responseUtils.conflict(
         res,
         'اعلامیه جذب دستیار'
@@ -101,11 +101,11 @@ export const create_announcement = async function (req, res) {
   }
 }
 
-export const edit_announcement = async function (req, res){
+export const edit_announcement = async function (req, res) {
   try {
-    const {USER_ID, id, description} = req.body;
-    const existing_announcement = await model.AnnouncementView.findOne({where: {id: id, professor_id: USER_ID}});
-    if (! existing_announcement){
+    const { USER_ID, id, description } = req.body;
+    const existing_announcement = await model.AnnouncementView.findOne({ where: { id: id, professor_id: USER_ID } });
+    if (!existing_announcement) {
       return responseUtils.not_found(
         res,
         'اعلامیه وجود ندارد'
@@ -120,11 +120,11 @@ export const edit_announcement = async function (req, res){
   }
 }
 
-export const delete_announcement = async function (req, res){
-  try{
-    const {USER_ID, id} = req.body;
-    const existing_announcement = await model.AnnouncementView.findOne({where: {id: id, professor_id: USER_ID}});
-    if (! existing_announcement){
+export const delete_announcement = async function (req, res) {
+  try {
+    const { USER_ID, id } = req.body;
+    const existing_announcement = await model.AnnouncementView.findOne({ where: { id: id, professor_id: USER_ID } });
+    if (!existing_announcement) {
       return responseUtils.not_found(
         res,
         'اعلامیه وجود ندارد'
@@ -133,14 +133,15 @@ export const delete_announcement = async function (req, res){
     const announcement = await model.Announcement.findByPk(id);
     await announcement.destroy();
     res.send(constants.success);
-  }catch (error){
+  } catch (error) {
     responseUtils.server_error(error, res);
   }
 }
 
 export const volunteer = async function (req, res) {
   try {
-    const {course_id, USER_ID, extra_info} = req.body;
+    console.log(req.body);
+    const { course_id, USER_ID, extra_info } = req.body;
     const announcement = await model.Announcement.findByPk(course_id);
     if (!announcement) {
       return responseUtils.not_found(res);
@@ -274,7 +275,7 @@ export const find_comments = async function (req, res) {
 
 export const view_volunteers = async function (req, res) {
   let query;
-  const {announcement_id, USER_ROLE, USER_ID} = req.body;
+  const { announcement_id, USER_ROLE, USER_ID } = req.body;
   if (USER_ROLE === 3) {
     query = {
       where: {
@@ -375,28 +376,28 @@ export const approve_red_alert = async function (req, res) {
   }
 }
 
-export const select_ta = async function (req, res){
+export const select_ta = async function (req, res) {
   try {
-    const {id, USER_ID, selected} = req.body;
-    const voluntary_view = await model.VoluntaryList.findOne({where:{id: id, professor_id: USER_ID}});
-    if (!voluntary_view){
+    const { id, USER_ID, selected } = req.body;
+    const voluntary_view = await model.VoluntaryList.findOne({ where: { id: id, professor_id: USER_ID } });
+    if (!voluntary_view) {
       return responseUtils.not_found(res, constants.not_your_volunteer);
     }
     const voluntary = await model.Voluntary.findByPk(id);
     voluntary.status = selected;
     await voluntary.save();
     res.send(constants.success);
-    push_to_user(voluntary_view.student_id, constants.ta_selection_push_title, messages.teaching_assistant_accept(voluntary_view.course_name, selected==='selected'));
-  }catch (error){
+    push_to_user(voluntary_view.student_id, constants.ta_selection_push_title, messages.teaching_assistant_accept(voluntary_view.course_name, selected === 'selected'));
+  } catch (error) {
     responseUtils.server_error(error, res);
   }
 }
 
-export const select_head_ta = async function (req, res){
-  try{
-    const {id, USER_ID} = req.body;
-    const voluntary_view = await model.VoluntaryList.findOne({where:{id: id, professor_id: USER_ID}});
-    if (!voluntary_view){
+export const select_head_ta = async function (req, res) {
+  try {
+    const { id, USER_ID } = req.body;
+    const voluntary_view = await model.VoluntaryList.findOne({ where: { id: id, professor_id: USER_ID } });
+    if (!voluntary_view) {
       return responseUtils.not_found(res, constants.not_your_volunteer);
     }
     const voluntary = await model.Voluntary.findByPk(id);
@@ -407,18 +408,18 @@ export const select_head_ta = async function (req, res){
     await voluntary.save();
     res.send(constants.success);
     push_to_user(voluntary_view.student_id, constants.ta_selection_push_title, messages.head_ta_selected(voluntary_view.course_name));
-  }catch (error){
+  } catch (error) {
     responseUtils.server_error(error, res);
   }
 }
 
-export const view_student_comments = async function (req, res){
-  try{
-    const{id} = req.body;
-    const head_comments = await model.HeadCommentView.findAll({where: {id: id}});
-    const instructor_comments = await model.InstructorCommentView.findAll({where: {id: id}});
-    res.send({'head_comments': head_comments, 'instructor_comments': instructor_comments});
-  }catch (error){
+export const view_student_comments = async function (req, res) {
+  try {
+    const { id } = req.body;
+    const head_comments = await model.HeadCommentView.findAll({ where: { id: id } });
+    const instructor_comments = await model.InstructorCommentView.findAll({ where: { id: id } });
+    res.send({ 'head_comments': head_comments, 'instructor_comments': instructor_comments });
+  } catch (error) {
     responseUtils.server_error(error, res);
   }
 }
@@ -440,6 +441,14 @@ export const upload_file = async function (req, res) {
     responseUtils.server_error(error, res);
   }
 }
+
+export const get_file = async function (req, res) {
+  const options = {
+    root: path.join("./")
+  };
+  return res.sendFile("./media/" + req.params.name, options);
+}
+
 
 export const upload_pfp = async function (req, res) {
   try {
@@ -470,7 +479,13 @@ export const download_pfp = async function (req, res){
     responseUtils.server_error(error, res);
   }
 }
+export const student_resume = async function (req, res) {
+  try {
 
+  } catch (error) {
+    responseUtils.server_error(error, res);
+  }
+}
 export const ta_history = async function (req, res){
   try{
     const {id} = req.body;
@@ -488,21 +503,21 @@ export const get_file = async function (req, res) {
 
 export const view_course_info = async function (req, res) {
   try {
-    const {course_id} = req.body;
+    const { course_id } = req.body;
     const course = await model.Course.findByPk(course_id);
-    if (!course){
+    if (!course) {
       return responseUtils.not_found(
         res,
         'درس وجود ندارد'
       );
     }
-    const tas = await CourseTAView.findAll({where: {course_id: course_id}});
+    const tas = await CourseTAView.findAll({ where: { course_id: course_id } });
     const course_info = await model.CourseInfo.findByPk(course_id);
     res.send({
       course_info,
       tas
     })
-   } catch (error) {
+  } catch (error) {
     responseUtils.server_error(error, res);
   }
 }
@@ -529,7 +544,7 @@ export const push_to_user = async function (user_id, subject, body) {
         }
       }
     );
-    if (!receiver){
+    if (!receiver) {
       return;
     }
     // dont need await

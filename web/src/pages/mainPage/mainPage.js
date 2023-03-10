@@ -38,7 +38,7 @@ const MainPage = () => {
 
   const volunteerForCourse = useCallback(async () => {
     toastRef.current = toast.loading("در حال ارسال...")
-    volunteerForAnnouncement({ course_id: selectedCourse.course_id, extra_info: extraInfo })
+    volunteerForAnnouncement({ course_id: selectedCourse.id, extra_info: extraInfo })
       .then((res) => {
         closeModal();
         updateToastToSuccess(toastRef.current, "درخواست با موفقیت ارسال شد.");

@@ -23,6 +23,7 @@ function Navbar() {
   const handleLogout = useCallback(() => {
     dispatch(logout());
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     window.location.reload();
   }, [dispatch]);
 
