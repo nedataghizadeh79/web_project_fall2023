@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { toast } from "react-toastify";
 import "./login.css";
 import loginImg from "../../assets/images/login/login.png";
@@ -56,6 +56,10 @@ function Login() {
         <br />
 
         <button className="login__button" type="submit">ورود</button>
+          <br/>
+          <Link className='makeAccount' to='/register' >
+              ایجاد حساب کاربری
+          </Link>
       </form>
       <img src={loginImg} alt="login page" />
     </div>
