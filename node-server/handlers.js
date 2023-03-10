@@ -290,7 +290,8 @@ export const view_volunteers = async function (req, res) {
   if (USER_ROLE === 3) {
     query = {
       where: {
-        announcement_id: announcement_id
+        announcement_id: announcement_id,
+        status: 'pending'
       }
     }
   }
@@ -299,6 +300,7 @@ export const view_volunteers = async function (req, res) {
       where: {
         announcement_id: announcement_id,
         professor_id: USER_ID,
+        status: 'pending'
       }
     }
   }
@@ -307,6 +309,7 @@ export const view_volunteers = async function (req, res) {
       where: {
         announcement_id: announcement_id,
         student_id: USER_ID,
+        status: 'pending'
       }
     }
   }
