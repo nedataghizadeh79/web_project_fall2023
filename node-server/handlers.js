@@ -140,7 +140,6 @@ export const delete_announcement = async function (req, res) {
 
 export const volunteer = async function (req, res) {
   try {
-    console.log(req.body);
     const { course_id, USER_ID, extra_info } = req.body;
     const announcement = await model.Announcement.findByPk(course_id);
     if (!announcement) {
@@ -202,7 +201,7 @@ export const view_announcements_by_instructor = async function (req, res) {
 export const view_all_course_data = async function (req, res) {
   // todo: instructor_id does not exist
   try {
-    const course_datas = await find_all_course_data(req.body.instructor_id);
+    const course_datas = await find_all_course_data(req.body.USER_ID);
     res.send(course_datas);
   } catch (error) {
     server_error(error, res);
