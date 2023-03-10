@@ -6,7 +6,7 @@ import {
   find_all_course_data,
   find_user_by_id,
   change_user_role,
-  Account, Course,
+  Account, Course, CourseTA, CourseInfo, CourseTAView,
 } from "./model.js";
 import * as model from "./model.js";
 import { validationResult } from "express-validator";
@@ -14,6 +14,21 @@ import webpush from "web-push";
 import axios from "axios";
 import { messages, responseUtils } from "./resources.js";
 import { constants } from "./resources.js";
+
+import multer from 'multer';
+import path from 'path';
+
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, 'media/');
+  },
+
+  // By default, multer removes file extensions so let's add them back
+  filename: function(req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
 
 const validation = function (req, res) {
   const errors = validationResult(req);
@@ -50,6 +65,13 @@ export const create_announcement = async function (req, res) {
     if (!course) {
       return responseUtils.not_found(res, constants.course_does_not_exist);
     }
+    const existing_announcement = await model.AnnouncementView.findOne({where: {course_id: course_id, professor_id: USER_ID}});
+    if (existing_announcement){
+      return responseUtils.conflict(
+        res,
+        'اعلامیه جذب دستیار'
+      );
+    }
     const announcement = await create_announcement_database(
       course_id,
       description
@@ -60,6 +82,42 @@ export const create_announcement = async function (req, res) {
   }
 }
 
+export const edit_announcement = async function (req, res){
+  try {
+    const {USER_ID, id, description} = req.body;
+    const existing_announcement = await model.AnnouncementView.findOne({where: {id: id, professor_id: USER_ID}});
+    if (! existing_announcement){
+      return responseUtils.not_found(
+        res,
+        'اعلامیه وجود ندارد'
+      );
+    }
+    const announcement = await model.Announcement.findByPk(id);
+    announcement.description = description;
+    await announcement.save();
+    res.send(announcement);
+  } catch (error) {
+    server_error(error, res)
+  }
+}
+
+export const delete_announcement = async function (req, res){
+  try{
+    const {USER_ID, id} = req.body;
+    const existing_announcement = await model.AnnouncementView.findOne({where: {id: id, professor_id: USER_ID}});
+    if (! existing_announcement){
+      return responseUtils.not_found(
+        res,
+        'اعلامیه وجود ندارد'
+      );
+    }
+    const announcement = await model.Announcement.findByPk(id);
+    await announcement.destroy();
+    res.send(constants.success);
+  }catch (error){
+    responseUtils.server_error(error, res);
+  }
+}
 
 export const volunteer = async function (req, res) {
   try {
@@ -122,6 +180,7 @@ export const view_announcements_by_instructor = async function (req, res) {
 }
 
 export const view_all_course_data = async function (req, res) {
+  // todo: instructor_id does not exist
   try {
     const course_datas = await find_all_course_data(req.body.instructor_id);
     res.send(course_datas);
@@ -337,6 +396,60 @@ export const view_student_comments = async function (req, res){
     const instructor_comments = await model.InstructorCommentView.findAll({where: {id: id}});
     res.send({'head_comments': head_comments, 'instructor_comments': instructor_comments});
   }catch (error){
+    responseUtils.server_error(error, res);
+  }
+}
+
+export const upload_file = async function (req, res) {
+  let upload = multer({ storage: storage }).single('file');
+
+  upload(req, res, function(err) {
+    // req.file contains information of uploaded file
+    // req.body contains information of text fields, if there were any
+    if (err instanceof multer.MulterError) {
+      return res.send(err);
+    }
+    else if (err) {
+      return res.send(err);
+    }
+
+    // Display uploaded image for user validation
+    res.send(`You have uploaded this image: <hr/><img src="${req.file.path}" width="500"><hr /><a href="./">Upload another image</a>`);
+  });
+}
+
+export const get_file = async function (req, res) {
+  const options = {
+    root: path.join("./")
+  };
+  return res.sendFile("./media/" + req.params.name, options);
+}
+
+export const student_resume = async function (req, res){
+  try {
+
+  }catch (error) {
+    responseUtils.server_error(error, res);
+  }
+}
+
+export const view_course_info = async function (req, res) {
+  try {
+    const {course_id} = req.body;
+    const course = await model.Course.findByPk(course_id);
+    if (!course){
+      return responseUtils.not_found(
+        res,
+        'درس وجود ندارد'
+      );
+    }
+    const tas = await CourseTAView.findAll({where: {course_id: course_id}});
+    const course_info = await model.CourseInfo.findByPk(course_id);
+    res.send({
+      course_info,
+      tas
+    })
+   } catch (error) {
     responseUtils.server_error(error, res);
   }
 }

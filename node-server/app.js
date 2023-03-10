@@ -41,7 +41,7 @@ app.use(cors({
   origin: "*",
 }));
 
-const ignore_auth = ["/sign_up", "/sign_in", "/subscribe"];
+const ignore_auth = ["/sign_up", "/sign_in"];
 
 const check_user = async function (req, res, next) {
   if (ignore_auth.includes(req.url)) {
@@ -72,6 +72,10 @@ app.post("/sign_in", sign_in_validation_rules(), validate, sign_in);
 app.post("/logout", logout);
 
 app.post('/create_announcement', create_announcement_validation_rules(), validate, handlers.create_announcement);
+
+app.post('/edit_announcement', validators.edit_announcement_validation_rules(), validate, handlers.edit_announcement);
+
+app.post('/delete_announcement', validators.delete_announcement_validation_rules(), validate, handlers.delete_announcement);
 
 app.post('/volunteer', voluntary_validation_rules(), validate, handlers.volunteer);
 
@@ -105,3 +109,11 @@ app.post('/select_ta', validators.select_ta_validation_rules(), validate, handle
 app.post('/select_head_ta', validators.select_head_ta_validation_rules(), validate, handlers.select_head_ta);
 
 app.post('/view_student_comments', validators.view_student_comments_validation_rules(), validate, handlers.view_student_comments);
+
+app.post('/view_course_info', validators.view_course_info_validation_rules(), validate, handlers.view_course_info);
+
+// app.post('/ta_history', handlers.student_resume);
+
+app.post('/upload', handlers.upload_file);
+
+app.get('/media/:name', handlers.get_file);

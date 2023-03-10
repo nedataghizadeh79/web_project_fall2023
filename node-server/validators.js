@@ -69,6 +69,28 @@ export const create_announcement_validation_rules =() => {
     ];
 }
 
+export const edit_announcement_validation_rules = () => {
+  return[
+    body('USER_ROLE').custom(role_checker([2])),
+    body('id').isInt(),
+    body('description').isString({max: 500})
+  ];
+}
+
+export const delete_announcement_validation_rules = () => {
+  return[
+    body('USER_ROLE').custom(role_checker([2])),
+    body('id').isInt(),
+  ]
+}
+
+export const view_course_info_validation_rules = () => {
+  return[
+    body('USER_ROLE').custom(role_checker([2])),
+    body('course_id').isInt()
+  ]
+}
+
 export const voluntary_validation_rules = () => {
     return[
       // this is announcement_id

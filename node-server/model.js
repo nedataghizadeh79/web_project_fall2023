@@ -229,6 +229,27 @@ export const InstructorCommentView = sequelize.define('instructor_comment_view',
   rate: DataTypes.INTEGER
 }, dbOpts('instructor_comment_view'));
 
+export const CourseInfo = sequelize.define('course_info', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  term: DataTypes.STRING,
+  year: DataTypes.STRING,
+  course_name: DataTypes.STRING,
+  professor_name: DataTypes.STRING,
+  head_ta_name: DataTypes.STRING,
+  professor_id: DataTypes.INTEGER,
+  head_ta: DataTypes.INTEGER,
+}, dbOpts('course_info'));
+
+export const CourseTAView = sequelize.define('course_ta_view', {
+  course_id: { type: DataTypes.INTEGER, primaryKey: true },
+  ta_id: { type: DataTypes.INTEGER, primaryKey: true },
+  ta_name: DataTypes.STRING
+}, dbOpts('course_ta_view'));
+
 export const test_database = async function () {
   return sequelize.authenticate();
 }
@@ -344,7 +365,7 @@ export const create_volunteer_database = async function (student_id, course_id, 
   return Voluntary.create(
     {
       student_id: student_id,
-      course_id: course_id,
+      announcement_id: course_id,
       status: "pending",
       extra_info: extra_info,
     }

@@ -62,6 +62,12 @@ export const responseUtils = {
     res.status(404).send({
       message: description || constants.user_not_found
     });
+  },
+  conflict: function (res, existing_entity_name){
+    res.status(409).send({
+      message:
+      `${existing_entity_name || 'موجودیت'} از قبل وجود دارد`
+    })
   }
 
 }

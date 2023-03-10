@@ -212,3 +212,20 @@ SELECT p.rate, p.comment,
 FROM professor_feedback p JOIN course_ta ct on p.course_id = ct.course_id and p.ta_id = ct.ta
                      JOIN course c on c.id = p.course_id
                      JOIN account a on ct.ta = a.id;
+
+DROP VIEW IF EXISTS ta_history;
+
+CREATE VIEW ta_history AS
+    SELECT a.id,
+           c2.course_name, c2.term, c2.year
+        FROM course_ta c JOIN account a on c.ta = a.id
+            JOIN course c2 on c2.id = c.course_id;
+
+DROP VIEW IF EXISTS course_info;
+
+CREATE VIEW course_info AS
+    SELECT c.id, c.term, c.year, c.course_name, c.professor_id, c.head_ta,
+           a1.name AS professor_name,
+           a2.name AS head_ta_name
+        FROM course c JOIN account a1 ON c.professor_id = a1.id
+            JOIN account a2 ON c.head_ta = a2.id;
