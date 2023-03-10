@@ -13,7 +13,7 @@
 
 body {
     height: 100vh;
-    background: #eceef4;
+    background: #eceef1;
 
 }
 
@@ -90,7 +90,7 @@ hr {
 }
 
 .card {
-    background-color: #f1f1f2;
+    background-color: #ffffff;
     border: var(--border-color) 1px solid;
     border-radius: 0.3rem;
     width: 100%;
