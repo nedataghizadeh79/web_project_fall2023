@@ -386,6 +386,11 @@ export const select_ta = async function (req, res) {
     const voluntary = await model.Voluntary.findByPk(id);
     voluntary.status = selected;
     await voluntary.save();
+    if (selected === 'selected'){
+      await CourseTA.create({course_id: voluntary_view.course_id, ta: voluntary_view.student_id});
+    }else{
+      await CourseTA.destroy({where: {course_id: voluntary_view.course_id, ta: voluntary_view.student_id}})
+    }
     res.send(constants.success);
     push_to_user(voluntary_view.student_id, constants.ta_selection_push_title, messages.teaching_assistant_accept(voluntary_view.course_name, selected === 'selected'));
   } catch (error) {
