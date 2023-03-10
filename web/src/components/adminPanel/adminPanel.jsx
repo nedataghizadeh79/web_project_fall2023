@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { changeUserRole } from "../../api/http/users";
 import { ROLE, updateToastToError, updateToastToSuccess } from "../../utils";
 import { useLoaderDispatcher } from "../../providers/loaderProvider";
-import { getAllCourses } from "../../api/http/courses";
+import { createNewCourse, getAllCourses } from "../../api/http/courses";
 
 function AdminPanel() {
   const [tab, setTab] = useState(0);
@@ -29,6 +29,18 @@ function AdminPanel() {
       })
       .catch(() => {
         updateToastToError(toastRef.current, "خطایی رخ داده است");
+      });
+  };
+
+  const createCourse = (course) => {
+    createNewCourse(course)
+      .then((res) => {
+        setCourses((prev) => [...prev, res]);
+        toast.success("درس با موفقیت ایجاد شد");
+      })
+      .catch(async (err) => {
+        const errorMessages = await err.response.data.message;
+        toast.error(errorMessages);
       });
   };
 
@@ -65,7 +77,11 @@ function AdminPanel() {
         {tab === 0 ? (
           <UserListRole users={users} onRoleChange={changeRole} />
         ) : (
-          <CourseManage courses={courses} />
+          <CourseManage
+            courses={courses}
+            professors={users.filter((u) => u.role === 2)}
+            onCreateCourse={createCourse}
+          />
         )}
       </div>
     </main>

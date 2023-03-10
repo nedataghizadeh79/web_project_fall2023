@@ -7,9 +7,10 @@ const initialCourseForm = {
   course_name: "",
   year: "1402",
   term: 2,
+  professor_id: 0,
 };
 
-function CourseManage({ courses, onCreateCourse }) {
+function CourseManage({ courses, professors, onCreateCourse }) {
   const containerRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [courseForm, setCourseForm] = useState(initialCourseForm);
@@ -69,7 +70,21 @@ function CourseManage({ courses, onCreateCourse }) {
             />
           </div>
           <div>
-            <label htmlFor="year">سال تحصیلی</label>
+            <label htmlFor="professor_id">استاد مدرس:</label>
+            <select
+              id="professor_id"
+              value={courseForm.professor_id}
+              onChange={handleCourseFormChange}
+              name="professor_id"
+            >
+              <option value={0}>-- لطفا مدرس را انتخاب کنید --</option>
+              {professors.map((professor) => (
+                <option value={professor.id}>{professor.name}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="year">سال تحصیلی:</label>
             <input
               id="year"
               name="year"
