@@ -22,7 +22,11 @@ const verifyToken = async (req, res) => {
 
 export const sign_up = async function (req, res) {
   try {
-    const {username, password, email, name} = req.body;
+    const {username, password, password2, email, firstname, lastName, role} = req.body;
+    if (password !== password2){ return res.status(400).send(
+      'گذرواژه و تکرار آن با هم مطابقت ندارند.'
+    )}
+    const name = firstname + ' ' + lastName;
     const existingUser = await find_user_by_username(username);
     if (existingUser){
       return res.status(409).send(constants.user_already_exists);
@@ -32,7 +36,7 @@ export const sign_up = async function (req, res) {
       bcrypt.hashSync(password, 8),
       email,
       name,
-      1,
+      role,
     );
     res.send({
       'username': user.username,
