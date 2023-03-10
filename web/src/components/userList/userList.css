@@ -3,3 +3,7 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 0.5rem;
 }
+
+.modal__body select {
+    width: 100%;
+}

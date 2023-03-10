@@ -1,13 +1,31 @@
 import "./adminPanel.css";
 import UserListRole from "../userList/userListRole";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CourseManage from "../courseManage/courseManage";
 import { getAllUsers } from "../../api/http/auth";
 import { toast } from "react-toastify";
+import { changeUserRole } from "../../api/http/users";
+import { ROLE, updateToastToError, updateToastToSuccess } from "../../utils";
 
 function AdminPanel() {
   const [tab, setTab] = useState(0);
   const [users, setUsers] = useState([]);
+  const toastRef = useRef(null);
+
+  const changeRole = (user) => {
+    toastRef.current = toast.loading("در حال ارسال...");
+    changeUserRole({ user_id: user.id, role: parseInt(user.role) })
+      .then(() => {
+        setUsers((prev) => prev.map((u) => (u.id === user.id ? user : u)));
+        updateToastToSuccess(
+          toastRef.current,
+          `نقش کاربر ${user.username} به ${ROLE[user.role]} تغییر یافت`
+        );
+      })
+      .catch(() => {
+        updateToastToError(toastRef.current, "خطایی رخ داده است");
+      });
+  };
 
   useEffect(() => {
     getAllUsers()
@@ -27,13 +45,7 @@ function AdminPanel() {
       </div>
       <div className="padded__container">
         {tab === 0 ? (
-          <UserListRole
-            users={[
-              { username: 1, name: "محمد", role: "1" },
-              { username: 2, name: "علی", role: "1" },
-              { username: 3, name: "محمد", role: "2" },
-            ]}
-          />
+          <UserListRole users={users} onRoleChange={changeRole} />
         ) : (
           <CourseManage />
         )}

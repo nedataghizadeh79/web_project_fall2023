@@ -139,7 +139,7 @@ function InstructorProfile({ userData }) {
         appElement={container.current}
         className="react_modal"
       >
-        <h3>ایجاد درس جدید</h3>
+        <h3>ایجاد اعلان جدید</h3>
         <div className="modal__body announcement_form">
           <div>
             <label>درس مربوطه: </label>
