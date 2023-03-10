@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { useParams } from "react-router-dom";
+import AdminPanel from "../../components/adminPanel/adminPanel";
 import InstructorProfile from "../../components/instructorProfile/instructorProfile";
 import StudentProfile from "../../components/studentProfile/studentProfile";
 import { useUser } from "../../providers/UserProvider";
@@ -19,6 +20,8 @@ function Profile() {
         return <StudentProfile userData={userData} />;
       case 2:
         return <InstructorProfile userData={userData} />
+      case 3:
+        return <AdminPanel userData={userData} />
       default:
         return null
     }
