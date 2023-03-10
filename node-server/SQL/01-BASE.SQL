@@ -172,7 +172,8 @@ DROP VIEW IF EXISTS voluntary_clean_list;
 CREATE VIEW voluntary_clean_list AS
     SELECT v.id, v.announcement_id, v.student_id, v.status, v.extra_info,
            a.course_id,
-           c.year, c.term, c.professor_id, c.course_name
+           c.year, c.term, c.professor_id, c.course_name,
+		   (SELECT name FROM account WHERE id = v.student_id) AS student_name
     FROM announcement a JOIN course c on a.course_id = c.id
     JOIN voluntary v on a.id = v.announcement_id;
 

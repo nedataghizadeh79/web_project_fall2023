@@ -17,3 +17,11 @@ export function createNewCourse(courseData) {
     })
         .then(res => res.data);
 }
+
+export function getCourseInfo(course_id) {
+    return http.post('/view_course_info', { course_id }, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem("token"),
+        }
+    }).then(res => res.data);
+}

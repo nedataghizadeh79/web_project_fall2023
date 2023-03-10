@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ReactModal from "react-modal";
 import { toast } from "react-toastify";
 import {
@@ -118,14 +118,18 @@ function InstructorProfile({ userData }) {
         <hr />
         <div className="announcements_wrapper">
           {courses.map((course) => (
-            <div key={course.id} className="card">
+            <Link
+              to={`/course/${course.course_id}`}
+              key={course.course_id}
+              className="card"
+            >
               <div className="data_container">
                 <h3>{course.course_name}</h3>
                 <p>
                   {TERM[course.term]}&nbsp;{course.year}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

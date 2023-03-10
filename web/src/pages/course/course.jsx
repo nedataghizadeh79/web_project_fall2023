@@ -1,8 +1,18 @@
 import "./course.css";
 import { VOLUNTEERS } from "../../data/volunteers.data";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getCourseInfo } from "../../api/http/courses";
 
 function Course() {
+  const { course_id } = useParams();
+  const [courseData, setCourseData] = useState({});
+
+  useEffect(() => {
+    getCourseInfo(course_id).then((res) => {
+      setCourseData(res);
+    });
+  }, [course_id]);
   return (
     <div className="padded__container course__container">
       <section>

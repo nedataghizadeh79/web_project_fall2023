@@ -48,3 +48,11 @@ export function getAnnouncementVolunteers(announcment_id) {
     })
         .then(res => res.data)
 }
+
+export function changeVolunteerState(stateData) {
+    return http.post('/select_ta', stateData, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem("token"),
+        }
+    }).then(res => res.data)
+}
